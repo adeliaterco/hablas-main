@@ -122,7 +122,7 @@ export default function HomePage() {
   opacity: 0.4;
   filter: grayscale(100%) contrast(1.2);
   z-index: 1;
-}       
+}
         .artistic-bg::after {
           content: '';
           position: absolute;
