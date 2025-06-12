@@ -147,15 +147,14 @@ export default function HomePage() {
 
   return (
     <>
-      {/* CSS Crítico Inline - PERFORMANCE EXTREMA */}
+      {/* CSS Crítico - APENAS AS 3 MUDANÇAS SOLICITADAS */}
       <style jsx>{`
-        /* Reset e base otimizada */
         * {
           box-sizing: border-box;
           -webkit-tap-highlight-color: transparent;
         }
         
-        /* Container hero com background FIXO otimizado */
+        /* 1. BACKGROUND FIXO */
         .hero-container {
           background-image: url('https://comprarplanseguro.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-11T112151.941.png');
           background-size: cover;
@@ -163,29 +162,10 @@ export default function HomePage() {
           background-repeat: no-repeat;
           background-attachment: fixed;
           min-height: 100vh;
-          min-height: 100dvh;
           position: relative;
           overflow-x: hidden;
-          will-change: transform;
         }
         
-        /* Desktop: manter background fixo */
-        @media (min-width: 769px) {
-          .hero-container {
-            background-attachment: fixed;
-          }
-        }
-        
-        /* Mobile: background fixo também (iOS suporta com transform) */
-        @media (max-width: 768px) {
-          .hero-container {
-            background-attachment: fixed;
-            transform: translateZ(0);
-            -webkit-transform: translateZ(0);
-          }
-        }
-        
-        /* Container de conteúdo sem overlay branco */
         .content-wrapper {
           position: relative;
           z-index: 10;
@@ -194,14 +174,12 @@ export default function HomePage() {
           align-items: center;
           justify-content: center;
           min-height: 100vh;
-          min-height: 100dvh;
           padding: 1rem;
           max-width: 420px;
           margin: 0 auto;
           backdrop-filter: blur(1px);
         }
         
-        /* 5 ESTRELAS - Douradas como na imagem */
         .stars-section {
           display: flex;
           justify-content: center;
@@ -222,7 +200,6 @@ export default function HomePage() {
           transform: scale(1.1);
         }
         
-        /* DEPOIMENTO - Caixa preta com avatar ARREDONDADO */
         .testimonial-section {
           background: rgba(0, 0, 0, 0.9);
           backdrop-filter: blur(10px);
@@ -262,7 +239,6 @@ export default function HomePage() {
           font-style: italic;
         }
         
-        /* CARD PRINCIPAL - Transparente com bordas */
         .main-card {
           background: rgba(0, 0, 0, 0.85);
           backdrop-filter: blur(15px);
@@ -279,7 +255,6 @@ export default function HomePage() {
           overflow: hidden;
         }
         
-        /* Efeito de brilho sutil */
         .main-card::before {
           content: '';
           position: absolute;
@@ -296,13 +271,13 @@ export default function HomePage() {
           100% { left: 100%; }
         }
         
-        /* IMAGEM DO LIVRO PLAN A - ARREDONDADA */
+        /* 2. IMAGEM PLAN A ARREDONDADA */
         .book-image {
           width: 120px;
           height: auto;
           margin: 0 auto 1.5rem;
           display: block;
-          border-radius: 12px;
+          border-radius: 15px;
           filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
           animation: float 3s ease-in-out infinite;
         }
@@ -312,7 +287,6 @@ export default function HomePage() {
           50% { transform: translateY(-10px); }
         }
         
-        /* HEADLINE PRINCIPAL - Branca e impactante */
         .main-headline {
           font-size: 1.5rem;
           font-weight: 800;
@@ -324,7 +298,6 @@ export default function HomePage() {
           letter-spacing: -0.5px;
         }
         
-        /* SUBTÍTULO */
         .sub-headline {
           font-size: 1.1rem;
           color: #E0E0E0;
@@ -334,7 +307,6 @@ export default function HomePage() {
           text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
         }
         
-        /* BOTÃO VERMELHO PULSANTE ARREDONDADO - Fora do container */
         .cta-button-container {
           width: 100%;
           max-width: 400px;
@@ -342,6 +314,7 @@ export default function HomePage() {
           animation: fadeInUp 1.4s ease-out 0.8s both;
         }
         
+        /* 3. BOTÃO VERMELHO PULSANTE ARREDONDADO */
         .cta-button {
           background: #FF0000 !important;
           background-image: linear-gradient(135deg, #FF0000 0%, #DC143C 50%, #B22222 100%) !important;
@@ -353,83 +326,43 @@ export default function HomePage() {
           border: none !important;
           text-transform: uppercase !important;
           letter-spacing: 1px !important;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+          transition: all 0.3s ease !important;
           display: inline-flex !important;
           align-items: center !important;
           justify-content: center !important;
           gap: 0.8rem !important;
           box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5) !important;
           position: relative !important;
-          overflow: hidden !important;
           cursor: pointer !important;
           width: 100% !important;
-          text-decoration: none !important;
           min-height: 60px !important;
-          animation: pulse 2s infinite !important;
+          animation: buttonPulse 2s infinite !important;
         }
         
-        /* ANIMAÇÃO PULSANTE */
-        @keyframes pulse {
+        @keyframes buttonPulse {
           0% {
             box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
-            transform: scale(1);
           }
           50% {
             box-shadow: 0 12px 35px rgba(255, 0, 0, 0.8);
-            transform: scale(1.02);
           }
           100% {
             box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
-            transform: scale(1);
           }
         }
         
         .cta-button:hover:not(:disabled) {
-          background: #FF3333 !important;
-          background-image: linear-gradient(135deg, #FF3333 0%, #FF0000 50%, #DC143C 100%) !important;
-          transform: translateY(-3px) scale(1.05) !important;
+          transform: translateY(-2px) !important;
           box-shadow: 0 15px 40px rgba(255, 0, 0, 0.8) !important;
           animation: none !important;
-        }
-        
-        .cta-button:active {
-          transform: translateY(-1px) scale(0.98) !important;
-          box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6) !important;
         }
         
         .cta-button:disabled {
           opacity: 0.8 !important;
           cursor: not-allowed !important;
-          transform: none !important;
           animation: none !important;
         }
         
-        /* Efeito de ripple no botão */
-        .cta-button::before {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 0;
-          height: 0;
-          background: rgba(255, 255, 255, 0.2);
-          border-radius: 50%;
-          transform: translate(-50%, -50%);
-          transition: width 0.6s, height 0.6s;
-          z-index: 0;
-        }
-        
-        .cta-button:hover::before {
-          width: 300px;
-          height: 300px;
-        }
-        
-        .cta-button > * {
-          position: relative;
-          z-index: 1;
-        }
-        
-        /* TEXTO DE CONFIDENCIALIDADE */
         .privacy-text {
           display: flex;
           align-items: center;
@@ -454,7 +387,6 @@ export default function HomePage() {
           flex-shrink: 0;
         }
         
-        /* LOADING OVERLAY PREMIUM */
         .loading-overlay {
           position: fixed;
           inset: 0;
@@ -494,26 +426,8 @@ export default function HomePage() {
           background: linear-gradient(90deg, #FF0000, #FFD700);
           border-radius: 3px;
           transition: width 0.3s ease;
-          position: relative;
         }
         
-        .progress-fill::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-          animation: progressShine 1.5s infinite;
-        }
-        
-        @keyframes progressShine {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        
-        /* Spinner loading */
         .spinner {
           width: 16px;
           height: 16px;
@@ -528,7 +442,6 @@ export default function HomePage() {
           100% { transform: rotate(360deg); }
         }
         
-        /* ANIMAÇÕES DE ENTRADA */
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -540,7 +453,7 @@ export default function HomePage() {
           }
         }
         
-        /* RESPONSIVIDADE MOBILE-FIRST */
+        /* Mobile */
         @media (max-width: 480px) {
           .content-wrapper {
             padding: 0.8rem;
@@ -554,11 +467,6 @@ export default function HomePage() {
           
           .main-headline {
             font-size: 1.3rem;
-            line-height: 1.3;
-          }
-          
-          .sub-headline {
-            font-size: 1rem;
           }
           
           .cta-button {
@@ -567,85 +475,15 @@ export default function HomePage() {
             border-radius: 40px !important;
           }
           
-          .cta-button-container {
-            margin: 0 0.5rem 1rem;
-          }
-          
-          .testimonial-section {
-            padding: 1.2rem;
-            margin: 0 0.5rem 1.5rem;
-          }
-          
-          .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-          }
-          
-          .stars-section {
-            gap: 4px;
-            margin-bottom: 1rem;
-          }
-          
-          .star-gold {
-            width: 20px;
-            height: 20px;
-          }
-          
           .book-image {
             width: 100px;
-            margin-bottom: 1.2rem;
-            border-radius: 10px;
+            border-radius: 12px;
           }
-          
-          .privacy-text {
-            margin: 0 0.5rem;
-            padding: 0.7rem 1rem;
-            font-size: 0.85rem;
-          }
-        }
-        
-        @media (max-width: 360px) {
-          .main-headline {
-            font-size: 1.2rem;
-          }
-          
-          .cta-button {
-            padding: 1rem 1.5rem !important;
-            font-size: 0.95rem !important;
-            border-radius: 35px !important;
-          }
-          
-          .book-image {
-            width: 90px;
-            border-radius: 8px;
-          }
-        }
-        
-        /* OTIMIZAÇÕES DE PERFORMANCE */
-        .hero-container,
-        .content-wrapper,
-        .main-card {
-          contain: layout style paint;
-        }
-        
-        /* Preload crítico */
-        .hero-container::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 1px;
-          height: 1px;
-          background-image: url('https://comprarplanseguro.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-11T112151.941.png');
-          opacity: 0;
-          pointer-events: none;
         }
       `}</style>
 
-      {/* Container principal sem overlay branco */}
       <div className="hero-container">
 
-        {/* Loading overlay premium */}
         {isLoading && (
           <div className="loading-overlay">
             <div className="loading-content">
@@ -665,7 +503,6 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Error message otimizado */}
         {errorMessage && (
           <div style={{
             position: 'fixed',
@@ -698,7 +535,6 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Offline indicator */}
         {!isOnline && (
           <div style={{
             position: 'fixed',
@@ -717,17 +553,14 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* CONTEÚDO PRINCIPAL */}
         <div className="content-wrapper">
           
-          {/* 5 ESTRELAS DOURADAS */}
           <div className="stars-section">
             {[...Array(5)].map((_, i) => (
               <Star key={i} className="star-gold" fill="currentColor" />
             ))}
           </div>
 
-          {/* DEPOIMENTO EM CAIXA PRETA COM AVATAR ARREDONDADO */}
           <div className="testimonial-section">
             <img 
               src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/06.png" 
@@ -742,29 +575,24 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* CARD PRINCIPAL TRANSPARENTE */}
           <div className="main-card">
             
-            {/* IMAGEM DO LIVRO PLAN A - ARREDONDADA */}
             <img 
               src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png" 
               alt="Plan A - Método Secreto"
               className="book-image"
             />
             
-            {/* HEADLINE PRINCIPAL */}
             <h1 className="main-headline">
               Faço até perfis fracos venderem 100% no piloto automático.
             </h1>
             
-            {/* SUBTÍTULO */}
             <p className="sub-headline">
               Sem truques, só o poder do método certo.
             </p>
 
           </div>
 
-          {/* BOTÃO CTA VERMELHO PULSANTE ARREDONDADO - FORA DO CONTAINER */}
           <div className="cta-button-container">
             <Button
               onClick={handleStart}
@@ -785,7 +613,6 @@ export default function HomePage() {
             </Button>
           </div>
 
-          {/* TEXTO DE CONFIDENCIALIDADE */}
           <div className="privacy-text">
             <Lock className="lock-icon" />
             Suas respostas são confidenciais e estão protegidas
