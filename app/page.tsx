@@ -127,492 +127,353 @@ export default function HomePage() {
   }, [isLoading, isOnline, router]);
 
   return (
-    <>
-      {/* CSS Inline Crítico - MOBILE FIRST */}
+    <div style={{ 
+      backgroundColor: '#000000', 
+      minHeight: '100vh', 
+      padding: '20px',
+      position: 'relative'
+    }}>
+      
       <style jsx>{`
-        .hero-container {
-          background: #000000;
-          min-height: 100vh;
-          position: relative;
-          overflow: hidden;
-          width: 100%;
+        /* BOTÃO VERMELHO PULSANTE */
+        .btn-vermelho-pulsante {
+          background: #dc2626 !important;
+          color: white !important;
+          border: none !important;
+          padding: 16px 32px !important;
+          font-size: 18px !important;
+          font-weight: bold !important;
+          border-radius: 50px !important;
+          text-transform: uppercase !important;
+          cursor: pointer !important;
+          transition: all 0.3s ease !important;
+          animation: pulsar 1.5s infinite !important;
+          width: 100% !important;
+          max-width: 300px !important;
         }
         
-        /* DEPOIMENTO MOBILE FIRST */
-        .testimonial-bubble {
+        @keyframes pulsar {
+          0% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+          }
+          70% {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+          }
+          100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+          }
+        }
+        
+        .btn-vermelho-pulsante:hover {
+          background: #b91c1c !important;
+          transform: scale(1.1) !important;
+        }
+        
+        /* CONTAINER PRETO */
+        .container-preto {
+          background-color: #000000 !important;
+          border: 2px solid #333333 !important;
+          border-radius: 20px !important;
+          padding: 40px !important;
+          max-width: 600px !important;
+          margin: 0 auto !important;
+          text-align: center !important;
+        }
+        
+        /* TEXTOS BRANCOS */
+        .texto-branco {
+          color: #ffffff !important;
+        }
+        
+        .titulo-principal {
+          color: #ffffff !important;
+          font-size: 32px !important;
+          font-weight: bold !important;
+          margin-bottom: 20px !important;
+          line-height: 1.2 !important;
+        }
+        
+        .subtitulo {
+          color: #ffffff !important;
+          font-size: 18px !important;
+          margin-bottom: 30px !important;
+        }
+        
+        /* DEPOIMENTO */
+        .depoimento {
           position: absolute;
-          top: 1rem;
-          left: 1rem;
-          right: 1rem;
+          top: 20px;
+          left: 20px;
           background: #000000;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 20px;
-          padding: 1rem;
-          box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-          z-index: 15;
+          border: 1px solid #333;
+          border-radius: 15px;
+          padding: 15px;
+          max-width: 300px;
           display: flex;
           align-items: center;
-          gap: 0.75rem;
-          max-width: 100%;
+          gap: 10px;
         }
         
-        .testimonial-bubble::after {
-          content: '';
-          position: absolute;
-          bottom: -8px;
-          left: 2rem;
-          width: 0;
-          height: 0;
-          border-left: 8px solid transparent;
-          border-right: 8px solid transparent;
-          border-top: 8px solid #000000;
-        }
-        
-        /* AVATAR OTIMIZADO E REDONDO */
-        .testimonial-avatar {
-          width: 48px;
-          height: 48px;
+        .avatar {
+          width: 50px;
+          height: 50px;
           border-radius: 50%;
           background-image: url('https://comprarplanseguro.shop/wp-content/uploads/2025/06/06.png');
           background-size: cover;
           background-position: center;
-          background-repeat: no-repeat;
           border: 2px solid #FFD700;
-          flex-shrink: 0;
-          box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-          position: relative;
-          overflow: hidden;
         }
         
-        .testimonial-avatar::before {
-          content: '';
-          position: absolute;
+        .estrelas {
+          color: #FFD700;
+          font-size: 12px;
+        }
+        
+        .nome-usuario {
+          color: #FFD700;
+          font-weight: bold;
+          font-size: 12px;
+        }
+        
+        .texto-depoimento {
+          color: #ffffff;
+          font-size: 11px;
+        }
+        
+        /* LOADING */
+        .loading-overlay {
+          position: fixed;
           top: 0;
           left: 0;
           right: 0;
           bottom: 0;
-          background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.1) 50%, transparent 70%);
-          animation: shimmer 3s infinite;
-        }
-        
-        @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        
-        .testimonial-content {
-          flex: 1;
-          min-width: 0;
-        }
-        
-        .stars-container {
-          display: flex;
-          gap: 1px;
-          margin-bottom: 0.25rem;
-          justify-content: flex-start;
-        }
-        
-        .star-gold {
-          color: #FFD700;
-          width: 12px;
-          height: 12px;
-          filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.5));
-        }
-        
-        .user-name {
-          background: linear-gradient(45deg, #FFD700, #FFA500);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          font-weight: 700;
-          font-size: 0.8rem;
-          margin-bottom: 0.25rem;
-          line-height: 1.2;
-        }
-        
-        .testimonial-text {
-          color: #ffffff;
-          font-size: 0.75rem;
-          line-height: 1.3;
-          font-weight: 400;
-        }
-        
-        /* HEADLINES MOBILE FIRST */
-        .main-headline {
-          font-size: clamp(1.8rem, 8vw, 2.8rem);
-          font-weight: 900;
-          color: #ffffff;
-          text-align: center;
-          line-height: 1.1;
-          margin: 1.5rem 0;
-          text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
-        }
-        
-        .sub-headline {
-          font-size: clamp(0.95rem, 4vw, 1.2rem);
-          color: #ffffff;
-          text-align: center;
-          margin-bottom: 2rem;
-          font-weight: 300;
-          line-height: 1.4;
-          text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-        }
-        
-        /* LOGO OTIMIZADO */
-        .logo-container {
-          display: flex;
-          justify-content: center;
-          margin-bottom: 2rem;
-          position: relative;
-        }
-        
-        .logo-image {
-          height: 60px;
-          width: auto;
-          max-width: 200px;
-          object-fit: contain;
-          filter: drop-shadow(0 4px 15px rgba(255, 215, 0, 0.3));
-          transition: all 0.3s ease;
-        }
-        
-        .logo-image:hover {
-          transform: scale(1.05);
-          filter: drop-shadow(0 6px 20px rgba(255, 215, 0, 0.5));
-        }
-        
-        /* CTA BUTTON PREMIUM PULSANTE */
-        .cta-premium {
-          background: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #dc2626 100%) !important;
-          color: white !important;
-          padding: 1rem 2.5rem !important;
-          font-size: 1rem !important;
-          font-weight: 800 !important;
-          border-radius: 50px !important;
-          box-shadow: 
-            0 8px 25px rgba(220, 38, 38, 0.4),
-            inset 0 1px 0 rgba(255,255,255,0.2) !important;
-          text-transform: uppercase !important;
-          letter-spacing: 0.5px !important;
-          border: none !important;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-          position: relative !important;
-          overflow: hidden !important;
-          width: 100% !important;
-          max-width: 300px !important;
-          animation: pulse-red 2s infinite !important;
-        }
-        
-        @keyframes pulse-red {
-          0% {
-            transform: scale(1);
-            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
-          }
-          50% {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(220, 38, 38, 0.7);
-          }
-          100% {
-            transform: scale(1);
-            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
-          }
-        }
-        
-        .cta-premium::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-          transition: left 0.5s;
-        }
-        
-        .cta-premium:hover::before {
-          left: 100%;
-        }
-        
-        .cta-premium:hover {
-          transform: translateY(-3px) scale(1.08) !important;
-          box-shadow: 
-            0 20px 50px rgba(220, 38, 38, 0.8),
-            inset 0 1px 0 rgba(255,255,255,0.3) !important;
-          animation: none !important;
-        }
-        
-        .cta-premium:active {
-          transform: translateY(-1px) scale(1.02) !important;
-        }
-        
-        /* CARD OTIMIZADO */
-        .main-card {
-          background: #000000 !important;
-          border: 1px solid rgba(255, 255, 255, 0.2) !important;
-          border-radius: 25px !important;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8) !important;
-        }
-        
-        .card-content {
-          padding: 2rem 1.5rem !important;
-        }
-        
-        /* SECURITY BADGE */
-        .security-badge {
+          background: rgba(0, 0, 0, 0.9);
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #ffffff;
-          font-size: 0.8rem;
-          margin-top: 1.5rem;
-          padding: 0.75rem;
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 15px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* COPYRIGHT */
-        .copyright-text {
-          position: absolute;
-          bottom: 0.5rem;
-          left: 50%;
-          transform: translateX(-50%);
-          color: #ffffff;
-          font-size: 0.7rem;
-          z-index: 10;
-          text-align: center;
-          width: 100%;
-          padding: 0 1rem;
-        }
-        
-        /* LOADING OTIMIZADO */
-        .loading-overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(0, 0, 0, 0.95);
-          backdrop-filter: blur(10px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 100;
+          z-index: 1000;
         }
         
         .loading-content {
           text-align: center;
-          padding: 2rem;
-        }
-        
-        .loading-text {
           color: white;
-          font-size: 1.2rem;
-          margin-bottom: 1.5rem;
-          font-weight: 600;
         }
         
         .progress-bar {
-          width: 280px;
-          height: 6px;
-          background: rgba(255, 255, 255, 0.2);
-          border-radius: 10px;
+          width: 200px;
+          height: 4px;
+          background: #333;
+          border-radius: 2px;
           overflow: hidden;
-          position: relative;
+          margin-top: 20px;
         }
         
         .progress-fill {
           height: 100%;
-          background: linear-gradient(90deg, #dc2626, #ef4444);
-          border-radius: 10px;
+          background: #dc2626;
           transition: width 0.3s ease;
-          position: relative;
         }
         
-        .progress-fill::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-          animation: progressShimmer 1.5s infinite;
-        }
-        
-        @keyframes progressShimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-        
-        /* RESPONSIVO TABLET */
-        @media (min-width: 768px) {
-          .testimonial-bubble {
-            top: 2rem;
-            left: 2rem;
-            right: auto;
-            max-width: 350px;
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+          .container-preto {
+            padding: 20px !important;
+            margin: 10px !important;
           }
           
-          .card-content {
-            padding: 2.5rem !important;
+          .titulo-principal {
+            font-size: 24px !important;
           }
           
-          .cta-premium {
-            width: auto !important;
-            padding: 1.2rem 3rem !important;
-            font-size: 1.1rem !important;
+          .depoimento {
+            position: relative;
+            top: 0;
+            left: 0;
+            margin-bottom: 20px;
+            max-width: 100%;
           }
-        }
-        
-        /* RESPONSIVO DESKTOP */
-        @media (min-width: 1024px) {
-          .testimonial-bubble {
-            max-width: 400px;
-          }
-        }
-        
-        /* OTIMIZAÇÕES DE PERFORMANCE */
-        * {
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-        }
-        
-        .hero-container * {
-          will-change: auto;
-        }
-        
-        .cta-premium {
-          will-change: transform, box-shadow;
         }
       `}</style>
 
-      {/* Container principal */}
-      <div className="hero-container">
-
-        {/* Loading overlay otimizado */}
-        {isLoading && (
-          <div className="loading-overlay">
-            <div className="loading-content">
-              <div className="loading-text">Preparando seu teste...</div>
-              <div className="progress-bar">
-                <div 
-                  className="progress-fill"
-                  style={{ width: `${loadingProgress}%` }}
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Error message otimizado */}
-        {errorMessage && (
-          <div className="fixed top-4 left-4 right-4 bg-red-600/90 backdrop-blur-sm text-white p-4 rounded-2xl z-50 flex items-center justify-between border border-red-500/30">
-            <span className="font-medium">{errorMessage}</span>
-            <button 
-              onClick={() => setErrorMessage("")} 
-              className="ml-2 font-bold text-xl hover:bg-red-700/50 w-8 h-8 rounded-full flex items-center justify-center transition-colors"
-            >
-              ×
-            </button>
-          </div>
-        )}
-
-        {/* Offline indicator otimizado */}
-        {!isOnline && (
-          <div className="fixed top-0 left-0 right-0 bg-yellow-600/90 backdrop-blur-sm text-white text-center p-3 z-50 font-medium">
-            ⚠️ Sem conexão com a internet
-          </div>
-        )}
-
-        {/* DEPOIMENTO COM FOTO - Otimizado */}
-        <div className="testimonial-bubble">
-          {/* FOTO DO AVATAR OTIMIZADA */}
-          <div className="testimonial-avatar"></div>
-          
-          {/* CONTEÚDO DO DEPOIMENTO */}
-          <div className="testimonial-content">
-            <div className="stars-container">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="star-gold" fill="currentColor" />
-              ))}
-            </div>
-            <div className="user-name">
-              Wand Henrique (@wandhenriqueoficial)
-            </div>
-            <div className="testimonial-text">
-              "Fiz e refiz seu Quiz umas 30 vezes kkkkkkkkk ficou insano!"
+      {/* Loading overlay */}
+      {isLoading && (
+        <div className="loading-overlay">
+          <div className="loading-content">
+            <div>Preparando seu teste...</div>
+            <div className="progress-bar">
+              <div 
+                className="progress-fill"
+                style={{ width: `${loadingProgress}%` }}
+              />
             </div>
           </div>
         </div>
+      )}
 
-        {/* Conteúdo principal */}
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 pt-24 pb-16">
-          
-          <Card className="w-full max-w-2xl main-card">
-            <CardContent className="card-content text-center">
-
-              {/* Logo Otimizado */}
-              <div className="logo-container">
-                <Image
-                  src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
-                  alt="Logo Plan A"
-                  width={200}
-                  height={60}
-                  className="logo-image"
-                  priority
-                  quality={90}
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                  }}
-                />
-              </div>
-
-              {/* Headlines */}
-              <div className="space-y-4">
-                <h1 className="main-headline">
-                  Faço até perfis fracos venderem 100% no piloto automático.
-                </h1>
-                
-                <p className="sub-headline">
-                  Sem truques, só o poder do método certo.
-                </p>
-              </div>
-
-              {/* CTA Button */}
-              <div className="mt-8 flex justify-center">
-                <Button
-                  onClick={handleStart}
-                  disabled={isLoading || !isOnline}
-                  className="cta-premium"
-                  size="lg"
-                >
-                  {isLoading ? (
-                    <span className="flex items-center">
-                      PREPARANDO...
-                      <div className="ml-2 w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    </span>
-                  ) : (
-                    <span className="flex items-center">
-                      COMEÇAR AGORA
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </span>
-                  )}
-                </Button>
-              </div>
-
-              {/* Security Badge */}
-              <div className="security-badge">
-                <Lock className="h-4 w-4 mr-2" />
-                Suas respostas são confidenciais e estão protegidas
-              </div>
-
-            </CardContent>
-          </Card>
+      {/* Error message */}
+      {errorMessage && (
+        <div style={{
+          position: 'fixed',
+          top: '20px',
+          left: '20px',
+          right: '20px',
+          background: '#dc2626',
+          color: 'white',
+          padding: '15px',
+          borderRadius: '10px',
+          zIndex: 1000,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <span>{errorMessage}</span>
+          <button 
+            onClick={() => setErrorMessage("")}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'white',
+              fontSize: '20px',
+              cursor: 'pointer'
+            }}
+          >
+            ×
+          </button>
         </div>
+      )}
 
-        {/* Copyright */}
-        <div className="copyright-text">
-          Bel Fada™ Todos os Direitos Reservados.
+      {/* Offline indicator */}
+      {!isOnline && (
+        <div style={{
+          position: 'fixed',
+          top: '0',
+          left: '0',
+          right: '0',
+          background: '#f59e0b',
+          color: 'white',
+          textAlign: 'center',
+          padding: '10px',
+          zIndex: 1000
+        }}>
+          ⚠️ Sem conexão com a internet
         </div>
+      )}
 
+      {/* DEPOIMENTO */}
+      <div className="depoimento">
+        <div className="avatar"></div>
+        <div>
+          <div className="estrelas">★★★★★</div>
+          <div className="nome-usuario">Wand Henrique (@wandhenriqueoficial)</div>
+          <div className="texto-depoimento">"Fiz e refiz seu Quiz umas 30 vezes kkkkkkkkk ficou insano!"</div>
+        </div>
       </div>
-    </>
+
+      {/* CONTEÚDO PRINCIPAL */}
+      <div style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        minHeight: '100vh',
+        paddingTop: '100px'
+      }}>
+        
+        <div className="container-preto">
+          
+          {/* Logo */}
+          <div style={{ marginBottom: '30px' }}>
+            <Image
+              src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
+              alt="Logo Plan A"
+              width={200}
+              height={60}
+              style={{ maxWidth: '100%', height: 'auto' }}
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
+            />
+          </div>
+
+          {/* Título */}
+          <h1 className="titulo-principal">
+            Faço até perfis fracos venderem 100% no piloto automático.
+          </h1>
+          
+          {/* Subtítulo */}
+          <p className="subtitulo">
+            Sem truques, só o poder do método certo.
+          </p>
+
+          {/* Botão CTA */}
+          <button
+            onClick={handleStart}
+            disabled={isLoading || !isOnline}
+            className="btn-vermelho-pulsante"
+          >
+            {isLoading ? (
+              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                PREPARANDO...
+                <div style={{
+                  marginLeft: '10px',
+                  width: '16px',
+                  height: '16px',
+                  border: '2px solid rgba(255,255,255,0.3)',
+                  borderTop: '2px solid white',
+                  borderRadius: '50%',
+                  animation: 'spin 1s linear infinite'
+                }} />
+              </span>
+            ) : (
+              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                COMEÇAR AGORA
+                <ArrowRight style={{ marginLeft: '10px', width: '20px', height: '20px' }} />
+              </span>
+            )}
+          </button>
+
+          {/* Security Badge */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#ffffff',
+            fontSize: '14px',
+            marginTop: '30px',
+            padding: '15px',
+            background: 'rgba(255, 255, 255, 0.1)',
+            borderRadius: '10px',
+            border: '1px solid rgba(255, 255, 255, 0.2)'
+          }}>
+            <Lock style={{ width: '16px', height: '16px', marginRight: '8px' }} />
+            Suas respostas são confidenciais e estão protegidas
+          </div>
+
+        </div>
+      </div>
+
+      {/* Copyright */}
+      <div style={{
+        position: 'absolute',
+        bottom: '10px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        color: '#ffffff',
+        fontSize: '12px',
+        textAlign: 'center'
+      }}>
+        Bel Fada™ Todos os Direitos Reservados.
+      </div>
+
+      <style jsx>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
+
+    </div>
   );
 }
