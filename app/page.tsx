@@ -24,7 +24,7 @@ const enviarEvento = (() => {
         });
         queue = [];
       }
-    }, 300); // Reduzido para melhor responsividade
+    }, 300);
   };
 })();
 
@@ -114,14 +114,6 @@ export default function HomePage() {
     });
 
     let progress = 25;
-    const messages = [
-      "Analisando seu perfil...",
-      "Preparando estratégias...",
-      "Carregando método secreto...",
-      "Quase pronto..."
-    ];
-    let messageIndex = 0;
-
     const interval = setInterval(() => {
       progress += 18;
       setLoadingProgress(progress);
@@ -149,7 +141,7 @@ export default function HomePage() {
         enviarEvento('quiz_start_success');
         router.push(url);
       }
-    }, 180); // Timing psicológico otimizado
+    }, 180);
 
   }, [isLoading, isOnline, router, viewTime, scrollDepth]);
 
@@ -171,10 +163,10 @@ export default function HomePage() {
           background-repeat: no-repeat;
           background-attachment: fixed;
           min-height: 100vh;
-          min-height: 100dvh; /* Mobile viewport otimizado */
+          min-height: 100dvh;
           position: relative;
           overflow-x: hidden;
-          will-change: transform; /* GPU acceleration */
+          will-change: transform;
         }
         
         /* Mobile-first: background scroll para performance */
@@ -197,9 +189,9 @@ export default function HomePage() {
           min-height: 100vh;
           min-height: 100dvh;
           padding: 1rem;
-          max-width: 420px; /* Otimizado para mobile */
+          max-width: 420px;
           margin: 0 auto;
-          backdrop-filter: blur(1px); /* Sutil para legibilidade */
+          backdrop-filter: blur(1px);
         }
         
         /* 5 ESTRELAS - Douradas como na imagem */
@@ -444,6 +436,21 @@ export default function HomePage() {
           100% { transform: translateX(100%); }
         }
         
+        /* Spinner loading */
+        .spinner {
+          width: 16px;
+          height: 16px;
+          border: 2px solid rgba(255,255,255,0.3);
+          border-top: 2px solid white;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        
         /* ANIMAÇÕES DE ENTRADA */
         @keyframes fadeInUp {
           from {
@@ -648,20 +655,7 @@ export default function HomePage() {
               {isLoading ? (
                 <>
                   PREPARANDO...
-                  <div style={{
-                    width: '16px',
-                    height: '16px',
-                    border: '2px solid rgba(255,255,255,0.3)',
-                    borderTop: '2px solid white',
-                    borderRadius: '50%',
-                    animation: 'spin 1s linear infinite'
-                  }} />
-                  <style jsx>{`
-                    @keyframes spin {
-                      0% { transform: rotate(0deg); }
-                      100% { transform: rotate(360deg); }
-                    }
-                  `}</style>
+                  <div className="spinner" />
                 </>
               ) : (
                 <>
