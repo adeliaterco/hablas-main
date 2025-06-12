@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
-import { ArrowRight, Lock } from "lucide-react"
+import { ArrowRight, Lock, Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { useRouter } from "next/navigation"
@@ -56,9 +56,9 @@ export default function HomePage() {
     // Delay para não bloquear renderização
     const timer = setTimeout(() => {
       enviarEvento('page_view', {
-        device: window.innerWidth <= 768 ? 'mobile' : 'desktop'
+        device: window.innerWidth < 768 ? 'mobile' : 'desktop'
       });
-    }, 2000);
+    }, 1000);
     
     return () => clearTimeout(timer);
   }, []);
@@ -104,181 +104,330 @@ export default function HomePage() {
     <>
       <Head>
         {/* CRÍTICO: Preload das imagens com alta prioridade */}
-        <link 
-          rel="preload" 
-          href="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png" 
-          as="image"
-          fetchPriority="high"
-        />
-        <link 
-          rel="preload" 
-          href="https://comprarplanseguro.shop/wp-content/uploads/2025/06/02-IMAGE-INICIAL-NOVA.png" 
-          as="image"
-          fetchPriority="high"
-        />
+        <link rel="preload" href="/logo.png" as="image" fetchPriority="high" />
+        <link rel="preload" href="/main-image.jpg" as="image" fetchPriority="high" />
         
         {/* DNS otimizado */}
-        <link rel="preconnect" href="https://comprarplanseguro.shop" />
-        <link rel="dns-prefetch" href="https://comprarplanseguro.shop" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="preconnect" href="//fonts.gstatic.com" crossOrigin="" />
         
         {/* Meta essencial */}
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Conheça o Truque de 3 etapas que está fazendo mulheres voltarem até depois da traição" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="theme-color" content="#000000" />
         
         {/* Inline CSS crítico para evitar FOUC */}
         <style dangerouslySetInnerHTML={{
           __html: `
-            .critical-image { 
-              content-visibility: visible !important;
-              contain: layout style paint;
+            /* CSS CRÍTICO INLINE - BEL FADA STYLE */
+            .hero-container {
+              background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+              min-height: 100vh;
+              position: relative;
+              overflow: hidden;
             }
-            .loading-overlay {
-              backdrop-filter: blur(8px);
-              -webkit-backdrop-filter: blur(8px);
+            
+            .artistic-bg {
+              position: absolute;
+              top: 0;
+              right: 0;
+              width: 60%;
+              height: 100%;
+              background: url('/artistic-portrait.jpg') no-repeat center;
+              background-size: cover;
+              opacity: 0.3;
+              filter: grayscale(100%) contrast(1.2);
+            }
+            
+            .artistic-bg::after {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background: radial-gradient(circle at 70% 30%, transparent 20%, rgba(0,0,0,0.8) 70%);
+            }
+            
+            .testimonial-bubble {
+              position: absolute;
+              top: 2rem;
+              left: 2rem;
+              background: #000;
+              border-radius: 20px;
+              padding: 1.5rem;
+              max-width: 320px;
+              box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+              z-index: 10;
+            }
+            
+            .testimonial-bubble::after {
+              content: '';
+              position: absolute;
+              bottom: -10px;
+              left: 30px;
+              width: 0;
+              height: 0;
+              border-left: 10px solid transparent;
+              border-right: 10px solid transparent;
+              border-top: 10px solid #000;
+            }
+            
+            .stars-container {
+              display: flex;
+              gap: 2px;
+              margin-bottom: 0.5rem;
+            }
+            
+            .star-gold {
+              color: #FFD700;
+              width: 16px;
+              height: 16px;
+            }
+            
+            .user-name {
+              background: linear-gradient(45deg, #FFD700, #FFA500);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              font-weight: bold;
+              font-size: 0.9rem;
+              margin-bottom: 0.5rem;
+            }
+            
+            .testimonial-text {
+              color: white;
+              font-size: 0.85rem;
+              line-height: 1.4;
+            }
+            
+            .main-headline {
+              font-size: clamp(2.5rem, 8vw, 4.5rem);
+              font-weight: 900;
+              color: white;
+              text-align: center;
+              line-height: 1.1;
+              margin: 2rem 0;
+              text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            }
+            
+            .sub-headline {
+              font-size: clamp(1.2rem, 4vw, 1.8rem);
+              color: #ccc;
+              text-align: center;
+              margin-bottom: 3rem;
+              font-weight: 300;
+            }
+            
+            .cta-button-premium {
+              background: linear-gradient(45deg, #dc2626, #ef4444);
+              color: white;
+              border: none;
+              padding: 1.2rem 3rem;
+              font-size: 1.3rem;
+              font-weight: bold;
+              border-radius: 50px;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            }
+            
+            .cta-button-premium:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 12px 35px rgba(220, 38, 38, 0.6);
+            }
+            
+            .copyright-text {
+              position: absolute;
+              bottom: 1rem;
+              right: 2rem;
+              color: #888;
+              font-size: 0.8rem;
+            }
+            
+            .light-particles {
+              position: absolute;
+              width: 4px;
+              height: 4px;
+              background: #FFD700;
+              border-radius: 50%;
+              opacity: 0.6;
+              animation: float 3s ease-in-out infinite;
+            }
+            
+            .particle-1 { bottom: 20%; right: 15%; animation-delay: 0s; }
+            .particle-2 { bottom: 40%; right: 25%; animation-delay: 1s; }
+            .particle-3 { bottom: 60%; left: 10%; animation-delay: 2s; }
+            
+            @keyframes float {
+              0%, 100% { transform: translateY(0px) scale(1); opacity: 0.6; }
+              50% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+            }
+            
+            @media (max-width: 768px) {
+              .testimonial-bubble {
+                top: 1rem;
+                left: 1rem;
+                right: 1rem;
+                max-width: none;
+              }
+              
+              .artistic-bg {
+                width: 100%;
+                opacity: 0.2;
+              }
+              
+              .copyright-text {
+                bottom: 0.5rem;
+                right: 1rem;
+                font-size: 0.7rem;
+              }
             }
           `
         }} />
       </Head>
-      
-      {/* Container principal - estrutura simplificada */}
-      <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-slate-900 flex items-center justify-center p-4">
+
+      {/* Container principal - BEL FADA DESIGN */}
+      <div className="hero-container">
         
+        {/* Fundo artístico */}
+        <div className="artistic-bg"></div>
+        
+        {/* Partículas de luz */}
+        <div className="light-particles particle-1"></div>
+        <div className="light-particles particle-2"></div>
+        <div className="light-particles particle-3"></div>
+
         {/* Loading overlay otimizado */}
         {isLoading && (
-          <div className="fixed inset-0 bg-black/80 loading-overlay flex flex-col items-center justify-center z-50">
-            <div className="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-4" />
-            <p className="text-white text-lg mb-4">Preparando tu test...</p>
-            <div className="w-64 h-2 bg-gray-700 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-orange-500 rounded-full transition-all duration-200"
-                style={{ width: `${loadingProgress}%` }}
-              />
+          <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 backdrop-blur-sm">
+            <div className="text-center">
+              <div className="text-white text-xl mb-4 font-semibold">Preparando seu teste...</div>
+              <div className="w-64 bg-gray-700 rounded-full h-2 overflow-hidden">
+                <div 
+                  className="bg-gradient-to-r from-red-500 to-red-600 h-full transition-all duration-300 ease-out rounded-full"
+                  style={{ width: `${loadingProgress}%` }}
+                />
+              </div>
             </div>
           </div>
         )}
-        
+
         {/* Error message */}
         {errorMessage && (
-          <div className="fixed top-4 left-4 right-4 mx-auto max-w-md bg-red-100 text-red-800 p-4 rounded-lg z-50">
+          <div className="fixed top-4 left-4 right-4 bg-red-600 text-white p-4 rounded-lg z-40 flex items-center justify-between">
             {errorMessage}
             <button onClick={() => setErrorMessage("")} className="ml-2 font-bold">×</button>
           </div>
         )}
-        
+
         {/* Offline indicator */}
         {!isOnline && (
-          <div className="fixed top-0 left-0 right-0 bg-red-100 text-red-800 p-3 text-center z-50">
+          <div className="fixed top-0 left-0 right-0 bg-yellow-600 text-white text-center p-2 z-40">
             Sin conexión a internet
           </div>
         )}
-        
+
+        {/* Depoimento - Canto Superior Esquerdo */}
+        <div className="testimonial-bubble">
+          <div className="stars-container">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="star-gold" fill="currentColor" />
+            ))}
+          </div>
+          <div className="user-name">
+            Wand Henrique (@wandhenriqueoficial)
+          </div>
+          <div className="testimonial-text">
+            "Fiz e refiz seu Quiz umas 30 vezes kkkkkkkkk ficou insano!"
+          </div>
+        </div>
+
         {/* Conteúdo principal */}
-        <div className="max-w-3xl w-full text-center">
-          <Card className="bg-gradient-to-br from-gray-900/95 to-black/95 border-orange-500/30 border-2 shadow-2xl">
-            <CardContent className="p-4 sm:p-8">
-              
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 pt-20">
+          
+          <Card className="w-full max-w-2xl bg-black/20 backdrop-blur-sm border-gray-700 shadow-2xl">
+            <CardContent className="p-8 text-center">
+
               {/* Logo - OTIMIZADO PARA LCP */}
-              <div className="mb-6">
-                <div className="relative w-28 h-28 mx-auto mb-6">
-                  <div className="absolute inset-0 rounded-full bg-orange-500/20 blur-lg" />
-                  <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-orange-500 shadow-lg">
-                    <img
-                      src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
-                      alt="Plan A Logo"
-                      className="w-full h-full object-cover critical-image"
-                      width="112"
-                      height="112"
-                      fetchPriority="high"
-                      loading="eager"
-                      decoding="sync"
-                      onLoad={() => console.log('Logo carregado')}
-                      onError={(e) => {
-                        console.error('Erro ao carregar logo');
-                        e.target.style.display = 'none';
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Título - Otimizado para CLS */}
-              <div className="mb-8">
-                <h1 className="text-2xl sm:text-3xl font-bold text-white mb-6 leading-tight">
-                  Conheça o <span className="text-red-500">Truco de 3 pasos</span> que está funcionando
-                  <br />
-                  <span className="text-red-500">hace que las mujeres regresen incluso después de una traición</span>
-                </h1>
-
-                <p className="text-lg text-white font-semibold mb-2">
-                  ✓ Funciona con cualquier mujer...
-                </p>
-                <p className="text-white mb-6">
-                  sin mensajes largos, desaparecer ni jugar juegos.
-                </p>
-
-                <h2 className="text-xl font-bold text-green-500 mb-6">
-                  ✅ ¿Y lo mejor? Es el mismo que usaron grandes celebridades.
-                </h2>
-
-                {/* Segunda imagem - com lazy loading inteligente */}
-                <div className="mb-8">
-                  <img 
-                    src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/02-IMAGE-INICIAL-NOVA.png" 
-                    alt="Ejemplo del método" 
-                    className="w-full h-auto rounded-lg critical-image"
-                    width="600"
-                    height="400"
-                    fetchPriority="high"
-                    loading="eager"
-                    decoding="async"
-                    onLoad={() => console.log('Imagem principal carregada')}
+              <div className="mb-8 flex justify-center">
+                <div className="relative">
+                  <img
+                    src="/logo.png"
+                    alt="Logo"
+                    className="h-16 w-auto object-contain"
+                    width={200}
+                    height={64}
+                    style={{
+                      maxWidth: '100%',
+                      height: 'auto',
+                      contentVisibility: 'visible',
+                      contain: 'layout style paint'
+                    }}
+                    onLoad={() => console.log('Logo carregado')}
                     onError={(e) => {
-                      console.error('Erro ao carregar imagem principal');
+                      console.error('Erro ao carregar logo');
                       e.target.style.display = 'none';
                     }}
                   />
                 </div>
               </div>
 
+              {/* Headline Principal - Estilo Bel Fada */}
+              <div className="space-y-6">
+                <h1 className="main-headline">
+                  Faço até perfis fracos venderem 100% no piloto automático.
+                </h1>
+                
+                <p className="sub-headline">
+                  Sem truques, só o poder do método certo.
+                </p>
+              </div>
+
               {/* CTA Button - Otimizado */}
-              <div>
+              <div className="mt-8">
                 <Button
                   onClick={handleStart}
                   disabled={isLoading || !isOnline}
-                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-5 px-8 rounded-full text-xl shadow-lg transition-all duration-200 mb-4 w-full sm:w-auto disabled:opacity-50"
+                  className="cta-button-premium"
+                  size="lg"
                 >
                   {isLoading ? (
-                    <>
+                    <span className="flex items-center">
                       PREPARANDO...
-                      <div className="ml-2 w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    </>
+                      <div className="ml-2 w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    </span>
                   ) : (
-                    <>
-                      QUIERO DESCUBRIR EL TRUCO
-                      <ArrowRight className="w-5 h-5 ml-2" />
-                    </>
+                    <span className="flex items-center">
+                      COMEÇAR AGORA
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </span>
                   )}
                 </Button>
-                
-                <div className="text-xs text-gray-400 mt-4 flex items-center justify-center">
-                  <Lock className="w-3 h-3 mr-1" />
-                  Tus respuestas son confidenciales y están protegidas
-                </div>
               </div>
-              
+
+              <div className="mt-6 flex items-center justify-center text-gray-400 text-sm">
+                <Lock className="h-4 w-4 mr-2" />
+                Suas respostas são confidenciais e estão protegidas
+              </div>
+
             </CardContent>
           </Card>
         </div>
+
+        {/* Copyright - Canto Inferior Direito */}
+        <div className="copyright-text">
+          Bel Fada™ Todos os Direitos Reservados.
+        </div>
+
       </div>
-      
+
       {/* Script crítico inline - OTIMIZAÇÃO MÁXIMA */}
       <script dangerouslySetInnerHTML={{
         __html: `
-          // Otimização crítica de imagens
           (function() {
-            const criticalImages = document.querySelectorAll('.critical-image');
-            
-            criticalImages.forEach(img => {
+            // Otimizar imagens críticas
+            document.querySelectorAll('img[src*="logo"], img[src*="main"]').forEach(img => {
               // Forçar prioridade máxima
               img.fetchPriority = 'high';
               img.loading = 'eager';
