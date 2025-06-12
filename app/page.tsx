@@ -155,7 +155,7 @@ export default function HomePage() {
           -webkit-tap-highlight-color: transparent;
         }
         
-        /* Container hero com background fixo otimizado */
+        /* Container hero com background FIXO otimizado */
         .hero-container {
           background-image: url('https://comprarplanseguro.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-11T112151.941.png');
           background-size: cover;
@@ -169,12 +169,19 @@ export default function HomePage() {
           will-change: transform;
         }
         
-        /* Mobile-first: background scroll para performance */
+        /* Desktop: manter background fixo */
+        @media (min-width: 769px) {
+          .hero-container {
+            background-attachment: fixed;
+          }
+        }
+        
+        /* Mobile: background fixo também (iOS suporta com transform) */
         @media (max-width: 768px) {
           .hero-container {
-            background-attachment: scroll;
-            background-size: cover;
-            background-position: center top;
+            background-attachment: fixed;
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
           }
         }
         
@@ -215,7 +222,7 @@ export default function HomePage() {
           transform: scale(1.1);
         }
         
-        /* DEPOIMENTO - Caixa preta com avatar */
+        /* DEPOIMENTO - Caixa preta com avatar ARREDONDADO */
         .testimonial-section {
           background: rgba(0, 0, 0, 0.9);
           backdrop-filter: blur(10px);
@@ -289,12 +296,13 @@ export default function HomePage() {
           100% { left: 100%; }
         }
         
-        /* IMAGEM DO LIVRO - Acima da headline */
+        /* IMAGEM DO LIVRO PLAN A - ARREDONDADA */
         .book-image {
           width: 120px;
           height: auto;
           margin: 0 auto 1.5rem;
           display: block;
+          border-radius: 12px;
           filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
           animation: float 3s ease-in-out infinite;
         }
@@ -326,7 +334,7 @@ export default function HomePage() {
           text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
         }
         
-        /* BOTÃO VERMELHO VIBRANTE - Fora do container */
+        /* BOTÃO VERMELHO PULSANTE ARREDONDADO - Fora do container */
         .cta-button-container {
           width: 100%;
           max-width: 400px;
@@ -341,7 +349,7 @@ export default function HomePage() {
           padding: 1.3rem 3rem !important;
           font-size: 1.1rem !important;
           font-weight: 800 !important;
-          border-radius: 12px !important;
+          border-radius: 50px !important;
           border: none !important;
           text-transform: uppercase !important;
           letter-spacing: 1px !important;
@@ -357,13 +365,31 @@ export default function HomePage() {
           width: 100% !important;
           text-decoration: none !important;
           min-height: 60px !important;
+          animation: pulse 2s infinite !important;
+        }
+        
+        /* ANIMAÇÃO PULSANTE */
+        @keyframes pulse {
+          0% {
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
+            transform: scale(1);
+          }
+          50% {
+            box-shadow: 0 12px 35px rgba(255, 0, 0, 0.8);
+            transform: scale(1.02);
+          }
+          100% {
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
+            transform: scale(1);
+          }
         }
         
         .cta-button:hover:not(:disabled) {
           background: #FF3333 !important;
           background-image: linear-gradient(135deg, #FF3333 0%, #FF0000 50%, #DC143C 100%) !important;
-          transform: translateY(-3px) scale(1.02) !important;
-          box-shadow: 0 12px 35px rgba(255, 0, 0, 0.7) !important;
+          transform: translateY(-3px) scale(1.05) !important;
+          box-shadow: 0 15px 40px rgba(255, 0, 0, 0.8) !important;
+          animation: none !important;
         }
         
         .cta-button:active {
@@ -375,9 +401,10 @@ export default function HomePage() {
           opacity: 0.8 !important;
           cursor: not-allowed !important;
           transform: none !important;
+          animation: none !important;
         }
         
-        /* Efeito de pulse no botão */
+        /* Efeito de ripple no botão */
         .cta-button::before {
           content: '';
           position: absolute;
@@ -537,6 +564,7 @@ export default function HomePage() {
           .cta-button {
             padding: 1.1rem 2rem !important;
             font-size: 1rem !important;
+            border-radius: 40px !important;
           }
           
           .cta-button-container {
@@ -566,6 +594,7 @@ export default function HomePage() {
           .book-image {
             width: 100px;
             margin-bottom: 1.2rem;
+            border-radius: 10px;
           }
           
           .privacy-text {
@@ -583,10 +612,12 @@ export default function HomePage() {
           .cta-button {
             padding: 1rem 1.5rem !important;
             font-size: 0.95rem !important;
+            border-radius: 35px !important;
           }
           
           .book-image {
             width: 90px;
+            border-radius: 8px;
           }
         }
         
@@ -696,7 +727,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* DEPOIMENTO EM CAIXA PRETA COM AVATAR */}
+          {/* DEPOIMENTO EM CAIXA PRETA COM AVATAR ARREDONDADO */}
           <div className="testimonial-section">
             <img 
               src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/06.png" 
@@ -714,7 +745,7 @@ export default function HomePage() {
           {/* CARD PRINCIPAL TRANSPARENTE */}
           <div className="main-card">
             
-            {/* IMAGEM DO LIVRO */}
+            {/* IMAGEM DO LIVRO PLAN A - ARREDONDADA */}
             <img 
               src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png" 
               alt="Plan A - Método Secreto"
@@ -733,7 +764,7 @@ export default function HomePage() {
 
           </div>
 
-          {/* BOTÃO CTA VERMELHO VIBRANTE - FORA DO CONTAINER */}
+          {/* BOTÃO CTA VERMELHO PULSANTE ARREDONDADO - FORA DO CONTAINER */}
           <div className="cta-button-container">
             <Button
               onClick={handleStart}
