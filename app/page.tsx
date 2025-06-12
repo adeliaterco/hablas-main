@@ -115,7 +115,7 @@ export default function HomePage() {
           right: 0;
           width: 60%;
           height: 100%;
-          background-image: url('/https://comprarplanseguro.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-11T112151.941.png'); /* 👈 COLOQUE SUA IMAGEM AQUI */
+          background-image: url('/bel-fada-portrait.jpg'); /* 👈 COLOQUE SUA IMAGEM AQUI */
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
