@@ -215,7 +215,7 @@ export default function HomePage() {
           transform: scale(1.1);
         }
         
-        /* DEPOIMENTO - Caixa preta como na imagem */
+        /* DEPOIMENTO - Caixa preta com avatar */
         .testimonial-section {
           background: rgba(0, 0, 0, 0.9);
           backdrop-filter: blur(10px);
@@ -226,6 +226,18 @@ export default function HomePage() {
           border: 1px solid rgba(255, 255, 255, 0.1);
           animation: fadeInUp 0.8s ease-out 0.2s both;
           box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+          position: relative;
+        }
+        
+        .testimonial-avatar {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          margin: 0 auto 1rem;
+          border: 3px solid #FFD700;
+          object-fit: cover;
+          display: block;
+          box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
         }
         
         .testimonial-author {
@@ -249,7 +261,7 @@ export default function HomePage() {
           backdrop-filter: blur(15px);
           border-radius: 16px;
           padding: 2.5rem 2rem;
-          margin-bottom: 1.5rem;
+          margin-bottom: 2rem;
           text-align: center;
           width: 100%;
           max-width: 400px;
@@ -277,6 +289,21 @@ export default function HomePage() {
           100% { left: 100%; }
         }
         
+        /* IMAGEM DO LIVRO - Acima da headline */
+        .book-image {
+          width: 120px;
+          height: auto;
+          margin: 0 auto 1.5rem;
+          display: block;
+          filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+          animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+        
         /* HEADLINE PRINCIPAL - Branca e impactante */
         .main-headline {
           font-size: 1.5rem;
@@ -293,17 +320,25 @@ export default function HomePage() {
         .sub-headline {
           font-size: 1.1rem;
           color: #E0E0E0;
-          margin-bottom: 2.5rem;
+          margin-bottom: 0;
           font-weight: 400;
           line-height: 1.4;
           text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
         }
         
-        /* BOTÃO VERMELHO - Como na imagem original */
+        /* BOTÃO VERMELHO VIBRANTE - Fora do container */
+        .cta-button-container {
+          width: 100%;
+          max-width: 400px;
+          margin-bottom: 1.5rem;
+          animation: fadeInUp 1.4s ease-out 0.8s both;
+        }
+        
         .cta-button {
-          background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%) !important;
-          color: white !important;
-          padding: 1.2rem 3rem !important;
+          background: #FF0000 !important;
+          background-image: linear-gradient(135deg, #FF0000 0%, #DC143C 50%, #B22222 100%) !important;
+          color: #FFFFFF !important;
+          padding: 1.3rem 3rem !important;
           font-size: 1.1rem !important;
           font-weight: 800 !important;
           border-radius: 12px !important;
@@ -313,27 +348,33 @@ export default function HomePage() {
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
           display: inline-flex !important;
           align-items: center !important;
+          justify-content: center !important;
           gap: 0.8rem !important;
-          box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4) !important;
+          box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5) !important;
           position: relative !important;
           overflow: hidden !important;
           cursor: pointer !important;
-          min-width: 280px !important;
+          width: 100% !important;
+          text-decoration: none !important;
+          min-height: 60px !important;
         }
         
         .cta-button:hover:not(:disabled) {
-          background: linear-gradient(135deg, #FF3333 0%, #FF0000 100%) !important;
-          transform: translateY(-2px) scale(1.02) !important;
-          box-shadow: 0 8px 25px rgba(255, 0, 0, 0.6) !important;
+          background: #FF3333 !important;
+          background-image: linear-gradient(135deg, #FF3333 0%, #FF0000 50%, #DC143C 100%) !important;
+          transform: translateY(-3px) scale(1.02) !important;
+          box-shadow: 0 12px 35px rgba(255, 0, 0, 0.7) !important;
         }
         
         .cta-button:active {
-          transform: translateY(0) scale(0.98) !important;
+          transform: translateY(-1px) scale(0.98) !important;
+          box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6) !important;
         }
         
         .cta-button:disabled {
           opacity: 0.8 !important;
           cursor: not-allowed !important;
+          transform: none !important;
         }
         
         /* Efeito de pulse no botão */
@@ -348,11 +389,17 @@ export default function HomePage() {
           border-radius: 50%;
           transform: translate(-50%, -50%);
           transition: width 0.6s, height 0.6s;
+          z-index: 0;
         }
         
         .cta-button:hover::before {
           width: 300px;
           height: 300px;
+        }
+        
+        .cta-button > * {
+          position: relative;
+          z-index: 1;
         }
         
         /* TEXTO DE CONFIDENCIALIDADE */
@@ -363,18 +410,21 @@ export default function HomePage() {
           gap: 0.5rem;
           color: #CCCCCC;
           font-size: 0.9rem;
-          margin-top: 1.5rem;
           background: rgba(0, 0, 0, 0.6);
           padding: 0.8rem 1.2rem;
           border-radius: 8px;
           backdrop-filter: blur(5px);
-          animation: fadeInUp 1.2s ease-out 0.6s both;
+          animation: fadeInUp 1.6s ease-out 1s both;
+          max-width: 400px;
+          width: 100%;
+          text-align: center;
         }
         
         .lock-icon {
           width: 16px;
           height: 16px;
           color: #FFD700;
+          flex-shrink: 0;
         }
         
         /* LOADING OVERLAY PREMIUM */
@@ -472,7 +522,7 @@ export default function HomePage() {
           
           .main-card {
             padding: 2rem 1.5rem;
-            margin: 0 0.5rem 1rem;
+            margin: 0 0.5rem 1.5rem;
           }
           
           .main-headline {
@@ -485,14 +535,22 @@ export default function HomePage() {
           }
           
           .cta-button {
-            padding: 1rem 2rem !important;
+            padding: 1.1rem 2rem !important;
             font-size: 1rem !important;
-            min-width: 250px !important;
+          }
+          
+          .cta-button-container {
+            margin: 0 0.5rem 1rem;
           }
           
           .testimonial-section {
             padding: 1.2rem;
             margin: 0 0.5rem 1.5rem;
+          }
+          
+          .testimonial-avatar {
+            width: 50px;
+            height: 50px;
           }
           
           .stars-section {
@@ -504,6 +562,17 @@ export default function HomePage() {
             width: 20px;
             height: 20px;
           }
+          
+          .book-image {
+            width: 100px;
+            margin-bottom: 1.2rem;
+          }
+          
+          .privacy-text {
+            margin: 0 0.5rem;
+            padding: 0.7rem 1rem;
+            font-size: 0.85rem;
+          }
         }
         
         @media (max-width: 360px) {
@@ -512,8 +581,12 @@ export default function HomePage() {
           }
           
           .cta-button {
-            min-width: 220px !important;
-            padding: 0.9rem 1.5rem !important;
+            padding: 1rem 1.5rem !important;
+            font-size: 0.95rem !important;
+          }
+          
+          .book-image {
+            width: 90px;
           }
         }
         
@@ -623,8 +696,13 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* DEPOIMENTO EM CAIXA PRETA */}
+          {/* DEPOIMENTO EM CAIXA PRETA COM AVATAR */}
           <div className="testimonial-section">
+            <img 
+              src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/06.png" 
+              alt="Wand Henrique"
+              className="testimonial-avatar"
+            />
             <div className="testimonial-author">
               Wand Henrique (@wandhenriqueoficial)
             </div>
@@ -636,6 +714,13 @@ export default function HomePage() {
           {/* CARD PRINCIPAL TRANSPARENTE */}
           <div className="main-card">
             
+            {/* IMAGEM DO LIVRO */}
+            <img 
+              src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png" 
+              alt="Plan A - Método Secreto"
+              className="book-image"
+            />
+            
             {/* HEADLINE PRINCIPAL */}
             <h1 className="main-headline">
               Faço até perfis fracos venderem 100% no piloto automático.
@@ -646,7 +731,10 @@ export default function HomePage() {
               Sem truques, só o poder do método certo.
             </p>
 
-            {/* BOTÃO CTA VERMELHO */}
+          </div>
+
+          {/* BOTÃO CTA VERMELHO VIBRANTE - FORA DO CONTAINER */}
+          <div className="cta-button-container">
             <Button
               onClick={handleStart}
               disabled={isLoading || !isOnline}
@@ -664,7 +752,6 @@ export default function HomePage() {
                 </>
               )}
             </Button>
-
           </div>
 
           {/* TEXTO DE CONFIDENCIALIDADE */}
