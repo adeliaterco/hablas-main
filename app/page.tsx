@@ -108,6 +108,54 @@ export default function HomePage() {
           overflow: hidden;
         }
         
+        /* FUNDO ARTÍSTICO - ADICIONE SUA IMAGEM AQUI */
+        .artistic-bg {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 60%;
+          height: 100%;
+          background-image: url('/bel-fada-portrait.jpg'); /* 👈 COLOQUE SUA IMAGEM AQUI */
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          opacity: 0.4;
+          filter: grayscale(100%) contrast(1.2);
+          z-index: 1;
+        }
+        
+        .artistic-bg::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: radial-gradient(circle at 70% 30%, transparent 20%, rgba(0,0,0,0.8) 70%);
+        }
+        
+        /* PARTÍCULAS DE LUZ */
+        .light-particles {
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          background: #FFD700;
+          border-radius: 50%;
+          opacity: 0.6;
+          animation: float 3s ease-in-out infinite;
+          z-index: 2;
+        }
+        
+        .particle-1 { bottom: 20%; right: 15%; animation-delay: 0s; }
+        .particle-2 { bottom: 40%; right: 25%; animation-delay: 1s; }
+        .particle-3 { bottom: 60%; left: 10%; animation-delay: 2s; }
+        
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) scale(1); opacity: 0.6; }
+          50% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+        }
+        
+        /* DEPOIMENTO COM FOTO */
         .testimonial-bubble {
           position: absolute;
           top: 2rem;
@@ -118,6 +166,9 @@ export default function HomePage() {
           max-width: 320px;
           box-shadow: 0 10px 30px rgba(0,0,0,0.5);
           z-index: 10;
+          display: flex;
+          align-items: flex-start;
+          gap: 1rem;
         }
         
         .testimonial-bubble::after {
@@ -132,6 +183,22 @@ export default function HomePage() {
           border-top: 10px solid #000;
         }
         
+        /* FOTO DO DEPOIMENTO - ADICIONE SUA IMAGEM AQUI */
+        .testimonial-avatar {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background-image: url('/wand-henrique-avatar.jpg'); /* 👈 COLOQUE A FOTO DO WAND AQUI */
+          background-size: cover;
+          background-position: center;
+          border: 2px solid #FFD700;
+          flex-shrink: 0;
+        }
+        
+        .testimonial-content {
+          flex: 1;
+        }
+        
         .stars-container {
           display: flex;
           gap: 2px;
@@ -140,8 +207,8 @@ export default function HomePage() {
         
         .star-gold {
           color: #FFD700;
-          width: 16px;
-          height: 16px;
+          width: 14px;
+          height: 14px;
         }
         
         .user-name {
@@ -149,13 +216,13 @@ export default function HomePage() {
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           font-weight: bold;
-          font-size: 0.9rem;
+          font-size: 0.85rem;
           margin-bottom: 0.5rem;
         }
         
         .testimonial-text {
           color: white;
-          font-size: 0.85rem;
+          font-size: 0.8rem;
           line-height: 1.4;
         }
         
@@ -188,6 +255,7 @@ export default function HomePage() {
           text-transform: uppercase !important;
           letter-spacing: 1px !important;
           border: none !important;
+          transition: all 0.3s ease !important;
         }
         
         .cta-premium:hover {
@@ -201,14 +269,26 @@ export default function HomePage() {
           right: 2rem;
           color: #888;
           font-size: 0.8rem;
+          z-index: 10;
         }
         
         @media (max-width: 768px) {
+          .artistic-bg {
+            width: 100%;
+            opacity: 0.2;
+          }
+          
           .testimonial-bubble {
             top: 1rem;
             left: 1rem;
             right: 1rem;
             max-width: none;
+            flex-direction: column;
+            text-align: center;
+          }
+          
+          .testimonial-avatar {
+            align-self: center;
           }
           
           .copyright-text {
@@ -221,6 +301,14 @@ export default function HomePage() {
 
       {/* Container principal */}
       <div className="hero-container">
+
+        {/* FUNDO ARTÍSTICO */}
+        <div className="artistic-bg"></div>
+        
+        {/* PARTÍCULAS DE LUZ */}
+        <div className="light-particles particle-1"></div>
+        <div className="light-particles particle-2"></div>
+        <div className="light-particles particle-3"></div>
 
         {/* Loading overlay */}
         {isLoading && (
@@ -252,18 +340,24 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Depoimento - Canto Superior Esquerdo */}
+        {/* DEPOIMENTO COM FOTO - Canto Superior Esquerdo */}
         <div className="testimonial-bubble">
-          <div className="stars-container">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="star-gold" fill="currentColor" />
-            ))}
-          </div>
-          <div className="user-name">
-            Wand Henrique (@wandhenriqueoficial)
-          </div>
-          <div className="testimonial-text">
-            "Fiz e refiz seu Quiz umas 30 vezes kkkkkkkkk ficou insano!"
+          {/* FOTO DO AVATAR */}
+          <div className="testimonial-avatar"></div>
+          
+          {/* CONTEÚDO DO DEPOIMENTO */}
+          <div className="testimonial-content">
+            <div className="stars-container">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="star-gold" fill="currentColor" />
+              ))}
+            </div>
+            <div className="user-name">
+              Wand Henrique (@wandhenriqueoficial)
+            </div>
+            <div className="testimonial-text">
+              "Fiz e refiz seu Quiz umas 30 vezes kkkkkkkkk ficou insano!"
+            </div>
           </div>
         </div>
 
