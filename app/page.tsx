@@ -131,89 +131,11 @@ export default function HomePage() {
       {/* CSS Inline Crítico - MOBILE FIRST */}
       <style jsx>{`
         .hero-container {
-          background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+          background: #000000;
           min-height: 100vh;
           position: relative;
           overflow: hidden;
           width: 100%;
-        }
-        
-        /* FUNDO ARTÍSTICO OTIMIZADO - MOBILE FIRST */
-        .artistic-bg {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-image: url('https://comprarplanseguro.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-11T112151.941.png');
-          background-size: cover;
-          background-position: center center;
-          background-repeat: no-repeat;
-          background-attachment: fixed;
-          opacity: 0.15;
-          filter: blur(0.5px) contrast(1.3) brightness(0.8);
-          z-index: 1;
-          transform: scale(1.05);
-        }
-        
-        .artistic-bg::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,0.9) 100%);
-          z-index: 2;
-        }
-        
-        /* PARTÍCULAS DE LUZ OTIMIZADAS */
-        .light-particles {
-          position: absolute;
-          width: 3px;
-          height: 3px;
-          background: linear-gradient(45deg, #FFD700, #FFA500);
-          border-radius: 50%;
-          opacity: 0.8;
-          animation: float 4s ease-in-out infinite;
-          z-index: 3;
-          box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-        
-        .particle-1 { 
-          bottom: 25%; 
-          right: 10%; 
-          animation-delay: 0s; 
-          animation-duration: 3s;
-        }
-        .particle-2 { 
-          bottom: 45%; 
-          right: 20%; 
-          animation-delay: 1.5s; 
-          animation-duration: 4s;
-        }
-        .particle-3 { 
-          bottom: 65%; 
-          left: 15%; 
-          animation-delay: 3s; 
-          animation-duration: 3.5s;
-        }
-        .particle-4 { 
-          top: 30%; 
-          left: 20%; 
-          animation-delay: 2s; 
-          animation-duration: 4.5s;
-        }
-        
-        @keyframes float {
-          0%, 100% { 
-            transform: translateY(0px) scale(1); 
-            opacity: 0.8; 
-          }
-          50% { 
-            transform: translateY(-25px) scale(1.3); 
-            opacity: 1; 
-          }
         }
         
         /* DEPOIMENTO MOBILE FIRST */
@@ -222,9 +144,8 @@ export default function HomePage() {
           top: 1rem;
           left: 1rem;
           right: 1rem;
-          background: rgba(0, 0, 0, 0.95);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(255, 215, 0, 0.2);
+          background: #000000;
+          border: 1px solid rgba(255, 255, 255, 0.2);
           border-radius: 20px;
           padding: 1rem;
           box-shadow: 0 10px 40px rgba(0,0,0,0.8);
@@ -244,7 +165,7 @@ export default function HomePage() {
           height: 0;
           border-left: 8px solid transparent;
           border-right: 8px solid transparent;
-          border-top: 8px solid rgba(0, 0, 0, 0.95);
+          border-top: 8px solid #000000;
         }
         
         /* AVATAR OTIMIZADO E REDONDO */
@@ -325,15 +246,11 @@ export default function HomePage() {
           line-height: 1.1;
           margin: 1.5rem 0;
           text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
-          background: linear-gradient(135deg, #ffffff, #e5e5e5);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
         }
         
         .sub-headline {
           font-size: clamp(0.95rem, 4vw, 1.2rem);
-          color: #cccccc;
+          color: #ffffff;
           text-align: center;
           margin-bottom: 2rem;
           font-weight: 300;
@@ -363,7 +280,7 @@ export default function HomePage() {
           filter: drop-shadow(0 6px 20px rgba(255, 215, 0, 0.5));
         }
         
-        /* CTA BUTTON PREMIUM */
+        /* CTA BUTTON PREMIUM PULSANTE */
         .cta-premium {
           background: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #dc2626 100%) !important;
           color: white !important;
@@ -382,6 +299,22 @@ export default function HomePage() {
           overflow: hidden !important;
           width: 100% !important;
           max-width: 300px !important;
+          animation: pulse-red 2s infinite !important;
+        }
+        
+        @keyframes pulse-red {
+          0% {
+            transform: scale(1);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+          }
+          50% {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(220, 38, 38, 0.7);
+          }
+          100% {
+            transform: scale(1);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+          }
         }
         
         .cta-premium::before {
@@ -400,21 +333,21 @@ export default function HomePage() {
         }
         
         .cta-premium:hover {
-          transform: translateY(-3px) !important;
+          transform: translateY(-3px) scale(1.08) !important;
           box-shadow: 
-            0 15px 40px rgba(220, 38, 38, 0.6),
+            0 20px 50px rgba(220, 38, 38, 0.8),
             inset 0 1px 0 rgba(255,255,255,0.3) !important;
+          animation: none !important;
         }
         
         .cta-premium:active {
-          transform: translateY(-1px) !important;
+          transform: translateY(-1px) scale(1.02) !important;
         }
         
         /* CARD OTIMIZADO */
         .main-card {
-          background: rgba(0, 0, 0, 0.3) !important;
-          backdrop-filter: blur(15px) !important;
-          border: 1px solid rgba(255, 255, 255, 0.1) !important;
+          background: #000000 !important;
+          border: 1px solid rgba(255, 255, 255, 0.2) !important;
           border-radius: 25px !important;
           box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8) !important;
         }
@@ -428,7 +361,7 @@ export default function HomePage() {
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #888;
+          color: #ffffff;
           font-size: 0.8rem;
           margin-top: 1.5rem;
           padding: 0.75rem;
@@ -443,7 +376,7 @@ export default function HomePage() {
           bottom: 0.5rem;
           left: 50%;
           transform: translateX(-50%);
-          color: #666;
+          color: #ffffff;
           font-size: 0.7rem;
           z-index: 10;
           text-align: center;
@@ -510,13 +443,6 @@ export default function HomePage() {
         
         /* RESPONSIVO TABLET */
         @media (min-width: 768px) {
-          .artistic-bg {
-            width: 70%;
-            right: 0;
-            left: auto;
-            opacity: 0.25;
-          }
-          
           .testimonial-bubble {
             top: 2rem;
             left: 2rem;
@@ -537,11 +463,6 @@ export default function HomePage() {
         
         /* RESPONSIVO DESKTOP */
         @media (min-width: 1024px) {
-          .artistic-bg {
-            width: 60%;
-            opacity: 0.3;
-          }
-          
           .testimonial-bubble {
             max-width: 400px;
           }
@@ -557,10 +478,6 @@ export default function HomePage() {
           will-change: auto;
         }
         
-        .light-particles {
-          will-change: transform, opacity;
-        }
-        
         .cta-premium {
           will-change: transform, box-shadow;
         }
@@ -568,15 +485,6 @@ export default function HomePage() {
 
       {/* Container principal */}
       <div className="hero-container">
-
-        {/* FUNDO ARTÍSTICO */}
-        <div className="artistic-bg"></div>
-        
-        {/* PARTÍCULAS DE LUZ */}
-        <div className="light-particles particle-1"></div>
-        <div className="light-particles particle-2"></div>
-        <div className="light-particles particle-3"></div>
-        <div className="light-particles particle-4"></div>
 
         {/* Loading overlay otimizado */}
         {isLoading && (
