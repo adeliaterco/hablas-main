@@ -109,21 +109,20 @@ export default function HomePage() {
         }
         
         /* FUNDO ARTÍSTICO - ADICIONE SUA IMAGEM AQUI */
-        .artistic-bg {
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 60%;
-          height: 100%;
-          background-image: url('/bel-fada-portrait.jpg'); /* 👈 COLOQUE SUA IMAGEM AQUI */
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-          opacity: 0.4;
-          filter: grayscale(100%) contrast(1.2);
-          z-index: 1;
-        }
-        
+ .artistic-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 100%;
+  background-image: url('https://comprarplanseguro.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-11T112151.941.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  filter: grayscale(100%) contrast(1.2);
+  z-index: 1;
+}       
         .artistic-bg::after {
           content: '';
           position: absolute;
