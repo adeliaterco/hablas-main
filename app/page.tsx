@@ -369,7 +369,7 @@ export default function HomePage() {
               {/* Logo */}
               <div className="mb-8 flex justify-center">
                 <img
-                  src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/06.png"
+                  src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
                   alt="Logo"
                   className="h-16 w-auto"
                   onError={(e) => {
