@@ -99,215 +99,193 @@ export default function HomePage() {
 
   return (
     <>
-      {/* CSS Inline Crítico */}
+      {/* CSS Inline Crítico - LAYOUT IDÊNTICO À IMAGEM */}
       <style jsx>{`
         .hero-container {
-          background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+          background-image: url('https://comprarplanseguro.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-11T112151.941.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
           min-height: 100vh;
           position: relative;
           overflow: hidden;
         }
         
-        /* FUNDO ARTÍSTICO - ADICIONE SUA IMAGEM AQUI */
- .artistic-bg {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 60%;
-  height: 100%;
-  background-image: url('https://comprarplanseguro.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-11T112151.941.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.4;
-  filter: grayscale(100%) contrast(1.2);
-  z-index: 1;
-}
-        .artistic-bg::after {
+        /* Overlay para melhor legibilidade */
+        .hero-container::before {
           content: '';
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
           bottom: 0;
-          background: radial-gradient(circle at 70% 30%, transparent 20%, rgba(0,0,0,0.8) 70%);
+          background: rgba(255, 255, 255, 0.95);
+          z-index: 1;
         }
         
-        /* PARTÍCULAS DE LUZ */
-        .light-particles {
-          position: absolute;
-          width: 4px;
-          height: 4px;
-          background: #FFD700;
-          border-radius: 50%;
-          opacity: 0.6;
-          animation: float 3s ease-in-out infinite;
-          z-index: 2;
-        }
-        
-        .particle-1 { bottom: 20%; right: 15%; animation-delay: 0s; }
-        .particle-2 { bottom: 40%; right: 25%; animation-delay: 1s; }
-        .particle-3 { bottom: 60%; left: 10%; animation-delay: 2s; }
-        
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) scale(1); opacity: 0.6; }
-          50% { transform: translateY(-20px) scale(1.2); opacity: 1; }
-        }
-        
-        /* DEPOIMENTO COM FOTO */
-        .testimonial-bubble {
-          position: absolute;
-          top: 2rem;
-          left: 2rem;
-          background: #000;
-          border-radius: 20px;
-          padding: 1.5rem;
-          max-width: 320px;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        /* Container principal do conteúdo */
+        .content-wrapper {
+          position: relative;
           z-index: 10;
           display: flex;
-          align-items: flex-start;
-          gap: 1rem;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          padding: 2rem 1rem;
+          max-width: 600px;
+          margin: 0 auto;
         }
         
-        .testimonial-bubble::after {
-          content: '';
-          position: absolute;
-          bottom: -10px;
-          left: 30px;
-          width: 0;
-          height: 0;
-          border-left: 10px solid transparent;
-          border-right: 10px solid transparent;
-          border-top: 10px solid #000;
-        }
-        
-        /* FOTO DO DEPOIMENTO - ADICIONE SUA IMAGEM AQUI */
-        .testimonial-avatar {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background-image: url('/wand-henrique-avatar.jpg'); /* 👈 COLOQUE A FOTO DO WAND AQUI */
-          background-size: cover;
-          background-position: center;
-          border: 2px solid #FFD700;
-          flex-shrink: 0;
-        }
-        
-        .testimonial-content {
-          flex: 1;
-        }
-        
-        .stars-container {
+        /* 5 ESTRELAS NO TOPO */
+        .stars-section {
           display: flex;
-          gap: 2px;
-          margin-bottom: 0.5rem;
+          justify-content: center;
+          gap: 4px;
+          margin-bottom: 1.5rem;
         }
         
-        .star-gold {
-          color: #FFD700;
-          width: 14px;
-          height: 14px;
+        .star-black {
+          color: #000;
+          width: 20px;
+          height: 20px;
         }
         
-        .user-name {
-          background: linear-gradient(45deg, #FFD700, #FFA500);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          font-weight: bold;
-          font-size: 0.85rem;
+        /* DEPOIMENTO EXATO DA IMAGEM */
+        .testimonial-section {
+          text-align: center;
+          margin-bottom: 3rem;
+        }
+        
+        .testimonial-author {
+          font-size: 1rem;
+          font-weight: 600;
+          color: #000;
           margin-bottom: 0.5rem;
         }
         
         .testimonial-text {
-          color: white;
-          font-size: 0.8rem;
+          font-size: 1rem;
+          color: #000;
           line-height: 1.4;
         }
         
+        /* CAIXA CINZA PRINCIPAL */
+        .main-card {
+          background-color: #f5f5f5;
+          border-radius: 12px;
+          padding: 2.5rem 2rem;
+          margin-bottom: 1.5rem;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+          text-align: center;
+          width: 100%;
+          max-width: 500px;
+        }
+        
+        /* HEADLINE PRINCIPAL */
         .main-headline {
-          font-size: clamp(2rem, 6vw, 3.5rem);
-          font-weight: 900;
-          color: white;
+          font-size: 1.4rem;
+          font-weight: 700;
+          color: #000;
+          line-height: 1.3;
+          margin-bottom: 1rem;
           text-align: center;
-          line-height: 1.1;
-          margin: 2rem 0;
-          text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
         
+        /* SUBTÍTULO */
         .sub-headline {
-          font-size: clamp(1rem, 3vw, 1.4rem);
-          color: #ccc;
-          text-align: center;
+          font-size: 1rem;
+          color: #000;
           margin-bottom: 2rem;
-          font-weight: 300;
+          font-weight: 400;
         }
         
-        .cta-premium {
-          background: linear-gradient(45deg, #dc2626, #ef4444) !important;
+        /* BOTÃO PRETO EXATO DA IMAGEM */
+        .cta-button {
+          background-color: #000 !important;
           color: white !important;
-          padding: 1.2rem 3rem !important;
-          font-size: 1.1rem !important;
-          font-weight: bold !important;
-          border-radius: 50px !important;
-          box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4) !important;
-          text-transform: uppercase !important;
-          letter-spacing: 1px !important;
+          padding: 1rem 2.5rem !important;
+          font-size: 1rem !important;
+          font-weight: 700 !important;
+          border-radius: 8px !important;
           border: none !important;
-          transition: all 0.3s ease !important;
+          text-transform: uppercase !important;
+          letter-spacing: 0.5px !important;
+          transition: all 0.2s ease !important;
+          display: inline-flex !important;
+          align-items: center !important;
+          gap: 0.5rem !important;
         }
         
-        .cta-premium:hover {
-          transform: translateY(-2px) !important;
-          box-shadow: 0 12px 35px rgba(220, 38, 38, 0.6) !important;
+        .cta-button:hover {
+          background-color: #333 !important;
+          transform: translateY(-1px) !important;
         }
         
-        .copyright-text {
-          position: absolute;
-          bottom: 1rem;
-          right: 2rem;
-          color: #888;
-          font-size: 0.8rem;
-          z-index: 10;
+        /* TEXTO DE CONFIDENCIALIDADE */
+        .privacy-text {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          color: #666;
+          font-size: 0.9rem;
+          margin-top: 1.5rem;
         }
         
+        .lock-icon {
+          width: 16px;
+          height: 16px;
+          color: #666;
+        }
+        
+        /* RESPONSIVIDADE */
         @media (max-width: 768px) {
-          .artistic-bg {
-            width: 100%;
-            opacity: 0.2;
+          .hero-container {
+            background-attachment: scroll;
           }
           
-          .testimonial-bubble {
-            top: 1rem;
-            left: 1rem;
-            right: 1rem;
-            max-width: none;
-            flex-direction: column;
-            text-align: center;
+          .content-wrapper {
+            padding: 1.5rem 1rem;
           }
           
-          .testimonial-avatar {
-            align-self: center;
+          .main-card {
+            padding: 2rem 1.5rem;
           }
           
-          .copyright-text {
-            bottom: 0.5rem;
-            right: 1rem;
-            font-size: 0.7rem;
+          .main-headline {
+            font-size: 1.2rem;
+          }
+          
+          .cta-button {
+            padding: 0.9rem 2rem !important;
+            font-size: 0.9rem !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .stars-section {
+            gap: 2px;
+          }
+          
+          .star-black {
+            width: 18px;
+            height: 18px;
+          }
+          
+          .main-headline {
+            font-size: 1.1rem;
+          }
+          
+          .sub-headline {
+            font-size: 0.9rem;
           }
         }
       `}</style>
 
-      {/* Container principal */}
+      {/* Container principal com background fixo */}
       <div className="hero-container">
-
-        {/* FUNDO ARTÍSTICO */}
-        <div className="artistic-bg"></div>
-        
-        {/* PARTÍCULAS DE LUZ */}
-        <div className="light-particles particle-1"></div>
-        <div className="light-particles particle-2"></div>
-        <div className="light-particles particle-3"></div>
 
         {/* Loading overlay */}
         {isLoading && (
@@ -339,90 +317,66 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* DEPOIMENTO COM FOTO - Canto Superior Esquerdo */}
-        <div className="testimonial-bubble">
-          {/* FOTO DO AVATAR */}
-          <div className="https://comprarplanseguro.shop/wp-content/uploads/2025/06/06.png"></div>
+        {/* CONTEÚDO PRINCIPAL - LAYOUT EXATO DA IMAGEM */}
+        <div className="content-wrapper">
           
-          {/* CONTEÚDO DO DEPOIMENTO */}
-          <div className="testimonial-content">
-            <div className="stars-container">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="star-gold" fill="currentColor" />
-              ))}
-            </div>
-            <div className="user-name">
+          {/* 5 ESTRELAS NO TOPO */}
+          <div className="stars-section">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="star-black" fill="currentColor" />
+            ))}
+          </div>
+
+          {/* DEPOIMENTO */}
+          <div className="testimonial-section">
+            <div className="testimonial-author">
               Wand Henrique (@wandhenriqueoficial)
             </div>
             <div className="testimonial-text">
-              "Fiz e refiz seu Quiz umas 30 vezes kkkkkkkkk ficou insano!"
+              "Fiz e refiz seu Quiz umas 30 vezes kkkkkkkkkk ficou insano!"
             </div>
           </div>
-        </div>
 
-        {/* Conteúdo principal */}
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 pt-20">
-          
-          <Card className="w-full max-w-2xl bg-black/20 backdrop-blur-sm border-gray-700">
-            <CardContent className="p-8 text-center">
+          {/* CAIXA CINZA PRINCIPAL */}
+          <div className="main-card">
+            
+            {/* HEADLINE PRINCIPAL */}
+            <h1 className="main-headline">
+              Faço até perfis fracos venderem 100% no piloto automático.
+            </h1>
+            
+            {/* SUBTÍTULO */}
+            <p className="sub-headline">
+              Sem truques, só o poder do método certo.
+            </p>
 
-              {/* Logo */}
-              <div className="mb-8 flex justify-center">
-                <img
-                  src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
-                  alt="Logo"
-                  className="h-16 w-auto"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                  }}
-                />
-              </div>
+            {/* BOTÃO CTA PRETO */}
+            <Button
+              onClick={handleStart}
+              disabled={isLoading || !isOnline}
+              className="cta-button"
+            >
+              {isLoading ? (
+                <>
+                  PREPARANDO...
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                </>
+              ) : (
+                <>
+                  COMEÇAR AGORA
+                  <ArrowRight className="h-4 w-4" />
+                </>
+              )}
+            </Button>
 
-              {/* Headlines */}
-              <div className="space-y-4">
-                <h1 className="main-headline">
-                  Faço até perfis fracos venderem 100% no piloto automático.
-                </h1>
-                
-                <p className="sub-headline">
-                  Sem truques, só o poder do método certo.
-                </p>
-              </div>
+          </div>
 
-              {/* CTA Button */}
-              <div className="mt-8">
-                <Button
-                  onClick={handleStart}
-                  disabled={isLoading || !isOnline}
-                  className="cta-premium"
-                  size="lg"
-                >
-                  {isLoading ? (
-                    <span className="flex items-center">
-                      PREPARANDO...
-                      <div className="ml-2 w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    </span>
-                  ) : (
-                    <span className="flex items-center">
-                      COMEÇAR AGORA
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </span>
-                  )}
-                </Button>
-              </div>
+          {/* TEXTO DE CONFIDENCIALIDADE */}
+          <div className="privacy-text">
+            <Lock className="lock-icon" />
+            Suas respostas são confidenciais e estão protegidas
+          </div>
 
-              <div className="mt-6 flex items-center justify-center text-gray-400 text-sm">
-                <Lock className="h-4 w-4 mr-2" />
-                Suas respostas são confidenciais e estão protegidas
-              </div>
-
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Copyright */}
-        <div className="copyright-text">
-          Bel Fada™ Todos os Direitos Reservados.
         </div>
 
       </div>
