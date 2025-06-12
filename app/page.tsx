@@ -202,7 +202,7 @@ export default function HomePage() {
           margin-bottom: 30px !important;
         }
         
-        /* DEPOIMENTO */
+        /* DEPOIMENTO - OTIMIZADO PARA MOBILE */
         .depoimento {
           position: absolute;
           top: 20px;
@@ -215,6 +215,7 @@ export default function HomePage() {
           display: flex;
           align-items: center;
           gap: 10px;
+          z-index: 10;
         }
         
         .avatar {
@@ -225,6 +226,7 @@ export default function HomePage() {
           background-size: cover;
           background-position: center;
           border: 2px solid #FFD700;
+          flex-shrink: 0;
         }
         
         .estrelas {
@@ -241,6 +243,16 @@ export default function HomePage() {
         .texto-depoimento {
           color: #ffffff;
           font-size: 11px;
+          line-height: 1.3;
+        }
+        
+        /* LOGO ARREDONDADA */
+        .logo-arredondada {
+          border-radius: 50% !important;
+          width: 120px !important;
+          height: 120px !important;
+          object-fit: cover !important;
+          border: 3px solid #333333 !important;
         }
         
         /* LOADING */
@@ -277,23 +289,116 @@ export default function HomePage() {
           transition: width 0.3s ease;
         }
         
-        /* RESPONSIVO */
+        /* RESPONSIVO MOBILE-FIRST */
         @media (max-width: 768px) {
           .container-preto {
             padding: 20px !important;
             margin: 10px !important;
+            border-radius: 15px !important;
           }
           
           .titulo-principal {
             font-size: 24px !important;
+            margin-bottom: 15px !important;
+          }
+          
+          .subtitulo {
+            font-size: 16px !important;
+            margin-bottom: 25px !important;
           }
           
           .depoimento {
             position: relative;
             top: 0;
             left: 0;
-            margin-bottom: 20px;
+            margin: 0 auto 15px auto;
             max-width: 100%;
+            padding: 12px;
+          }
+          
+          .avatar {
+            width: 40px;
+            height: 40px;
+          }
+          
+          .nome-usuario {
+            font-size: 11px;
+          }
+          
+          .texto-depoimento {
+            font-size: 10px;
+          }
+          
+          .estrelas {
+            font-size: 11px;
+          }
+          
+          .logo-arredondada {
+            width: 100px !important;
+            height: 100px !important;
+          }
+          
+          .btn-vermelho-pulsante {
+            padding: 14px 28px !important;
+            font-size: 16px !important;
+            max-width: 280px !important;
+          }
+          
+          .progress-bar {
+            width: 150px;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .container-preto {
+            padding: 15px !important;
+            margin: 5px !important;
+          }
+          
+          .titulo-principal {
+            font-size: 20px !important;
+          }
+          
+          .subtitulo {
+            font-size: 14px !important;
+          }
+          
+          .depoimento {
+            padding: 10px;
+            gap: 8px;
+          }
+          
+          .avatar {
+            width: 35px;
+            height: 35px;
+          }
+          
+          .logo-arredondada {
+            width: 80px !important;
+            height: 80px !important;
+          }
+          
+          .btn-vermelho-pulsante {
+            padding: 12px 24px !important;
+            font-size: 14px !important;
+            max-width: 250px !important;
+          }
+        }
+        
+        /* OTIMIZAÇÃO DE ESPAÇAMENTO */
+        .main-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          padding-top: 80px;
+        }
+        
+        @media (max-width: 768px) {
+          .main-content {
+            padding-top: 20px;
+            min-height: calc(100vh - 40px);
           }
         }
       `}</style>
@@ -362,7 +467,7 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* DEPOIMENTO */}
+      {/* DEPOIMENTO - Agora mais próximo do container */}
       <div className="depoimento">
         <div className="avatar"></div>
         <div>
@@ -373,24 +478,18 @@ export default function HomePage() {
       </div>
 
       {/* CONTEÚDO PRINCIPAL */}
-      <div style={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center', 
-        minHeight: '100vh',
-        paddingTop: '100px'
-      }}>
+      <div className="main-content">
         
         <div className="container-preto">
           
-          {/* Logo */}
+          {/* Logo Arredondada */}
           <div style={{ marginBottom: '30px' }}>
             <Image
               src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
               alt="Logo Plan A"
-              width={200}
-              height={60}
-              style={{ maxWidth: '100%', height: 'auto' }}
+              width={120}
+              height={120}
+              className="logo-arredondada"
               onError={(e) => {
                 e.target.style.display = 'none';
               }}
@@ -441,7 +540,7 @@ export default function HomePage() {
             justifyContent: 'center',
             color: '#ffffff',
             fontSize: '14px',
-            marginTop: '30px',
+            marginTop: '20px',
             padding: '15px',
             background: 'rgba(255, 255, 255, 0.1)',
             borderRadius: '10px',
