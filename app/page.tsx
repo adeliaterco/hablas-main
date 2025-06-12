@@ -342,7 +342,7 @@ export default function HomePage() {
         {/* DEPOIMENTO COM FOTO - Canto Superior Esquerdo */}
         <div className="testimonial-bubble">
           {/* FOTO DO AVATAR */}
-          <div className="testimonial-avatar"></div>
+          <div className="https://comprarplanseguro.shop/wp-content/uploads/2025/06/06.png"></div>
           
           {/* CONTEÚDO DO DEPOIMENTO */}
           <div className="testimonial-content">
@@ -369,7 +369,7 @@ export default function HomePage() {
               {/* Logo */}
               <div className="mb-8 flex justify-center">
                 <img
-                  src="/logo.png"
+                  src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/06.png"
                   alt="Logo"
                   className="h-16 w-auto"
                   onError={(e) => {
