@@ -2,9 +2,12 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { ArrowRight, Lock, Star } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
 import { useRouter } from "next/navigation"
+import Image from "next/image"
 
-// GA otimizado
+// GA otimizado - só envia quando necessário
 const enviarEvento = (() => {
   let queue = [];
   let timeout;
@@ -30,7 +33,36 @@ export default function HomePage() {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [isOnline, setIsOnline] = useState(true);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
+  // Preload crítico das imagens
+  useEffect(() => {
+    const preloadImages = async () => {
+      const imageUrls = [
+        'https://comprarplanseguro.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-11T112151.941.png',
+        'https://comprarplanseguro.shop/wp-content/uploads/2025/06/06.png',
+        'https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png'
+      ];
+
+      const promises = imageUrls.map(url => {
+        return new Promise((resolve) => {
+          const img = new window.Image();
+          img.onload = () => resolve(true);
+          img.onerror = () => resolve(false);
+          img.src = url;
+        });
+      });
+
+      await Promise.all(promises);
+      setImagesLoaded(true);
+    };
+
+    if (typeof window !== 'undefined') {
+      preloadImages();
+    }
+  }, []);
+
+  // Detecção de conexão minimalista
   useEffect(() => {
     if (typeof window === 'undefined') return;
     
@@ -45,6 +77,7 @@ export default function HomePage() {
     };
   }, []);
 
+  // Tracking minimalista - só o essencial
   useEffect(() => {
     if (typeof window === 'undefined') return;
     
@@ -57,6 +90,7 @@ export default function HomePage() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Função de início ultra-otimizada
   const handleStart = useCallback(() => {
     if (isLoading || !isOnline) return;
 
@@ -73,6 +107,7 @@ export default function HomePage() {
       if (progress >= 100) {
         clearInterval(interval);
         
+        // Preservar UTMs
         let url = '/quiz/1';
         if (typeof window !== 'undefined' && window.location.search) {
           const params = new URLSearchParams(window.location.search);
@@ -92,394 +127,584 @@ export default function HomePage() {
   }, [isLoading, isOnline, router]);
 
   return (
-    <div style={{
-      background: '#000000',
-      minHeight: '100vh',
-      position: 'relative',
-      overflow: 'hidden',
-      width: '100%',
-      margin: 0,
-      padding: 0
-    }}>
-
-      {/* CSS Global para eliminar QUALQUER branco */}
-      <style jsx global>{`
+    <>
+      {/* CSS Inline Crítico - MOBILE FIRST */}
+      <style jsx>{`
+        .hero-container {
+          background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+          min-height: 100vh;
+          position: relative;
+          overflow: hidden;
+          width: 100%;
+        }
+        
+        /* FUNDO ARTÍSTICO OTIMIZADO - MOBILE FIRST */
+        .artistic-bg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: url('https://comprarplanseguro.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-11T112151.941.png');
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          opacity: 0.15;
+          filter: blur(0.5px) contrast(1.3) brightness(0.8);
+          z-index: 1;
+          transform: scale(1.05);
+        }
+        
+        .artistic-bg::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.7) 70%, rgba(0,0,0,0.9) 100%);
+          z-index: 2;
+        }
+        
+        /* PARTÍCULAS DE LUZ OTIMIZADAS */
+        .light-particles {
+          position: absolute;
+          width: 3px;
+          height: 3px;
+          background: linear-gradient(45deg, #FFD700, #FFA500);
+          border-radius: 50%;
+          opacity: 0.8;
+          animation: float 4s ease-in-out infinite;
+          z-index: 3;
+          box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        .particle-1 { 
+          bottom: 25%; 
+          right: 10%; 
+          animation-delay: 0s; 
+          animation-duration: 3s;
+        }
+        .particle-2 { 
+          bottom: 45%; 
+          right: 20%; 
+          animation-delay: 1.5s; 
+          animation-duration: 4s;
+        }
+        .particle-3 { 
+          bottom: 65%; 
+          left: 15%; 
+          animation-delay: 3s; 
+          animation-duration: 3.5s;
+        }
+        .particle-4 { 
+          top: 30%; 
+          left: 20%; 
+          animation-delay: 2s; 
+          animation-duration: 4.5s;
+        }
+        
+        @keyframes float {
+          0%, 100% { 
+            transform: translateY(0px) scale(1); 
+            opacity: 0.8; 
+          }
+          50% { 
+            transform: translateY(-25px) scale(1.3); 
+            opacity: 1; 
+          }
+        }
+        
+        /* DEPOIMENTO MOBILE FIRST */
+        .testimonial-bubble {
+          position: absolute;
+          top: 1rem;
+          left: 1rem;
+          right: 1rem;
+          background: rgba(0, 0, 0, 0.95);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 215, 0, 0.2);
+          border-radius: 20px;
+          padding: 1rem;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+          z-index: 15;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          max-width: 100%;
+        }
+        
+        .testimonial-bubble::after {
+          content: '';
+          position: absolute;
+          bottom: -8px;
+          left: 2rem;
+          width: 0;
+          height: 0;
+          border-left: 8px solid transparent;
+          border-right: 8px solid transparent;
+          border-top: 8px solid rgba(0, 0, 0, 0.95);
+        }
+        
+        /* AVATAR OTIMIZADO E REDONDO */
+        .testimonial-avatar {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          background-image: url('https://comprarplanseguro.shop/wp-content/uploads/2025/06/06.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          border: 2px solid #FFD700;
+          flex-shrink: 0;
+          box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .testimonial-avatar::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.1) 50%, transparent 70%);
+          animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+        
+        .testimonial-content {
+          flex: 1;
+          min-width: 0;
+        }
+        
+        .stars-container {
+          display: flex;
+          gap: 1px;
+          margin-bottom: 0.25rem;
+          justify-content: flex-start;
+        }
+        
+        .star-gold {
+          color: #FFD700;
+          width: 12px;
+          height: 12px;
+          filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.5));
+        }
+        
+        .user-name {
+          background: linear-gradient(45deg, #FFD700, #FFA500);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          font-weight: 700;
+          font-size: 0.8rem;
+          margin-bottom: 0.25rem;
+          line-height: 1.2;
+        }
+        
+        .testimonial-text {
+          color: #ffffff;
+          font-size: 0.75rem;
+          line-height: 1.3;
+          font-weight: 400;
+        }
+        
+        /* HEADLINES MOBILE FIRST */
+        .main-headline {
+          font-size: clamp(1.8rem, 8vw, 2.8rem);
+          font-weight: 900;
+          color: #ffffff;
+          text-align: center;
+          line-height: 1.1;
+          margin: 1.5rem 0;
+          text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
+          background: linear-gradient(135deg, #ffffff, #e5e5e5);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        
+        .sub-headline {
+          font-size: clamp(0.95rem, 4vw, 1.2rem);
+          color: #cccccc;
+          text-align: center;
+          margin-bottom: 2rem;
+          font-weight: 300;
+          line-height: 1.4;
+          text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+        
+        /* LOGO OTIMIZADO */
+        .logo-container {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 2rem;
+          position: relative;
+        }
+        
+        .logo-image {
+          height: 60px;
+          width: auto;
+          max-width: 200px;
+          object-fit: contain;
+          filter: drop-shadow(0 4px 15px rgba(255, 215, 0, 0.3));
+          transition: all 0.3s ease;
+        }
+        
+        .logo-image:hover {
+          transform: scale(1.05);
+          filter: drop-shadow(0 6px 20px rgba(255, 215, 0, 0.5));
+        }
+        
+        /* CTA BUTTON PREMIUM */
+        .cta-premium {
+          background: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #dc2626 100%) !important;
+          color: white !important;
+          padding: 1rem 2.5rem !important;
+          font-size: 1rem !important;
+          font-weight: 800 !important;
+          border-radius: 50px !important;
+          box-shadow: 
+            0 8px 25px rgba(220, 38, 38, 0.4),
+            inset 0 1px 0 rgba(255,255,255,0.2) !important;
+          text-transform: uppercase !important;
+          letter-spacing: 0.5px !important;
+          border: none !important;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+          position: relative !important;
+          overflow: hidden !important;
+          width: 100% !important;
+          max-width: 300px !important;
+        }
+        
+        .cta-premium::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+          transition: left 0.5s;
+        }
+        
+        .cta-premium:hover::before {
+          left: 100%;
+        }
+        
+        .cta-premium:hover {
+          transform: translateY(-3px) !important;
+          box-shadow: 
+            0 15px 40px rgba(220, 38, 38, 0.6),
+            inset 0 1px 0 rgba(255,255,255,0.3) !important;
+        }
+        
+        .cta-premium:active {
+          transform: translateY(-1px) !important;
+        }
+        
+        /* CARD OTIMIZADO */
+        .main-card {
+          background: rgba(0, 0, 0, 0.3) !important;
+          backdrop-filter: blur(15px) !important;
+          border: 1px solid rgba(255, 255, 255, 0.1) !important;
+          border-radius: 25px !important;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8) !important;
+        }
+        
+        .card-content {
+          padding: 2rem 1.5rem !important;
+        }
+        
+        /* SECURITY BADGE */
+        .security-badge {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #888;
+          font-size: 0.8rem;
+          margin-top: 1.5rem;
+          padding: 0.75rem;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 15px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* COPYRIGHT */
+        .copyright-text {
+          position: absolute;
+          bottom: 0.5rem;
+          left: 50%;
+          transform: translateX(-50%);
+          color: #666;
+          font-size: 0.7rem;
+          z-index: 10;
+          text-align: center;
+          width: 100%;
+          padding: 0 1rem;
+        }
+        
+        /* LOADING OTIMIZADO */
+        .loading-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.95);
+          backdrop-filter: blur(10px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 100;
+        }
+        
+        .loading-content {
+          text-align: center;
+          padding: 2rem;
+        }
+        
+        .loading-text {
+          color: white;
+          font-size: 1.2rem;
+          margin-bottom: 1.5rem;
+          font-weight: 600;
+        }
+        
+        .progress-bar {
+          width: 280px;
+          height: 6px;
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 10px;
+          overflow: hidden;
+          position: relative;
+        }
+        
+        .progress-fill {
+          height: 100%;
+          background: linear-gradient(90deg, #dc2626, #ef4444);
+          border-radius: 10px;
+          transition: width 0.3s ease;
+          position: relative;
+        }
+        
+        .progress-fill::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+          animation: progressShimmer 1.5s infinite;
+        }
+        
+        @keyframes progressShimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+        
+        /* RESPONSIVO TABLET */
+        @media (min-width: 768px) {
+          .artistic-bg {
+            width: 70%;
+            right: 0;
+            left: auto;
+            opacity: 0.25;
+          }
+          
+          .testimonial-bubble {
+            top: 2rem;
+            left: 2rem;
+            right: auto;
+            max-width: 350px;
+          }
+          
+          .card-content {
+            padding: 2.5rem !important;
+          }
+          
+          .cta-premium {
+            width: auto !important;
+            padding: 1.2rem 3rem !important;
+            font-size: 1.1rem !important;
+          }
+        }
+        
+        /* RESPONSIVO DESKTOP */
+        @media (min-width: 1024px) {
+          .artistic-bg {
+            width: 60%;
+            opacity: 0.3;
+          }
+          
+          .testimonial-bubble {
+            max-width: 400px;
+          }
+        }
+        
+        /* OTIMIZAÇÕES DE PERFORMANCE */
         * {
-          margin: 0 !important;
-          padding: 0 !important;
-          box-sizing: border-box !important;
-        }
-        
-        html, body {
-          background: #000000 !important;
-          color: #FFFFFF !important;
-          margin: 0 !important;
-          padding: 0 !important;
-        }
-        
-        body * {
-          background-color: transparent !important;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
         }
         
         .hero-container * {
-          background: transparent !important;
+          will-change: auto;
+        }
+        
+        .light-particles {
+          will-change: transform, opacity;
+        }
+        
+        .cta-premium {
+          will-change: transform, box-shadow;
         }
       `}</style>
 
-      {/* IMAGEM DE FUNDO */}
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundImage: 'url("https://comprarplanseguro.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-11T112151.941.png")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center center',
-        backgroundRepeat: 'no-repeat',
-        opacity: 0.4,
-        zIndex: 1
-      }}></div>
+      {/* Container principal */}
+      <div className="hero-container">
 
-      {/* PARTÍCULAS DOURADAS */}
-      {[1, 2, 3, 4].map((i) => (
-        <div
-          key={i}
-          style={{
-            position: 'absolute',
-            width: '4px',
-            height: '4px',
-            background: '#FFD700',
-            borderRadius: '50%',
-            opacity: 0.9,
-            zIndex: 3,
-            boxShadow: '0 0 15px rgba(255, 215, 0, 0.6)',
-            animation: `float${i} 4s ease-in-out infinite`,
-            ...(i === 1 && { bottom: '25%', right: '10%', animationDelay: '0s' }),
-            ...(i === 2 && { bottom: '45%', right: '20%', animationDelay: '1.5s' }),
-            ...(i === 3 && { bottom: '65%', left: '15%', animationDelay: '3s' }),
-            ...(i === 4 && { top: '30%', left: '20%', animationDelay: '2s' })
-          }}
-        ></div>
-      ))}
+        {/* FUNDO ARTÍSTICO */}
+        <div className="artistic-bg"></div>
+        
+        {/* PARTÍCULAS DE LUZ */}
+        <div className="light-particles particle-1"></div>
+        <div className="light-particles particle-2"></div>
+        <div className="light-particles particle-3"></div>
+        <div className="light-particles particle-4"></div>
 
-      <style jsx>{`
-        @keyframes float1, @keyframes float2, @keyframes float3, @keyframes float4 {
-          0%, 100% { transform: translateY(0px) scale(1); opacity: 0.9; }
-          50% { transform: translateY(-25px) scale(1.3); opacity: 1; }
-        }
-      `}</style>
-
-      {/* Loading overlay */}
-      {isLoading && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: '#000000',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 100
-        }}>
-          <div style={{ textAlign: 'center', padding: '2rem' }}>
-            <div style={{
-              color: '#FFFFFF',
-              fontSize: '1.2rem',
-              marginBottom: '1.5rem',
-              fontWeight: 600
-            }}>
-              Preparando seu teste...
-            </div>
-            <div style={{
-              width: '280px',
-              height: '6px',
-              background: '#333333',
-              borderRadius: '10px',
-              overflow: 'hidden'
-            }}>
-              <div style={{
-                height: '100%',
-                background: 'linear-gradient(90deg, #FFD700, #FFA500)',
-                borderRadius: '10px',
-                transition: 'width 0.3s ease',
-                width: `${loadingProgress}%`
-              }} />
+        {/* Loading overlay otimizado */}
+        {isLoading && (
+          <div className="loading-overlay">
+            <div className="loading-content">
+              <div className="loading-text">Preparando seu teste...</div>
+              <div className="progress-bar">
+                <div 
+                  className="progress-fill"
+                  style={{ width: `${loadingProgress}%` }}
+                />
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Error message */}
-      {errorMessage && (
-        <div style={{
-          position: 'fixed',
-          top: '1rem',
-          left: '1rem',
-          right: '1rem',
-          background: '#dc2626',
-          color: '#ffffff',
-          padding: '1rem',
-          borderRadius: '12px',
-          zIndex: 50,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between'
-        }}>
-          <span>{errorMessage}</span>
-          <button 
-            onClick={() => setErrorMessage("")}
-            style={{
-              marginLeft: '0.5rem',
-              fontWeight: 'bold',
-              fontSize: '1.25rem',
-              background: 'transparent',
-              border: 'none',
-              color: '#ffffff',
-              cursor: 'pointer'
-            }}
-          >
-            ×
-          </button>
-        </div>
-      )}
-
-      {/* Offline indicator */}
-      {!isOnline && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          background: '#d97706',
-          color: '#ffffff',
-          textAlign: 'center',
-          padding: '0.75rem',
-          zIndex: 50
-        }}>
-          ⚠️ Sem conexão com a internet
-        </div>
-      )}
-
-      {/* DEPOIMENTO */}
-      <div style={{
-        position: 'absolute',
-        top: '1rem',
-        left: '1rem',
-        right: '1rem',
-        background: 'rgba(0, 0, 0, 0.9)',
-        border: '2px solid #FFD700',
-        borderRadius: '20px',
-        padding: '1rem',
-        zIndex: 15,
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.75rem'
-      }}>
-        {/* Avatar */}
-        <div style={{
-          width: '48px',
-          height: '48px',
-          borderRadius: '50%',
-          backgroundImage: 'url("https://comprarplanseguro.shop/wp-content/uploads/2025/06/06.png")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          border: '3px solid #FFD700',
-          flexShrink: 0
-        }}></div>
-        
-        {/* Conteúdo */}
-        <div style={{ flex: 1 }}>
-          <div style={{ display: 'flex', gap: '2px', marginBottom: '0.25rem' }}>
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} style={{ color: '#FFD700', width: '14px', height: '14px' }} fill="currentColor" />
-            ))}
-          </div>
-          <div style={{
-            color: '#FFD700',
-            fontWeight: 700,
-            fontSize: '0.85rem',
-            marginBottom: '0.25rem'
-          }}>
-            Wand Henrique (@wandhenriqueoficial)
-          </div>
-          <div style={{
-            color: '#FFFFFF',
-            fontSize: '0.8rem',
-            lineHeight: 1.3
-          }}>
-            "Fiz e refiz seu Quiz umas 30 vezes kkkkkkkkk ficou insano!"
-          </div>
-        </div>
-      </div>
-
-      {/* CONTEÚDO PRINCIPAL - SEM FUNDO BRANCO */}
-      <div style={{
-        position: 'relative',
-        zIndex: 10,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: '100vh',
-        padding: '120px 16px 64px',
-        background: 'transparent'
-      }}>
-        
-        <div style={{
-          width: '100%',
-          maxWidth: '600px',
-          textAlign: 'center',
-          background: 'transparent'
-        }}>
-
-          {/* Logo */}
-          <div style={{ marginBottom: '2rem' }}>
-            <img
-              src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
-              alt="Logo Plan A"
-              style={{
-                height: '60px',
-                width: 'auto',
-                maxWidth: '200px',
-                objectFit: 'contain',
-                filter: 'drop-shadow(0 4px 15px rgba(255, 215, 0, 0.4))'
-              }}
-              onError={(e) => {
-                e.target.style.display = 'none';
-              }}
-            />
-          </div>
-
-          {/* Headline Principal */}
-          <h1 style={{
-            fontSize: 'clamp(1.8rem, 8vw, 2.8rem)',
-            fontWeight: 900,
-            color: '#FFFFFF',
-            textAlign: 'center',
-            lineHeight: 1.1,
-            margin: '1.5rem 0',
-            textShadow: '2px 2px 8px rgba(0,0,0,0.9)'
-          }}>
-            Faço até perfis fracos venderem 100% no piloto automático.
-          </h1>
-          
-          {/* Subtítulo */}
-          <p style={{
-            fontSize: 'clamp(0.95rem, 4vw, 1.2rem)',
-            color: '#CCCCCC',
-            textAlign: 'center',
-            marginBottom: '2rem',
-            fontWeight: 400,
-            lineHeight: 1.4,
-            textShadow: '1px 1px 4px rgba(0,0,0,0.8)'
-          }}>
-            Sem truques, só o poder do método certo.
-          </p>
-
-          {/* Botão CTA */}
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
-            <button
-              onClick={handleStart}
-              disabled={isLoading || !isOnline}
-              style={{
-                background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
-                color: '#000000',
-                padding: '1rem 2.5rem',
-                fontSize: '1rem',
-                fontWeight: 800,
-                borderRadius: '50px',
-                boxShadow: '0 8px 25px rgba(255, 215, 0, 0.4)',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-                border: 'none',
-                transition: 'all 0.3s ease',
-                width: '100%',
-                maxWidth: '300px',
-                cursor: isLoading || !isOnline ? 'not-allowed' : 'pointer',
-                opacity: isLoading || !isOnline ? 0.7 : 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '0.5rem'
-              }}
-              onMouseEnter={(e) => {
-                if (!isLoading && isOnline) {
-                  e.target.style.transform = 'translateY(-3px)';
-                  e.target.style.boxShadow = '0 15px 40px rgba(255, 215, 0, 0.6)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!isLoading && isOnline) {
-                  e.target.style.transform = 'translateY(0px)';
-                  e.target.style.boxShadow = '0 8px 25px rgba(255, 215, 0, 0.4)';
-                }
-              }}
+        {/* Error message otimizado */}
+        {errorMessage && (
+          <div className="fixed top-4 left-4 right-4 bg-red-600/90 backdrop-blur-sm text-white p-4 rounded-2xl z-50 flex items-center justify-between border border-red-500/30">
+            <span className="font-medium">{errorMessage}</span>
+            <button 
+              onClick={() => setErrorMessage("")} 
+              className="ml-2 font-bold text-xl hover:bg-red-700/50 w-8 h-8 rounded-full flex items-center justify-center transition-colors"
             >
-              {isLoading ? (
-                <>
-                  PREPARANDO...
-                  <div style={{
-                    width: '16px',
-                    height: '16px',
-                    border: '2px solid rgba(0,0,0,0.3)',
-                    borderTop: '2px solid #000000',
-                    borderRadius: '50%',
-                    animation: 'spin 1s linear infinite'
-                  }} />
-                </>
-              ) : (
-                <>
-                  COMEÇAR AGORA
-                  <ArrowRight style={{ width: '20px', height: '20px' }} />
-                </>
-              )}
+              ×
             </button>
           </div>
+        )}
 
-          <style jsx>{`
-            @keyframes spin {
-              0% { transform: rotate(0deg); }
-              100% { transform: rotate(360deg); }
-            }
-          `}</style>
-
-          {/* Security Badge */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#CCCCCC',
-            fontSize: '0.8rem',
-            padding: '0.75rem',
-            background: 'rgba(0, 0, 0, 0.6)',
-            borderRadius: '15px',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            gap: '0.5rem'
-          }}>
-            <Lock style={{ width: '16px', height: '16px' }} />
-            Suas respostas são confidenciais e estão protegidas
+        {/* Offline indicator otimizado */}
+        {!isOnline && (
+          <div className="fixed top-0 left-0 right-0 bg-yellow-600/90 backdrop-blur-sm text-white text-center p-3 z-50 font-medium">
+            ⚠️ Sem conexão com a internet
           </div>
+        )}
 
+        {/* DEPOIMENTO COM FOTO - Otimizado */}
+        <div className="testimonial-bubble">
+          {/* FOTO DO AVATAR OTIMIZADA */}
+          <div className="testimonial-avatar"></div>
+          
+          {/* CONTEÚDO DO DEPOIMENTO */}
+          <div className="testimonial-content">
+            <div className="stars-container">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="star-gold" fill="currentColor" />
+              ))}
+            </div>
+            <div className="user-name">
+              Wand Henrique (@wandhenriqueoficial)
+            </div>
+            <div className="testimonial-text">
+              "Fiz e refiz seu Quiz umas 30 vezes kkkkkkkkk ficou insano!"
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Copyright */}
-      <div style={{
-        position: 'absolute',
-        bottom: '0.5rem',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        color: '#888888',
-        fontSize: '0.7rem',
-        zIndex: 10,
-        textAlign: 'center'
-      }}>
-        Bel Fada™ Todos os Direitos Reservados.
-      </div>
+        {/* Conteúdo principal */}
+        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 pt-24 pb-16">
+          
+          <Card className="w-full max-w-2xl main-card">
+            <CardContent className="card-content text-center">
 
-    </div>
+              {/* Logo Otimizado */}
+              <div className="logo-container">
+                <Image
+                  src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
+                  alt="Logo Plan A"
+                  width={200}
+                  height={60}
+                  className="logo-image"
+                  priority
+                  quality={90}
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                  }}
+                />
+              </div>
+
+              {/* Headlines */}
+              <div className="space-y-4">
+                <h1 className="main-headline">
+                  Faço até perfis fracos venderem 100% no piloto automático.
+                </h1>
+                
+                <p className="sub-headline">
+                  Sem truques, só o poder do método certo.
+                </p>
+              </div>
+
+              {/* CTA Button */}
+              <div className="mt-8 flex justify-center">
+                <Button
+                  onClick={handleStart}
+                  disabled={isLoading || !isOnline}
+                  className="cta-premium"
+                  size="lg"
+                >
+                  {isLoading ? (
+                    <span className="flex items-center">
+                      PREPARANDO...
+                      <div className="ml-2 w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    </span>
+                  ) : (
+                    <span className="flex items-center">
+                      COMEÇAR AGORA
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </span>
+                  )}
+                </Button>
+              </div>
+
+              {/* Security Badge */}
+              <div className="security-badge">
+                <Lock className="h-4 w-4 mr-2" />
+                Suas respostas são confidenciais e estão protegidas
+              </div>
+
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Copyright */}
+        <div className="copyright-text">
+          Bel Fada™ Todos os Direitos Reservados.
+        </div>
+
+      </div>
+    </>
   );
 }
