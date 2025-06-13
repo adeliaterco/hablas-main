@@ -547,72 +547,77 @@ export default function QuizStep() {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.1, duration: 0.4 }}
                           className="relative"
-
-                          {/* GIF ESPECIAL PARA A OPÇÃO "No dejes que la..." NA ETAPA 1 */}
-{step === 1 && option.includes("No dejes que la") && (
-  <motion.div
-    initial={{ opacity: 0, y: -20, scale: 0.8 }}
-    animate={{ opacity: 1, y: 0, scale: 1 }}
-    transition={{ 
-      delay: 0.3, 
-      duration: 0.6,
-      type: "spring",
-      bounce: 0.4
-    }}
-    className="flex flex-col items-center mb-6"
-  >
-    {/* Container do GIF com efeitos */}
-    <div className="relative mb-3">
-      <motion.img
-        src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/edy1q-marilyn-monroe-gif-by-maudit.gif"
-        alt="Marilyn Monroe GIF"
-        className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-full border-4 border-gradient-to-r from-pink-500 to-red-500 shadow-2xl"
-        animate={{
-          y: [0, -8, 0],
-          rotate: [0, 2, -2, 0],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        style={{
-          filter: 'brightness(1.1) contrast(1.1) saturate(1.2)',
-          boxShadow: '0 0 30px rgba(236, 72, 153, 0.5)',
-        }}
-      />
-      
-      {/* Efeito de brilho pulsante */}
-      <motion.div 
-        className="absolute inset-0 rounded-full border-4 border-pink-400 opacity-60"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.6, 0.3, 0.6],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      
-      {/* Partículas de brilho */}
-      <div className="absolute -top-2 -right-2 w-4 h-4 bg-pink-400 rounded-full animate-ping opacity-75"></div>
-      <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-red-400 rounded-full animate-ping opacity-60" style={{animationDelay: '0.5s'}}></div>
-    </div>
-    
-    {/* Texto motivacional */}
-    <motion.p 
-      className="text-pink-300 text-sm font-semibold text-center max-w-xs"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.8 }}
-    >
-      💋 ¡La opción más poderosa para reconquistar!
-    </motion.p>
-  </motion.div>
-)}
                         >
+                          {/* GIF ESPECIAL PARA A OPÇÃO "No dejes que la..." NA ETAPA 1 */}
+                          {step === 1 && option.includes("No dejes que la") && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -20, scale: 0.8 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              transition={{ 
+                                delay: 0.3, 
+                                duration: 0.6,
+                                type: "spring",
+                                bounce: 0.4
+                              }}
+                              className="flex flex-col items-center mb-6"
+                            >
+                              {/* Container do GIF com efeitos */}
+                              <div className="relative mb-3">
+                                <motion.img
+                                  src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/edy1q-marilyn-monroe-gif-by-maudit.gif"
+                                  alt="Marilyn Monroe GIF"
+                                  className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-full shadow-2xl"
+                                  animate={{
+                                    y: [0, -8, 0],
+                                    rotate: [0, 2, -2, 0],
+                                  }}
+                                  transition={{
+                                    duration: 4,
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                  }}
+                                  style={{
+                                    filter: 'brightness(1.1) contrast(1.1) saturate(1.2)',
+                                    boxShadow: '0 0 30px rgba(236, 72, 153, 0.5)',
+                                    border: '4px solid transparent',
+                                    background: 'linear-gradient(45deg, #ec4899, #ef4444) border-box',
+                                    WebkitMask: 'linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0)',
+                                    WebkitMaskComposite: 'xor',
+                                    maskComposite: 'exclude',
+                                  }}
+                                />
+                                
+                                {/* Efeito de brilho pulsante */}
+                                <motion.div 
+                                  className="absolute inset-0 rounded-full border-4 border-pink-400 opacity-60"
+                                  animate={{
+                                    scale: [1, 1.1, 1],
+                                    opacity: [0.6, 0.3, 0.6],
+                                  }}
+                                  transition={{
+                                    duration: 2,
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                  }}
+                                />
+                                
+                                {/* Partículas de brilho */}
+                                <div className="absolute -top-2 -right-2 w-4 h-4 bg-pink-400 rounded-full animate-ping opacity-75"></div>
+                                <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-red-400 rounded-full animate-ping opacity-60" style={{animationDelay: '0.5s'}}></div>
+                              </div>
+                              
+                              {/* Texto motivacional */}
+                              <motion.p 
+                                className="text-pink-300 text-sm font-semibold text-center max-w-xs"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.8 }}
+                              >
+                                💋 ¡La opción más poderosa para reconquistar!
+                              </motion.p>
+                            </motion.div>
+                          )}
+
                           <button
                             onClick={() => handleAnswerSelect(option)}
                             data-option={option}
