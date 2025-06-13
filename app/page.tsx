@@ -472,8 +472,8 @@ export default function HomePage() {
         <div className="avatar"></div>
         <div>
           <div className="estrelas">★★★★★</div>
-          <div className="nome-usuario">Wand Henrique (@wandhenriqueoficial)</div>
-          <div className="texto-depoimento">"Fiz e refiz seu Quiz umas 30 vezes kkkkkkkkk ficou insano!"</div>
+          <div className="nome-usuario">Pablo Alvez (@Plaboalvezs)</div>
+          <div className="texto-depoimento">"Seguí y repetí tu Método de los 3 Pasos como unas 30 veces jajajaja ¡y funcionó de manera increíble!"</div>
         </div>
       </div>
 
@@ -527,7 +527,7 @@ export default function HomePage() {
               </span>
             ) : (
               <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                COMEÇAR AGORA
+                EMPEZAR AHORA
                 <ArrowRight style={{ marginLeft: '10px', width: '20px', height: '20px' }} />
               </span>
             )}
@@ -547,7 +547,7 @@ export default function HomePage() {
             border: '1px solid rgba(255, 255, 255, 0.2)'
           }}>
             <Lock style={{ width: '16px', height: '16px', marginRight: '8px' }} />
-            Suas respostas são confidenciais e estão protegidas
+            Tus respuestas son confidenciales y están protegidas.
           </div>
 
         </div>
@@ -563,7 +563,7 @@ export default function HomePage() {
         fontSize: '12px',
         textAlign: 'center'
       }}>
-        Plan A™ Todos os Direitos Reservados.
+        Plan A™ Todos los Derechos Reservados.
       </div>
 
       <style jsx>{`
