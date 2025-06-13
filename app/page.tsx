@@ -498,12 +498,12 @@ export default function HomePage() {
 
           {/* Título */}
           <h1 className="titulo-principal">
-            Faço até perfis fracos venderem 100% no piloto automático.
+            Hago que incluso los casos más difíciles de infidelidad regresen al 100% en piloto automático.
           </h1>
           
           {/* Subtítulo */}
           <p className="subtitulo">
-            Sem truques, só o poder do método certo.
+            Sin juegos mentales, solo el poder del método correcto
           </p>
 
           {/* Botão CTA */}
