@@ -591,24 +591,6 @@ export default function HomePage() {
               </span>
             )}
           </button>
-
-          {/* Security Badge */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#ffffff',
-            fontSize: '14px',
-            marginTop: '20px',
-            padding: '15px',
-            background: 'rgba(255, 255, 255, 0.1)',
-            borderRadius: '10px',
-            border: '1px solid rgba(255, 255, 255, 0.2)'
-          }}>
-            <Lock style={{ width: '16px', height: '16px', marginRight: '8px' }} />
-            Tus respuestas son confidenciales y están protegidas.
-          </div>
-
         </div>
       </div>
 
