@@ -485,7 +485,7 @@ export default function HomePage() {
           {/* Logo Arredondada */}
           <div style={{ marginBottom: '30px' }}>
             <Image
-              src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png"
+              src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Red-Gradient-Profile-Photo-Instagram-Post.png"
               alt="Logo Plan A"
               width={120}
               height={120}
