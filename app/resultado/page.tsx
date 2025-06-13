@@ -69,14 +69,14 @@ export default function ResultPage() {
     }
   }
 
-  const getPersonalizedTitle = () => {
-    if (userGender === "MASCULINO") {
-      return "DE RECHAZADO A DESEADO"
-    } else if (userGender === "FEMININO") {
-      return "DE RECHAZADA A DESEADA"
-    }
-    return "DE RECHAZADO(A) A DESEADO(A)"
+const getPersonalizedTitle = () => {
+  if (userGender === "MASCULINO") {
+    return "DESCUBRE EL MÉTODO SECRETO QUE HACE QUE TU EX TE BUSQUE DESESPERADAMENTE EN 21 DÍAS O MENOS (INCLUSO SI AHORA TE ODIA)";
+  } else if (userGender === "FEMININO") {
+    return "DESCUBRE EL MÉTODO SECRETO QUE HACE QUE TU EX TE BUSQUE DESESPERADAMENTE EN 21 DÍAS O MENOS (INCLUSO SI AHORA TE ODIA)";
   }
+  return "DESCUBRE EL MÉTODO SECRETO QUE HACE QUE TU EX TE BUSQUE DESESPERADAMENTE EN 21 DÍAS O MENOS (INCLUSO SI AHORA TE ODIA)";
+}
 
   const getPersonalizedCTA = () => {
     if (userGender === "MASCULINO") {
