@@ -71,14 +71,11 @@ export default function ResultPage() {
 
   const getPersonalizedTitle = () => {
     if (userGender === "MASCULINO") {
-      return "DESCUBRE EL MÉTODO SECRETO QUE HACE QUE TU EX TE BUSQUE DESESPERADAMENTE
-EN 21 DÍAS O MENOS (INCLUSO SI AHORA TE ODIA)"
+      return "DE RECHAZADO A DESEADO"
     } else if (userGender === "FEMININO") {
-      return "DESCUBRE EL MÉTODO SECRETO QUE HACE QUE TU EX TE BUSQUE DESESPERADAMENTE
-EN 21 DÍAS O MENOS (INCLUSO SI AHORA TE ODIA)"
+      return "DE RECHAZADA A DESEADA"
     }
-    return "DESCUBRE EL MÉTODO SECRETO QUE HACE QUE TU EX TE BUSQUE DESESPERADAMENTE
-EN 21 DÍAS O MENOS (INCLUSO SI AHORA TE ODIA)"
+    return "DE RECHAZADO(A) A DESEADO(A)"
   }
 
   const getPersonalizedCTA = () => {
