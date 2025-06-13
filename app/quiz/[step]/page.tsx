@@ -547,75 +547,72 @@ export default function QuizStep() {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.1, duration: 0.4 }}
                           className="relative"
-                        >
-                          {getPersonalizedOptions().length > 0 && (
-  <div className="space-y-4">
-    {getPersonalizedOptions().map((option, index) => {
-      // DEBUG: Vamos ver o que está acontecendo
-      console.log('Step:', step);
-      console.log('Option:', option);
-      console.log('Includes "No dejes que la":', option.includes("No dejes que la"));
+
+                          {/* GIF ESPECIAL PARA A OPÇÃO "No dejes que la..." NA ETAPA 1 */}
+{step === 1 && option.includes("No dejes que la") && (
+  <motion.div
+    initial={{ opacity: 0, y: -20, scale: 0.8 }}
+    animate={{ opacity: 1, y: 0, scale: 1 }}
+    transition={{ 
+      delay: 0.3, 
+      duration: 0.6,
+      type: "spring",
+      bounce: 0.4
+    }}
+    className="flex flex-col items-center mb-6"
+  >
+    {/* Container do GIF com efeitos */}
+    <div className="relative mb-3">
+      <motion.img
+        src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/edy1q-marilyn-monroe-gif-by-maudit.gif"
+        alt="Marilyn Monroe GIF"
+        className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-full border-4 border-gradient-to-r from-pink-500 to-red-500 shadow-2xl"
+        animate={{
+          y: [0, -8, 0],
+          rotate: [0, 2, -2, 0],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        style={{
+          filter: 'brightness(1.1) contrast(1.1) saturate(1.2)',
+          boxShadow: '0 0 30px rgba(236, 72, 153, 0.5)',
+        }}
+      />
       
-      return (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: index * 0.1, duration: 0.4 }}
-          className="relative"
-        >
-          {/* TESTE: Sempre mostrar o GIF na etapa 1 para debug */}
-          {step === 1 && (
-            <div className="bg-red-500 p-4 mb-4 text-white text-center">
-              <p>DEBUG: Estou na etapa {step}</p>
-              <p>Opção: {option}</p>
-              <p>Contém "No dejes que la": {option.includes("No dejes que la") ? 'SIM' : 'NÃO'}</p>
-            </div>
-          )}
-
-          {/* GIF - Versão Simplificada para Teste */}
-          {step === 1 && option.includes("No dejes que la") && (
-            <div className="text-center mb-6 bg-blue-500 p-4">
-              <p className="text-white mb-4">🎬 GIF DEVERIA APARECER AQUI</p>
-              <img
-                src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/edy1q-marilyn-monroe-gif-by-maudit.gif"
-                alt="Marilyn Monroe GIF"
-                className="w-32 h-32 mx-auto rounded-full"
-                onLoad={() => console.log('GIF carregou com sucesso!')}
-                onError={() => console.log('ERRO: GIF não carregou!')}
-              />
-            </div>
-          )}
-
-          <button
-            onClick={() => handleAnswerSelect(option)}
-            data-option={option}
-            className={`w-full p-6 text-left justify-start text-wrap h-auto rounded-lg border-2 transition-all duration-300 transform hover:scale-102 ${
-              selectedAnswer === option
-                ? "bg-gradient-to-r from-orange-500 to-red-600 text-white border-orange-500 shadow-lg scale-105"
-                : "bg-white text-gray-800 border-gray-300 hover:bg-gray-50 hover:border-gray-400 shadow-sm"
-            }`}
-          >
-            <div className="flex items-center w-full">
-              <div className={`mr-4 ${selectedAnswer === option ? "text-white" : "text-orange-600"}`}>
-                {getStepIcon(step, index)}
-              </div>
-              <div
-                className={`w-5 h-5 rounded-full border-2 mr-4 flex items-center justify-center transition-all ${
-                  selectedAnswer === option ? "border-white bg-white" : "border-gray-400 bg-white"
-                }`}
-              >
-                {selectedAnswer === option && <Check className="w-3 h-3 text-orange-600" />}
-              </div>
-              <span className="flex-1 font-medium">{option}</span>
-            </div>
-          </button>
-        </motion.div>
-      )
-    })}
-  </div>
+      {/* Efeito de brilho pulsante */}
+      <motion.div 
+        className="absolute inset-0 rounded-full border-4 border-pink-400 opacity-60"
+        animate={{
+          scale: [1, 1.1, 1],
+          opacity: [0.6, 0.3, 0.6],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      
+      {/* Partículas de brilho */}
+      <div className="absolute -top-2 -right-2 w-4 h-4 bg-pink-400 rounded-full animate-ping opacity-75"></div>
+      <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-red-400 rounded-full animate-ping opacity-60" style={{animationDelay: '0.5s'}}></div>
+    </div>
+    
+    {/* Texto motivacional */}
+    <motion.p 
+      className="text-pink-300 text-sm font-semibold text-center max-w-xs"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.8 }}
+    >
+      💋 ¡La opción más poderosa para reconquistar!
+    </motion.p>
+  </motion.div>
 )}
-
+                        >
                           <button
                             onClick={() => handleAnswerSelect(option)}
                             data-option={option}
