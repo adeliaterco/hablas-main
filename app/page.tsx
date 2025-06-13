@@ -465,7 +465,7 @@ export default function HomePage() {
       {isLoading && (
         <div className="loading-overlay">
           <div className="loading-content">
-            <div>Preparando seu teste...</div>
+            <div>Preparación de la prueba...</div>
             <div className="progress-bar">
               <div 
                 className="progress-fill"
