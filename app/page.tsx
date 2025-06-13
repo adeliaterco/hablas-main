@@ -563,7 +563,7 @@ export default function HomePage() {
         fontSize: '12px',
         textAlign: 'center'
       }}>
-        Bel Fada™ Todos os Direitos Reservados.
+        Plan A™ Todos os Direitos Reservados.
       </div>
 
       <style jsx>{`
