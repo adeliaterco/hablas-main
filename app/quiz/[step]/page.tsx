@@ -640,30 +640,6 @@ export default function QuizStep() {
           </Card>
         </motion.div>
 
-        {/* Visualización de Bonificaciones Desbloqueadas */}
-        {unlockedBonuses.length > 0 && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-            <Card className="bg-gradient-to-r from-green-100 to-emerald-100 border-green-300 shadow-lg">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-center gap-2 mb-4">
-                  <Gift className="w-6 h-6 text-green-700" />
-                  <h3 className="text-xl font-bold text-green-800">Bonificaciones Desbloqueadas</h3>
-                </div>
-                <div className="flex flex-wrap justify-center gap-2">
-                  {unlockedBonuses.map((bonusId) => (
-                    <div
-                      key={bonusId}
-                      className="bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm font-semibold"
-                    >
-                      Bono #{bonusId}
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
-
         {/* Prueba Social */}
         {step > 2 && !currentStep?.autoAdvance && (
           <motion.div
