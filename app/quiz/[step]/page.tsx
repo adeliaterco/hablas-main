@@ -295,7 +295,7 @@ export default function QuizStep() {
 
   if (!currentStep) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-white text-xl">Cargando...</div>
       </div>
     )
@@ -347,9 +347,9 @@ export default function QuizStep() {
         {/* Imagen de Testimonio - Aparece en la etapa 7 o 12 */}
         {(step === 7 || step === 12) && currentStep?.elements?.testimonialImage && (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-            <Card className="bg-gradient-to-br from-blue-50 to-indigo-100 border-2 border-blue-300 shadow-lg">
+            <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-blue-500/50 shadow-lg">
               <CardContent className="p-6 text-center">
-                <h3 className="text-xl font-bold text-blue-800 mb-4">💬 TESTIMONIO REAL</h3>
+                <h3 className="text-xl font-bold text-blue-400 mb-4">💬 TESTIMONIO REAL</h3>
                 <motion.div
                   animate={{
                     y: [0, -8, 0],
@@ -369,16 +369,16 @@ export default function QuizStep() {
                       className="w-full h-auto object-cover"
                     />
                   ) : (
-                    <div className="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <div className="w-full h-48 bg-gray-700 rounded-lg flex items-center justify-center">
                       <div className="text-center">
                         <Star className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-                        <p className="text-gray-500 font-semibold">ESPACIO PARA TESTIMONIO</p>
+                        <p className="text-gray-300 font-semibold">ESPACIO PARA TESTIMONIO</p>
                         <p className="text-gray-400 text-sm">Inserte el enlace de la imagen aquí</p>
                       </div>
                     </div>
                   )}
                 </motion.div>
-                <p className="text-blue-700 font-medium">
+                <p className="text-blue-300 font-medium">
                   ¡Vea lo que nuestros clientes están diciendo sobre los resultados!
                 </p>
               </CardContent>
@@ -498,8 +498,8 @@ export default function QuizStep() {
                   transition={{ duration: 2, delay: 0.5 }}
                   className="mb-6"
                 >
-                  <div className="bg-green-100 border border-green-300 rounded-lg p-4 text-center">
-                    <div className="text-3xl font-bold text-green-700">
+                  <div className="bg-green-900/50 border border-green-500 rounded-lg p-4 text-center">
+                    <div className="text-3xl font-bold text-green-400">
                       {currentStep.elements.compatibilityCalc} de compatibilidad
                     </div>
                   </div>
@@ -527,7 +527,7 @@ export default function QuizStep() {
                         <span>No estoy seguro</span>
                         <span>Lo quiero mucho</span>
                       </div>
-                      <div className="bg-gray-200 rounded-full h-4 mb-4">
+                      <div className="bg-gray-700 rounded-full h-4 mb-4">
                         <motion.div
                           className="bg-gradient-to-r from-orange-500 to-red-600 h-full rounded-full"
                           initial={{ width: "0%" }}
@@ -547,90 +547,90 @@ export default function QuizStep() {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.1, duration: 0.4 }}
                           className="relative"
-
-                          {/* GIF ESPECIAL PARA A OPÇÃO "No dejes que la..." NA ETAPA 1 */}
-{step === 1 && option.includes("No dejes que la") && (
-  <motion.div
-    initial={{ opacity: 0, y: -20, scale: 0.8 }}
-    animate={{ opacity: 1, y: 0, scale: 1 }}
-    transition={{ 
-      delay: 0.3, 
-      duration: 0.6,
-      type: "spring",
-      bounce: 0.4
-    }}
-    className="flex flex-col items-center mb-6"
-  >
-    {/* Container do GIF com efeitos */}
-    <div className="relative mb-3">
-      <motion.img
-        src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/edy1q-marilyn-monroe-gif-by-maudit.gif"
-        alt="Marilyn Monroe GIF"
-        className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-full border-4 border-gradient-to-r from-pink-500 to-red-500 shadow-2xl"
-        animate={{
-          y: [0, -8, 0],
-          rotate: [0, 2, -2, 0],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        style={{
-          filter: 'brightness(1.1) contrast(1.1) saturate(1.2)',
-          boxShadow: '0 0 30px rgba(236, 72, 153, 0.5)',
-        }}
-      />
-      
-      {/* Efeito de brilho pulsante */}
-      <motion.div 
-        className="absolute inset-0 rounded-full border-4 border-pink-400 opacity-60"
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.6, 0.3, 0.6],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      
-      {/* Partículas de brilho */}
-      <div className="absolute -top-2 -right-2 w-4 h-4 bg-pink-400 rounded-full animate-ping opacity-75"></div>
-      <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-red-400 rounded-full animate-ping opacity-60" style={{animationDelay: '0.5s'}}></div>
-    </div>
-    
-    {/* Texto motivacional */}
-    <motion.p 
-      className="text-pink-300 text-sm font-semibold text-center max-w-xs"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.8 }}
-    >
-      💋 ¡La opción más poderosa para reconquistar!
-    </motion.p>
-  </motion.div>
-)}
                         >
+                          {/* GIF ESPECIAL PARA A OPÇÃO "No dejes que la..." NA ETAPA 1 */}
+                          {step === 1 && option.includes("No dejes que la") && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -20, scale: 0.8 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              transition={{ 
+                                delay: 0.3, 
+                                duration: 0.6,
+                                type: "spring",
+                                bounce: 0.4
+                              }}
+                              className="flex flex-col items-center mb-6"
+                            >
+                              {/* Container do GIF com efeitos */}
+                              <div className="relative mb-3">
+                                <motion.img
+                                  src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/edy1q-marilyn-monroe-gif-by-maudit.gif"
+                                  alt="Marilyn Monroe GIF"
+                                  className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-full border-4 border-gradient-to-r from-pink-500 to-red-500 shadow-2xl"
+                                  animate={{
+                                    y: [0, -8, 0],
+                                    rotate: [0, 2, -2, 0],
+                                  }}
+                                  transition={{
+                                    duration: 4,
+                                    repeat: Number.POSITIVE_INFINITY,
+                                    ease: "easeInOut",
+                                  }}
+                                  style={{
+                                    filter: 'brightness(1.1) contrast(1.1) saturate(1.2)',
+                                    boxShadow: '0 0 30px rgba(236, 72, 153, 0.5)',
+                                  }}
+                                />
+                                
+                                {/* Efeito de brilho pulsante */}
+                                <motion.div 
+                                  className="absolute inset-0 rounded-full border-4 border-pink-400 opacity-60"
+                                  animate={{
+                                    scale: [1, 1.1, 1],
+                                    opacity: [0.6, 0.3, 0.6],
+                                  }}
+                                  transition={{
+                                    duration: 2,
+                                    repeat: Number.POSITIVE_INFINITY,
+                                    ease: "easeInOut",
+                                  }}
+                                />
+                                
+                                {/* Partículas de brilho */}
+                                <div className="absolute -top-2 -right-2 w-4 h-4 bg-pink-400 rounded-full animate-ping opacity-75"></div>
+                                <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-red-400 rounded-full animate-ping opacity-60" style={{animationDelay: '0.5s'}}></div>
+                              </div>
+                              
+                              {/* Texto motivacional */}
+                              <motion.p 
+                                className="text-pink-300 text-sm font-semibold text-center max-w-xs"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.8 }}
+                              >
+                                💋 ¡La opción más poderosa para reconquistar!
+                              </motion.p>
+                            </motion.div>
+                          )}
+
                           <button
                             onClick={() => handleAnswerSelect(option)}
                             data-option={option}
                             className={`w-full p-6 text-left justify-start text-wrap h-auto rounded-lg border-2 transition-all duration-300 transform hover:scale-102 ${
                               selectedAnswer === option
                                 ? "bg-gradient-to-r from-orange-500 to-red-600 text-white border-orange-500 shadow-lg scale-105"
-                                : "bg-white text-gray-800 border-gray-300 hover:bg-gray-50 hover:border-gray-400 shadow-sm"
+                                : "bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-500 shadow-sm"
                             }`}
                           >
                             <div className="flex items-center w-full">
                               {/* Iconos para diferentes pasos */}
-                              <div className={`mr-4 ${selectedAnswer === option ? "text-white" : "text-orange-600"}`}>
+                              <div className={`mr-4 ${selectedAnswer === option ? "text-white" : "text-orange-400"}`}>
                                 {getStepIcon(step, index)}
                               </div>
 
                               <div
                                 className={`w-5 h-5 rounded-full border-2 mr-4 flex items-center justify-center transition-all ${
-                                  selectedAnswer === option ? "border-white bg-white" : "border-gray-400 bg-white"
+                                  selectedAnswer === option ? "border-white bg-white" : "border-gray-400 bg-gray-700"
                                 }`}
                               >
                                 {selectedAnswer === option && <Check className="w-3 h-3 text-orange-600" />}
@@ -664,7 +664,7 @@ export default function QuizStep() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.8 }}
-                      className="mt-6 text-center text-amber-700 bg-amber-50 p-4 rounded-lg border border-amber-200"
+                      className="mt-6 text-center text-amber-300 bg-amber-900/30 p-4 rounded-lg border border-amber-600"
                     >
                       <p className="font-medium">{currentStep.note}</p>
                     </motion.div>
@@ -675,7 +675,7 @@ export default function QuizStep() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.8 }}
-                      className="mt-6 text-center text-red-700 bg-red-50 p-4 rounded-lg border border-red-200 flex items-center justify-center gap-2"
+                      className="mt-6 text-center text-red-300 bg-red-900/30 p-4 rounded-lg border border-red-600 flex items-center justify-center gap-2"
                     >
                       <AlertTriangle className="w-4 h-4" />
                       <p className="font-medium">{currentStep.warning}</p>
@@ -711,7 +711,7 @@ export default function QuizStep() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
-            className="text-center space-y-2"
+            className="text-center space-y-2 mt-6"
           >
             {currentStep?.elements?.counter && (
               <p className="text-white text-sm bg-white/10 px-3 py-1 rounded-full inline-block">
