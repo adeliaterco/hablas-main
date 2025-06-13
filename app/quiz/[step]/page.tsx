@@ -394,29 +394,6 @@ export default function QuizStep() {
         >
           <Card className="bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-lg border-orange-500/30 shadow-2xl border-2">
             <CardContent className="p-8">
-              {/* Animación de corazón para el paso 1 */}
-              {step === 1 && currentStep?.elements?.heartbeat && (
-                <motion.div
-                  initial={{ y: -20 }}
-                  animate={{ y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.6 }}
-                  className="mb-6"
-                >
-                  <motion.div
-                    animate={{
-                      scale: [1, 1.2, 1],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Number.POSITIVE_INFINITY,
-                      repeatType: "reverse",
-                    }}
-                  >
-                    <Heart className="w-16 h-16 text-red-600 mx-auto mb-4" />
-                  </motion.div>
-                </motion.div>
-              )}
-
               {/* Paso de avance automático de experto */}
               {currentStep?.autoAdvance && (
                 <motion.div
