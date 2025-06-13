@@ -302,7 +302,7 @@ export default function QuizStep() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-slate-900 p-4">
+    <div className="min-h-screen bg-black p-4">
       <div className="max-w-4xl mx-auto">
         {/* Encabezado con progreso */}
         <div className="mb-8">
