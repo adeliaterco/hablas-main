@@ -246,13 +246,60 @@ export default function HomePage() {
           line-height: 1.3;
         }
         
-        /* LOGO ARREDONDADA */
+        /* 🎯 LOGO CENTRALIZADA - AJUSTE PRINCIPAL */
+        .logo-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 40px !important;
+          animation: fadeInDown 1s ease-out;
+        }
+        
         .logo-arredondada {
           border-radius: 50% !important;
-          width: 120px !important;
-          height: 120px !important;
+          width: 150px !important;
+          height: 150px !important;
           object-fit: cover !important;
-          border: 3px solid #333333 !important;
+          border: 4px solid #dc2626 !important;
+          box-shadow: 0 0 20px rgba(220, 38, 38, 0.3) !important;
+          transition: all 0.3s ease !important;
+        }
+        
+        .logo-arredondada:hover {
+          transform: scale(1.05) !important;
+          box-shadow: 0 0 30px rgba(220, 38, 38, 0.5) !important;
+        }
+        
+        /* ANIMAÇÕES PARA LOGO */
+        @keyframes fadeInDown {
+          from {
+            opacity: 0;
+            transform: translateY(-30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        /* TÍTULO COM ANIMAÇÃO */
+        .titulo-principal {
+          animation: fadeInUp 1s ease-out 0.3s both !important;
+        }
+        
+        .subtitulo {
+          animation: fadeInUp 1s ease-out 0.6s both !important;
         }
         
         /* LOADING */
@@ -292,13 +339,23 @@ export default function HomePage() {
         /* RESPONSIVO MOBILE-FIRST */
         @media (max-width: 768px) {
           .container-preto {
-            padding: 20px !important;
+            padding: 25px !important;
             margin: 10px !important;
             border-radius: 15px !important;
           }
           
+          .logo-container {
+            margin-bottom: 30px !important;
+          }
+          
+          .logo-arredondada {
+            width: 120px !important;
+            height: 120px !important;
+            border: 3px solid #dc2626 !important;
+          }
+          
           .titulo-principal {
-            font-size: 24px !important;
+            font-size: 26px !important;
             margin-bottom: 15px !important;
           }
           
@@ -311,7 +368,7 @@ export default function HomePage() {
             position: relative;
             top: 0;
             left: 0;
-            margin: 0 auto 15px auto;
+            margin: 0 auto 20px auto;
             max-width: 100%;
             padding: 12px;
           }
@@ -333,11 +390,6 @@ export default function HomePage() {
             font-size: 11px;
           }
           
-          .logo-arredondada {
-            width: 100px !important;
-            height: 100px !important;
-          }
-          
           .btn-vermelho-pulsante {
             padding: 14px 28px !important;
             font-size: 16px !important;
@@ -351,12 +403,22 @@ export default function HomePage() {
         
         @media (max-width: 480px) {
           .container-preto {
-            padding: 15px !important;
+            padding: 20px !important;
             margin: 5px !important;
           }
           
+          .logo-container {
+            margin-bottom: 25px !important;
+          }
+          
+          .logo-arredondada {
+            width: 100px !important;
+            height: 100px !important;
+            border: 2px solid #dc2626 !important;
+          }
+          
           .titulo-principal {
-            font-size: 20px !important;
+            font-size: 22px !important;
           }
           
           .subtitulo {
@@ -366,16 +428,12 @@ export default function HomePage() {
           .depoimento {
             padding: 10px;
             gap: 8px;
+            margin-bottom: 15px;
           }
           
           .avatar {
             width: 35px;
             height: 35px;
-          }
-          
-          .logo-arredondada {
-            width: 80px !important;
-            height: 80px !important;
           }
           
           .btn-vermelho-pulsante {
@@ -482,14 +540,15 @@ export default function HomePage() {
         
         <div className="container-preto">
           
-          {/* Logo Arredondada */}
-          <div style={{ marginBottom: '30px' }}>
+          {/* 🎯 LOGO CENTRALIZADA - CONTAINER DEDICADO */}
+          <div className="logo-container">
             <Image
               src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Red-Gradient-Profile-Photo-Instagram-Post.png"
               alt="Logo Plan A"
-              width={120}
-              height={120}
+              width={150}
+              height={150}
               className="logo-arredondada"
+              priority
               onError={(e) => {
                 e.target.style.display = 'none';
               }}
