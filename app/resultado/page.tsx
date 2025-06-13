@@ -132,9 +132,9 @@ const getPersonalizedTitle = () => {
           className="text-center mb-8"
         >
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">{getPersonalizedTitle()}</h1>
-          <h2 className="text-2xl md:text-3xl font-semibold text-orange-400 mb-4">EN 21 DÍAS O MENOS</h2>
+
           <p className="text-xl text-gray-300 mb-6 max-w-3xl mx-auto">
-            <span className="font-bold text-orange-300">Aunque {getPersonalizedPronoun()} haya dicho que nunca más quiere verte</span> y hayas intentado todo sin éxito.
+            <span className="font-bold text-orange-300">Aunque {getPersonalizedPronoun()} El sistema probado por 3.847 personas que funciona incluso cuando tu ex te ha bloqueado,</span> está con otra persona o ha dicho que "nunca volverá contigo"
           </p>
         </motion.div>
 
