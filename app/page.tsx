@@ -1,18 +1,28 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
-import { ArrowRight, Lock, Star } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { ArrowRight } from "lucide-react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 
-// 🔥 GA CORRIGIDO - SEM eventos de checkout na homepage
+// 🔒 GA ULTRA-SEGURO - Lista branca de eventos permitidos
+const EVENTOS_PERMITIDOS_HOMEPAGE = [
+  'page_view',
+  'begin_quiz',
+  'user_engagement'
+];
+
 const enviarEvento = (() => {
   let queue = [];
   let timeout;
   
   return (evento, props = {}) => {
+    // 🚫 BLOQUEIO TOTAL de eventos não permitidos
+    if (!EVENTOS_PERMITIDOS_HOMEPAGE.includes(evento)) {
+      console.warn('🚫 Evento bloqueado na homepage:', evento);
+      return;
+    }
+    
     if (!evento || typeof window === 'undefined' || !window.gtag) return;
     
     queue.push({ evento, props });
@@ -21,7 +31,7 @@ const enviarEvento = (() => {
     timeout = setTimeout(() => {
       if (queue.length) {
         queue.forEach(({ evento, props }) => {
-          console.log('📊 Enviando evento GA:', evento, props);
+          console.log('✅ Evento permitido enviado:', evento, props);
           window.gtag('event', evento, props);
         });
         queue = [];
@@ -36,35 +46,7 @@ export default function HomePage() {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [isOnline, setIsOnline] = useState(true);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
   const [pageTracked, setPageTracked] = useState(false);
-
-  // Preload crítico das imagens
-  useEffect(() => {
-    const preloadImages = async () => {
-      const imageUrls = [
-        'https://comprarplanseguro.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-11T112151.941.png',
-        'https://comprarplanseguro.shop/wp-content/uploads/2025/06/06.png',
-        'https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png'
-      ];
-
-      const promises = imageUrls.map(url => {
-        return new Promise((resolve) => {
-          const img = new window.Image();
-          img.onload = () => resolve(true);
-          img.onerror = () => resolve(false);
-          img.src = url;
-        });
-      });
-
-      await Promise.all(promises);
-      setImagesLoaded(true);
-    };
-
-    if (typeof window !== 'undefined') {
-      preloadImages();
-    }
-  }, []);
 
   // Detecção de conexão
   useEffect(() => {
@@ -81,36 +63,33 @@ export default function HomePage() {
     };
   }, []);
 
-  // 🎯 TRACKING HOMEPAGE - APENAS page_view
+  // 🔒 TRACKING ULTRA-CONTROLADO
   useEffect(() => {
     if (typeof window === 'undefined' || pageTracked) return;
     
     const timer = setTimeout(() => {
+      // ✅ ÚNICO evento automático permitido
       enviarEvento('page_view', {
         page_title: 'Quiz Homepage',
-        page_location: window.location.href,
-        content_group1: 'quiz_funnel',
-        content_group2: 'homepage'
+        page_location: window.location.href
       });
       setPageTracked(true);
-    }, 1500);
+    }, 2000);
     
     return () => clearTimeout(timer);
   }, [pageTracked]);
 
-  // 🔥 FUNÇÃO INÍCIO - APENAS eventos de engajamento, SEM checkout
+  // 🔒 FUNÇÃO INÍCIO ULTRA-SEGURA
   const handleStart = useCallback(() => {
     if (isLoading || !isOnline) return;
 
     setIsLoading(true);
     setLoadingProgress(20);
     
-    // ✅ APENAS evento de engajamento - início do quiz
+    // ✅ ÚNICO evento de ação permitido
     enviarEvento('begin_quiz', {
       event_category: 'engagement',
-      event_label: 'homepage_quiz_start',
-      content_group1: 'quiz_funnel',
-      content_group2: 'quiz_begin'
+      event_label: 'homepage_start'
     });
 
     let progress = 20;
@@ -134,6 +113,7 @@ export default function HomePage() {
           if (utms.toString()) url += `?${utms.toString()}`;
         }
         
+        // 🚫 SEM EVENTOS na navegação
         router.push(url);
       }
     }, 200);
@@ -148,8 +128,8 @@ export default function HomePage() {
       position: 'relative'
     }}>
       
+      {/* Todos os estilos permanecem iguais */}
       <style jsx>{`
-        /* BOTÃO VERMELHO PULSANTE */
         .btn-vermelho-pulsante {
           background: #dc2626 !important;
           color: white !important;
@@ -192,7 +172,6 @@ export default function HomePage() {
           transform: scale(1.1) !important;
         }
         
-        /* CONTAINER PRETO */
         .container-preto {
           background-color: #000000 !important;
           border: 2px solid #333333 !important;
@@ -203,26 +182,22 @@ export default function HomePage() {
           text-align: center !important;
         }
         
-        /* TEXTOS BRANCOS */
-        .texto-branco {
-          color: #ffffff !important;
-        }
-        
         .titulo-principal {
           color: #ffffff !important;
           font-size: 32px !important;
           font-weight: bold !important;
           margin-bottom: 20px !important;
           line-height: 1.2 !important;
+          animation: fadeInUp 1s ease-out 0.3s both !important;
         }
         
         .subtitulo {
           color: #ffffff !important;
           font-size: 18px !important;
           margin-bottom: 30px !important;
+          animation: fadeInUp 1s ease-out 0.6s both !important;
         }
         
-        /* DEPOIMENTO - OTIMIZADO PARA MOBILE */
         .depoimento {
           position: absolute;
           top: 20px;
@@ -266,7 +241,6 @@ export default function HomePage() {
           line-height: 1.3;
         }
         
-        /* 🎯 LOGO CENTRALIZADA */
         .logo-container {
           display: flex;
           justify-content: center;
@@ -290,7 +264,6 @@ export default function HomePage() {
           box-shadow: 0 0 30px rgba(220, 38, 38, 0.5) !important;
         }
         
-        /* ANIMAÇÕES */
         @keyframes fadeInDown {
           from {
             opacity: 0;
@@ -313,15 +286,6 @@ export default function HomePage() {
           }
         }
         
-        .titulo-principal {
-          animation: fadeInUp 1s ease-out 0.3s both !important;
-        }
-        
-        .subtitulo {
-          animation: fadeInUp 1s ease-out 0.6s both !important;
-        }
-        
-        /* LOADING */
         .loading-overlay {
           position: fixed;
           top: 0;
@@ -355,7 +319,15 @@ export default function HomePage() {
           transition: width 0.3s ease;
         }
         
-        /* RESPONSIVO MOBILE-FIRST */
+        .main-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          padding-top: 80px;
+        }
+        
         @media (max-width: 768px) {
           .container-preto {
             padding: 25px !important;
@@ -418,6 +390,11 @@ export default function HomePage() {
           .progress-bar {
             width: 150px;
           }
+          
+          .main-content {
+            padding-top: 20px;
+            min-height: calc(100vh - 40px);
+          }
         }
         
         @media (max-width: 480px) {
@@ -459,23 +436,6 @@ export default function HomePage() {
             padding: 12px 24px !important;
             font-size: 14px !important;
             max-width: 250px !important;
-          }
-        }
-        
-        /* OTIMIZAÇÃO DE ESPAÇAMENTO */
-        .main-content {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          min-height: 100vh;
-          padding-top: 80px;
-        }
-        
-        @media (max-width: 768px) {
-          .main-content {
-            padding-top: 20px;
-            min-height: calc(100vh - 40px);
           }
         }
       `}</style>
@@ -556,7 +516,6 @@ export default function HomePage() {
 
       {/* CONTEÚDO PRINCIPAL */}
       <div className="main-content">
-        
         <div className="container-preto">
           
           {/* LOGO CENTRALIZADA */}
