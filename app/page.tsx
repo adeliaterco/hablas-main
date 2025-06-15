@@ -7,23 +7,26 @@ import { Card, CardContent } from "@/components/ui/card"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 
-// GA otimizado - só envia quando necessário
+// 🔥 GA CORRIGIDO - SEM eventos de checkout na homepage
 const enviarEvento = (() => {
   let queue = [];
   let timeout;
   
   return (evento, props = {}) => {
+    if (!evento || typeof window === 'undefined' || !window.gtag) return;
+    
     queue.push({ evento, props });
     clearTimeout(timeout);
     
     timeout = setTimeout(() => {
-      if (typeof window !== 'undefined' && window.gtag && queue.length) {
+      if (queue.length) {
         queue.forEach(({ evento, props }) => {
+          console.log('📊 Enviando evento GA:', evento, props);
           window.gtag('event', evento, props);
         });
         queue = [];
       }
-    }, 500);
+    }, 300);
   };
 })();
 
@@ -34,6 +37,7 @@ export default function HomePage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isOnline, setIsOnline] = useState(true);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [pageTracked, setPageTracked] = useState(false);
 
   // Preload crítico das imagens
   useEffect(() => {
@@ -62,7 +66,7 @@ export default function HomePage() {
     }
   }, []);
 
-  // Detecção de conexão minimalista
+  // Detecção de conexão
   useEffect(() => {
     if (typeof window === 'undefined') return;
     
@@ -77,27 +81,37 @@ export default function HomePage() {
     };
   }, []);
 
-  // Tracking minimalista - só o essencial
+  // 🎯 TRACKING HOMEPAGE - APENAS page_view
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || pageTracked) return;
     
     const timer = setTimeout(() => {
       enviarEvento('page_view', {
-        device: window.innerWidth < 768 ? 'mobile' : 'desktop'
+        page_title: 'Quiz Homepage',
+        page_location: window.location.href,
+        content_group1: 'quiz_funnel',
+        content_group2: 'homepage'
       });
-    }, 1000);
+      setPageTracked(true);
+    }, 1500);
     
     return () => clearTimeout(timer);
-  }, []);
+  }, [pageTracked]);
 
-  // Função de início ultra-otimizada
+  // 🔥 FUNÇÃO INÍCIO - APENAS eventos de engajamento, SEM checkout
   const handleStart = useCallback(() => {
     if (isLoading || !isOnline) return;
 
     setIsLoading(true);
     setLoadingProgress(20);
     
-    enviarEvento('quiz_start');
+    // ✅ APENAS evento de engajamento - início do quiz
+    enviarEvento('begin_quiz', {
+      event_category: 'engagement',
+      event_label: 'homepage_quiz_start',
+      content_group1: 'quiz_funnel',
+      content_group2: 'quiz_begin'
+    });
 
     let progress = 20;
     const interval = setInterval(() => {
@@ -152,6 +166,12 @@ export default function HomePage() {
           max-width: 300px !important;
         }
         
+        .btn-vermelho-pulsante:disabled {
+          opacity: 0.7 !important;
+          cursor: not-allowed !important;
+          animation: none !important;
+        }
+        
         @keyframes pulsar {
           0% {
             transform: scale(1);
@@ -167,7 +187,7 @@ export default function HomePage() {
           }
         }
         
-        .btn-vermelho-pulsante:hover {
+        .btn-vermelho-pulsante:hover:not(:disabled) {
           background: #b91c1c !important;
           transform: scale(1.1) !important;
         }
@@ -246,7 +266,7 @@ export default function HomePage() {
           line-height: 1.3;
         }
         
-        /* 🎯 LOGO CENTRALIZADA - AJUSTE PRINCIPAL */
+        /* 🎯 LOGO CENTRALIZADA */
         .logo-container {
           display: flex;
           justify-content: center;
@@ -270,7 +290,7 @@ export default function HomePage() {
           box-shadow: 0 0 30px rgba(220, 38, 38, 0.5) !important;
         }
         
-        /* ANIMAÇÕES PARA LOGO */
+        /* ANIMAÇÕES */
         @keyframes fadeInDown {
           from {
             opacity: 0;
@@ -293,7 +313,6 @@ export default function HomePage() {
           }
         }
         
-        /* TÍTULO COM ANIMAÇÃO */
         .titulo-principal {
           animation: fadeInUp 1s ease-out 0.3s both !important;
         }
@@ -525,7 +544,7 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* DEPOIMENTO - Agora mais próximo do container */}
+      {/* DEPOIMENTO */}
       <div className="depoimento">
         <div className="avatar"></div>
         <div>
@@ -540,7 +559,7 @@ export default function HomePage() {
         
         <div className="container-preto">
           
-          {/* 🎯 LOGO CENTRALIZADA - CONTAINER DEDICADO */}
+          {/* LOGO CENTRALIZADA */}
           <div className="logo-container">
             <Image
               src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Red-Gradient-Profile-Photo-Instagram-Post.png"
