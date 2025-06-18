@@ -414,7 +414,7 @@ export default function ResultPage() {
                     </div>
                   </div>
                   <p className="text-gray-300 text-sm">
-                    "Mi misión es ayudar a las personas a recuperar el amor que parecía perdido para siempre."
+                    "Mi misión es ayudar a las personas a recuperar el amor que parecía perdido para siempre." - Ricardo Abreu
                   </p>
                 </div>
               </div>
