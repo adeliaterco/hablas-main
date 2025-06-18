@@ -69,13 +69,13 @@ export default function ResultPage() {
     }
   }
 
-const getPersonalizedTitle = () => {
-  if (userGender === "MASCULINO") {
-    return "DESCUBRE EL MÉTODO SECRETO QUE HACE QUE TU EX TE BUSQUE DESESPERADAMENTE EN 21 DÍAS O MENOS (INCLUSO SI AHORA TE ODIA)";
-  } else if (userGender === "FEMININO") {
-    return "DESCUBRE EL MÉTODO SECRETO QUE HACE QUE TU EX TE BUSQUE DESESPERADAMENTE EN 21 DÍAS O MENOS (INCLUSO SI AHORA TE ODIA)";
-  }
-  return "DESCUBRE EL MÉTODO SECRETO QUE HACE QUE TU EX TE BUSQUE DESESPERADAMENTE EN 21 DÍAS O MENOS (INCLUSO SI AHORA TE ODIA)";
+  const getPersonalizedTitle = () => {
+    if (userGender === "MASCULINO") {
+      return "RECUPERA A TU EX EN 21 DÍAS (INCLUSO SI TE BLOQUEÓ) "
+    } else if (userGender === "FEMININO") {
+      return "RECUPERA A TU EX EN 21 DÍAS (INCLUSO SI TE BLOQUEÓ) "
+    }
+    return "RECUPERA A TU EX EN 21 DÍAS (INCLUSO SI TE BLOQUEÓ) "
 }
 
   const getPersonalizedCTA = () => {
@@ -134,7 +134,7 @@ const getPersonalizedTitle = () => {
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">{getPersonalizedTitle()}</h1>
 
           <p className="text-xl text-gray-300 mb-6 max-w-3xl mx-auto">
-            <span className="font-bold text-orange-300">Aunque {getPersonalizedPronoun()} El sistema probado por 3.847 personas que funciona incluso cuando tu ex te ha bloqueado,</span> está con otra persona o ha dicho que "nunca volverá contigo"
+            <span className="font-bold text-orange-300">Sistema {getPersonalizedPronoun()} probado por 3.847 personas.</span> Funciona aunque esté con otra persona o diga "nunca volveré"."
           </p>
         </motion.div>
 
