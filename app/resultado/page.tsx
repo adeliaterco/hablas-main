@@ -220,6 +220,43 @@ export default function ResultPageOptimized() {
         </div>
       </div>
 
+      {/* VÍDEO VSL - POSICIÓN ESTRATÉGICA */}
+      <div className="px-4 py-8 bg-gradient-to-r from-gray-900 to-black">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-white mb-4">
+              🎯 <span className="text-orange-400">DESCUBRE EL MÉTODO</span> QUE HACE POSIBLE TU RESULTADO
+            </h2>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              3 especialistas revelan los{" "}
+              <span className="text-orange-400 font-bold">disparadores psicológicos exactos</span> que harán que{" "}
+              {getPersonalizedPronoun()} regrese sin perseguir ni suplicar
+            </p>
+          </div>
+
+          <div className="max-w-3xl mx-auto">
+            <div className="relative bg-black rounded-2xl p-4 border-4 border-orange-500 shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-red-600/20 rounded-2xl animate-pulse"></div>
+              <div className="relative z-10">
+                <script src="https://fast.wistia.com/player.js" async></script>
+                <script src="https://fast.wistia.com/embed/6fyiaz12pl.js" async type="module"></script>
+                <wistia-player media-id="6fyiaz12pl" aspect="1.7877094972067038"></wistia-player>
+              </div>
+            </div>
+
+            {/* Call to Action após o vídeo */}
+            <div className="text-center mt-6">
+              <div className="bg-orange-600 text-white py-3 px-6 rounded-full inline-block font-bold text-lg mb-4 animate-bounce">
+                👆 APLICA ESTO Y VERÁS RESULTADOS EN DÍAS
+              </div>
+              <p className="text-white text-lg font-semibold">
+                Ahora que conoces el método, es hora de <span className="text-orange-400">ponerlo en práctica</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* TRANSFORMACIÓN ANTES/DESPUÉS - MOBILE OPTIMIZED */}
       <div className="px-4 py-8">
         <div className="max-w-4xl mx-auto">
@@ -589,8 +626,23 @@ export default function ResultPageOptimized() {
         </div>
       </div>
 
-      {/* Estilos CSS Mobile-First */}
+      {/* Estilos CSS Mobile-First + Wistia */}
       <style jsx global>{`
+        /* Estilos para el player Wistia */
+        wistia-player[media-id='6fyiaz12pl']:not(:defined) { 
+          background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/6fyiaz12pl/swatch'); 
+          display: block; 
+          filter: blur(5px); 
+          padding-top: 55.94%; 
+          border-radius: 12px;
+        }
+        
+        wistia-player {
+          border-radius: 12px !important;
+          overflow: hidden;
+          width: 100% !important;
+        }
+
         @media (max-width: 768px) {
           .timeline-card {
             margin-left: 0 !important;
@@ -631,6 +683,11 @@ export default function ResultPageOptimized() {
           /* CTAs más visibles en móvil */
           .bg-gradient-to-r {
             background-attachment: fixed;
+          }
+
+          /* Wistia responsivo en móvil */
+          wistia-player[media-id='6fyiaz12pl']:not(:defined) {
+            padding-top: 56.25% !important;
           }
         }
 
