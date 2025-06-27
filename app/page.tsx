@@ -1,280 +1,323 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
-import { ArrowRight, Lock, Star } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { ArrowRight, Shield } from "lucide-react"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 
 // GA otimizado - só envia quando necessário
 const enviarEvento = (() => {
-  let queue = [];
-  let timeout;
-  
+  let queue = []
+  let timeout
+
   return (evento, props = {}) => {
-    queue.push({ evento, props });
-    clearTimeout(timeout);
-    
+    queue.push({ evento, props })
+    clearTimeout(timeout)
+
     timeout = setTimeout(() => {
-      if (typeof window !== 'undefined' && window.gtag && queue.length) {
+      if (typeof window !== "undefined" && window.gtag && queue.length) {
         queue.forEach(({ evento, props }) => {
-          window.gtag('event', evento, props);
-        });
-        queue = [];
+          window.gtag("event", evento, props)
+        })
+        queue = []
       }
-    }, 500);
-  };
-})();
+    }, 500)
+  }
+})()
 
 export default function HomePage() {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [loadingProgress, setLoadingProgress] = useState(0);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isOnline, setIsOnline] = useState(true);
-  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
+  const [loadingProgress, setLoadingProgress] = useState(0)
+  const [errorMessage, setErrorMessage] = useState("")
+  const [isOnline, setIsOnline] = useState(true)
+  const [imagesLoaded, setImagesLoaded] = useState(false)
 
   // Preload crítico das imagens
   useEffect(() => {
     const preloadImages = async () => {
       const imageUrls = [
-        'https://comprarplanseguro.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-11T112151.941.png',
-        'https://comprarplanseguro.shop/wp-content/uploads/2025/06/06.png',
-        'https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png'
-      ];
+        "https://comprarplanseguro.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-26T205059.582.png",
+        "https://comprarplanseguro.shop/wp-content/uploads/2025/06/06.png",
+        "https://comprarplanseguro.shop/wp-content/uploads/2025/06/Nova-Imagem-Plan-A-Livro.png",
+      ]
 
-      const promises = imageUrls.map(url => {
+      const promises = imageUrls.map((url) => {
         return new Promise((resolve) => {
-          const img = new window.Image();
-          img.onload = () => resolve(true);
-          img.onerror = () => resolve(false);
-          img.src = url;
-        });
-      });
+          const img = new window.Image()
+          img.onload = () => resolve(true)
+          img.onerror = () => resolve(false)
+          img.src = url
+        })
+      })
 
-      await Promise.all(promises);
-      setImagesLoaded(true);
-    };
-
-    if (typeof window !== 'undefined') {
-      preloadImages();
+      await Promise.all(promises)
+      setImagesLoaded(true)
     }
-  }, []);
+
+    if (typeof window !== "undefined") {
+      preloadImages()
+    }
+  }, [])
 
   // Detecção de conexão minimalista
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
-    const updateOnlineStatus = () => setIsOnline(navigator.onLine);
-    
-    window.addEventListener('online', updateOnlineStatus, { passive: true });
-    window.addEventListener('offline', updateOnlineStatus, { passive: true });
-    
+    if (typeof window === "undefined") return
+
+    const updateOnlineStatus = () => setIsOnline(navigator.onLine)
+
+    window.addEventListener("online", updateOnlineStatus, { passive: true })
+    window.addEventListener("offline", updateOnlineStatus, { passive: true })
+
     return () => {
-      window.removeEventListener('online', updateOnlineStatus);
-      window.removeEventListener('offline', updateOnlineStatus);
-    };
-  }, []);
+      window.removeEventListener("online", updateOnlineStatus)
+      window.removeEventListener("offline", updateOnlineStatus)
+    }
+  }, [])
 
   // Tracking minimalista - só o essencial
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    
+    if (typeof window === "undefined") return
+
     const timer = setTimeout(() => {
-      enviarEvento('page_view', {
-        device: window.innerWidth < 768 ? 'mobile' : 'desktop'
-      });
-    }, 1000);
-    
-    return () => clearTimeout(timer);
-  }, []);
+      enviarEvento("page_view", {
+        device: window.innerWidth < 768 ? "mobile" : "desktop",
+      })
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [])
 
   // Função de início ultra-otimizada
   const handleStart = useCallback(() => {
-    if (isLoading || !isOnline) return;
+    if (isLoading || !isOnline) return
 
-    setIsLoading(true);
-    setLoadingProgress(20);
-    
-    enviarEvento('quiz_start');
+    setIsLoading(true)
+    setLoadingProgress(20)
 
-    let progress = 20;
+    enviarEvento("quiz_start")
+
+    let progress = 20
     const interval = setInterval(() => {
-      progress += 15;
-      setLoadingProgress(progress);
-      
-      if (progress >= 100) {
-        clearInterval(interval);
-        
-        // Preservar UTMs
-        let url = '/quiz/1';
-        if (typeof window !== 'undefined' && window.location.search) {
-          const params = new URLSearchParams(window.location.search);
-          const utms = new URLSearchParams();
-          
-          for (const [key, value] of params) {
-            if (key.startsWith('utm_')) utms.set(key, value);
-          }
-          
-          if (utms.toString()) url += `?${utms.toString()}`;
-        }
-        
-        router.push(url);
-      }
-    }, 200);
+      progress += 15
+      setLoadingProgress(progress)
 
-  }, [isLoading, isOnline, router]);
+      if (progress >= 100) {
+        clearInterval(interval)
+
+        // Preservar UTMs
+        let url = "/quiz/1"
+        if (typeof window !== "undefined" && window.location.search) {
+          const params = new URLSearchParams(window.location.search)
+          const utms = new URLSearchParams()
+
+          for (const [key, value] of params) {
+            if (key.startsWith("utm_")) utms.set(key, value)
+          }
+
+          if (utms.toString()) url += `?${utms.toString()}`
+        }
+
+        router.push(url)
+      }
+    }, 200)
+  }, [isLoading, isOnline, router])
 
   return (
-    <div style={{ 
-      backgroundColor: '#000000', 
-      minHeight: '100vh', 
-      padding: '20px',
-      position: 'relative'
-    }}>
-      
+    <div
+      style={{
+        backgroundColor: "#000000",
+        minHeight: "100vh",
+        padding: "20px",
+        position: "relative",
+      }}
+    >
       <style jsx>{`
-        /* BOTÃO VERMELHO PULSANTE */
-        .btn-vermelho-pulsante {
-          background: #dc2626 !important;
+        /* BOTÃO VERMELHO PULSANTE - MELHORADO */
+        .btn-quiz-pulsante {
+          background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
           color: white !important;
           border: none !important;
-          padding: 16px 32px !important;
-          font-size: 18px !important;
+          padding: 18px 36px !important;
+          font-size: 19px !important;
           font-weight: bold !important;
           border-radius: 50px !important;
           text-transform: uppercase !important;
           cursor: pointer !important;
           transition: all 0.3s ease !important;
-          animation: pulsar 1.5s infinite !important;
+          animation: pulsar 2s infinite !important;
           width: 100% !important;
-          max-width: 300px !important;
+          max-width: 320px !important;
+          box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4) !important;
+          letter-spacing: 0.5px !important;
         }
         
         @keyframes pulsar {
           0% {
             transform: scale(1);
-            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4), 0 0 0 0 rgba(220, 38, 38, 0.7);
           }
           70% {
-            transform: scale(1.05);
-            box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+            transform: scale(1.03);
+            box-shadow: 0 12px 35px rgba(220, 38, 38, 0.6), 0 0 0 15px rgba(220, 38, 38, 0);
           }
           100% {
             transform: scale(1);
-            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4), 0 0 0 0 rgba(220, 38, 38, 0);
           }
         }
         
-        .btn-vermelho-pulsante:hover {
-          background: #b91c1c !important;
-          transform: scale(1.1) !important;
+        .btn-quiz-pulsante:hover {
+          background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%) !important;
+          transform: scale(1.05) !important;
+          box-shadow: 0 15px 40px rgba(220, 38, 38, 0.7) !important;
         }
         
-        /* CONTAINER PRETO */
+        /* CONTAINER PRETO MELHORADO */
         .container-preto {
-          background-color: #000000 !important;
+          background: linear-gradient(145deg, #000000 0%, #111111 100%) !important;
           border: 2px solid #333333 !important;
-          border-radius: 20px !important;
-          padding: 40px !important;
-          max-width: 600px !important;
+          border-radius: 25px !important;
+          padding: 45px !important;
+          max-width: 650px !important;
           margin: 0 auto !important;
           text-align: center !important;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8) !important;
+          backdrop-filter: blur(10px) !important;
         }
         
-        /* TEXTOS BRANCOS */
-        .texto-branco {
-          color: #ffffff !important;
-        }
-        
+        /* TEXTOS OTIMIZADOS PARA CONVERSÃO */
         .titulo-principal {
           color: #ffffff !important;
-          font-size: 32px !important;
-          font-weight: bold !important;
-          margin-bottom: 20px !important;
-          line-height: 1.2 !important;
+          font-size: 34px !important;
+          font-weight: 800 !important;
+          margin-bottom: 25px !important;
+          line-height: 1.3 !important;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
         }
         
         .subtitulo {
-          color: #ffffff !important;
-          font-size: 18px !important;
-          margin-bottom: 30px !important;
+          color: #e5e5e5 !important;
+          font-size: 19px !important;
+          margin-bottom: 35px !important;
+          font-weight: 500 !important;
+          line-height: 1.4 !important;
         }
         
-        /* DEPOIMENTO - OTIMIZADO PARA MOBILE */
+        /* TEXTO DE GARANTIA */
+        .texto-garantia {
+          color: #a3a3a3 !important;
+          font-size: 14px !important;
+          margin-top: 20px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 8px !important;
+          font-weight: 500 !important;
+        }
+        
+        /* INDICADOR DE PROGRESSO */
+        .indicador-progresso {
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          gap: 12px !important;
+          margin-bottom: 30px !important;
+          color: #dc2626 !important;
+          font-size: 14px !important;
+          font-weight: 600 !important;
+        }
+        
+        .circulo-progresso {
+          width: 12px !important;
+          height: 12px !important;
+          border-radius: 50% !important;
+          background: #dc2626 !important;
+          box-shadow: 0 0 10px rgba(220, 38, 38, 0.5) !important;
+        }
+        
+        .circulo-inativo {
+          background: #333333 !important;
+          box-shadow: none !important;
+        }
+        
+        /* DEPOIMENTO MELHORADO */
         .depoimento {
-          position: absolute;
-          top: 20px;
-          left: 20px;
-          background: #000000;
-          border: 1px solid #333;
-          border-radius: 15px;
-          padding: 15px;
-          max-width: 300px;
+          background: linear-gradient(145deg, #111111 0%, #000000 100%);
+          border: 1px solid #444;
+          border-radius: 18px;
+          padding: 18px;
+          max-width: 400px;
+          margin: 30px auto;
           display: flex;
           align-items: center;
-          gap: 10px;
-          z-index: 10;
+          gap: 12px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+          backdrop-filter: blur(10px);
         }
         
         .avatar {
-          width: 50px;
-          height: 50px;
+          width: 55px;
+          height: 55px;
           border-radius: 50%;
           background-image: url('https://comprarplanseguro.shop/wp-content/uploads/2025/06/06.png');
           background-size: cover;
           background-position: center;
-          border: 2px solid #FFD700;
+          border: 3px solid #FFD700;
           flex-shrink: 0;
+          box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
         }
         
         .estrelas {
           color: #FFD700;
-          font-size: 12px;
+          font-size: 13px;
+          text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
         }
         
         .nome-usuario {
           color: #FFD700;
           font-weight: bold;
-          font-size: 12px;
+          font-size: 13px;
         }
         
         .texto-depoimento {
           color: #ffffff;
-          font-size: 11px;
-          line-height: 1.3;
+          font-size: 12px;
+          line-height: 1.4;
+          font-style: italic;
         }
         
-        /* 🎯 LOGO CENTRALIZADA - AJUSTE PRINCIPAL */
+        /* LOGO CENTRALIZADA */
         .logo-container {
           display: flex;
           justify-content: center;
           align-items: center;
-          margin-bottom: 40px !important;
-          animation: fadeInDown 1s ease-out;
+          margin-bottom: 45px !important;
+          animation: fadeInDown 1.2s ease-out;
         }
         
         .logo-arredondada {
-          border-radius: 50% !important;
-          width: 150px !important;
-          height: 150px !important;
+          border-radius: 15px !important;
+          width: 200px !important;
+          height: 120px !important;
           object-fit: cover !important;
           border: 4px solid #dc2626 !important;
-          box-shadow: 0 0 20px rgba(220, 38, 38, 0.3) !important;
-          transition: all 0.3s ease !important;
+          box-shadow: 0 0 30px rgba(220, 38, 38, 0.4), 0 0 0 2px #dc2626 !important;
+          transition: all 0.4s ease !important;
+          display: block !important;
         }
         
         .logo-arredondada:hover {
           transform: scale(1.05) !important;
-          box-shadow: 0 0 30px rgba(220, 38, 38, 0.5) !important;
+          box-shadow: 0 0 40px rgba(220, 38, 38, 0.6), 0 0 0 3px #b91c1c !important;
+          border-color: #b91c1c !important;
         }
         
-        /* ANIMAÇÕES PARA LOGO */
+        /* ANIMAÇÕES */
         @keyframes fadeInDown {
           from {
             opacity: 0;
-            transform: translateY(-30px);
+            transform: translateY(-40px);
           }
           to {
             opacity: 1;
@@ -285,7 +328,7 @@ export default function HomePage() {
         @keyframes fadeInUp {
           from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(40px);
           }
           to {
             opacity: 1;
@@ -293,13 +336,16 @@ export default function HomePage() {
           }
         }
         
-        /* TÍTULO COM ANIMAÇÃO */
         .titulo-principal {
-          animation: fadeInUp 1s ease-out 0.3s both !important;
+          animation: fadeInUp 1.2s ease-out 0.3s both !important;
         }
         
         .subtitulo {
-          animation: fadeInUp 1s ease-out 0.6s both !important;
+          animation: fadeInUp 1.2s ease-out 0.6s both !important;
+        }
+        
+        .indicador-progresso {
+          animation: fadeInUp 1.2s ease-out 0.9s both !important;
         }
         
         /* LOADING */
@@ -309,11 +355,12 @@ export default function HomePage() {
           left: 0;
           right: 0;
           bottom: 0;
-          background: rgba(0, 0, 0, 0.9);
+          background: rgba(0, 0, 0, 0.95);
           display: flex;
           align-items: center;
           justify-content: center;
           z-index: 1000;
+          backdrop-filter: blur(5px);
         }
         
         .loading-content {
@@ -322,18 +369,19 @@ export default function HomePage() {
         }
         
         .progress-bar {
-          width: 200px;
-          height: 4px;
+          width: 250px;
+          height: 6px;
           background: #333;
-          border-radius: 2px;
+          border-radius: 3px;
           overflow: hidden;
-          margin-top: 20px;
+          margin-top: 25px;
         }
         
         .progress-fill {
           height: 100%;
-          background: #dc2626;
+          background: linear-gradient(90deg, #dc2626, #f87171);
           transition: width 0.3s ease;
+          border-radius: 3px;
         }
         
         /* RESPONSIVO MOBILE-FIRST */
@@ -341,7 +389,7 @@ export default function HomePage() {
           .container-preto {
             padding: 25px !important;
             margin: 10px !important;
-            border-radius: 15px !important;
+            border-radius: 20px !important;
           }
           
           .logo-container {
@@ -349,14 +397,15 @@ export default function HomePage() {
           }
           
           .logo-arredondada {
-            width: 120px !important;
-            height: 120px !important;
+            width: 160px !important;
+            height: 100px !important;
             border: 3px solid #dc2626 !important;
           }
           
           .titulo-principal {
             font-size: 26px !important;
-            margin-bottom: 15px !important;
+            margin-bottom: 18px !important;
+            line-height: 1.2 !important;
           }
           
           .subtitulo {
@@ -365,60 +414,38 @@ export default function HomePage() {
           }
           
           .depoimento {
-            position: relative;
-            top: 0;
-            left: 0;
-            margin: 0 auto 20px auto;
-            max-width: 100%;
-            padding: 12px;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 95%;
           }
           
-          .avatar {
-            width: 40px;
-            height: 40px;
-          }
-          
-          .nome-usuario {
-            font-size: 11px;
-          }
-          
-          .texto-depoimento {
-            font-size: 10px;
-          }
-          
-          .estrelas {
-            font-size: 11px;
-          }
-          
-          .btn-vermelho-pulsante {
-            padding: 14px 28px !important;
+          .btn-quiz-pulsante {
+            padding: 16px 32px !important;
             font-size: 16px !important;
-            max-width: 280px !important;
+            max-width: 95% !important;
           }
           
-          .progress-bar {
-            width: 150px;
+          .main-content {
+            padding-top: 20px;
+            min-height: calc(100vh - 40px);
           }
         }
-        
+
         @media (max-width: 480px) {
           .container-preto {
             padding: 20px !important;
             margin: 5px !important;
           }
           
-          .logo-container {
-            margin-bottom: 25px !important;
-          }
-          
           .logo-arredondada {
-            width: 100px !important;
-            height: 100px !important;
+            width: 140px !important;
+            height: 85px !important;
             border: 2px solid #dc2626 !important;
           }
           
           .titulo-principal {
             font-size: 22px !important;
+            line-height: 1.1 !important;
           }
           
           .subtitulo {
@@ -426,9 +453,9 @@ export default function HomePage() {
           }
           
           .depoimento {
-            padding: 10px;
-            gap: 8px;
-            margin-bottom: 15px;
+            padding: 12px;
+            gap: 10px;
+            margin: 15px auto;
           }
           
           .avatar {
@@ -436,10 +463,9 @@ export default function HomePage() {
             height: 35px;
           }
           
-          .btn-vermelho-pulsante {
-            padding: 12px 24px !important;
+          .btn-quiz-pulsante {
+            padding: 14px 28px !important;
             font-size: 14px !important;
-            max-width: 250px !important;
           }
         }
         
@@ -450,13 +476,38 @@ export default function HomePage() {
           align-items: center;
           justify-content: center;
           min-height: 100vh;
-          padding-top: 80px;
+          padding-top: 100px;
         }
         
         @media (max-width: 768px) {
           .main-content {
-            padding-top: 20px;
-            min-height: calc(100vh - 40px);
+            padding-top: 30px;
+            min-height: calc(100vh - 60px);
+          }
+        }
+
+        /* Copyright */
+        .copyright {
+          position: relative;
+          margin-top: 40px;
+          padding: 20px;
+          color: #888888;
+          font-size: 12px;
+          text-align: center;
+        }
+
+        @media (max-width: 768px) {
+          .copyright {
+            margin-top: 30px;
+            padding: 15px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .copyright {
+            margin-top: 25px;
+            padding: 10px;
+            font-size: 11px;
           }
         }
       `}</style>
@@ -465,12 +516,9 @@ export default function HomePage() {
       {isLoading && (
         <div className="loading-overlay">
           <div className="loading-content">
-            <div>Preparación de la prueba...</div>
+            <div style={{ fontSize: "18px", fontWeight: "600" }}>Preparando tu quiz personalizado...</div>
             <div className="progress-bar">
-              <div 
-                className="progress-fill"
-                style={{ width: `${loadingProgress}%` }}
-              />
+              <div className="progress-fill" style={{ width: `${loadingProgress}%` }} />
             </div>
           </div>
         </div>
@@ -478,29 +526,31 @@ export default function HomePage() {
 
       {/* Error message */}
       {errorMessage && (
-        <div style={{
-          position: 'fixed',
-          top: '20px',
-          left: '20px',
-          right: '20px',
-          background: '#dc2626',
-          color: 'white',
-          padding: '15px',
-          borderRadius: '10px',
-          zIndex: 1000,
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
+        <div
+          style={{
+            position: "fixed",
+            top: "20px",
+            left: "20px",
+            right: "20px",
+            background: "#dc2626",
+            color: "white",
+            padding: "15px",
+            borderRadius: "10px",
+            zIndex: 1000,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <span>{errorMessage}</span>
-          <button 
+          <button
             onClick={() => setErrorMessage("")}
             style={{
-              background: 'none',
-              border: 'none',
-              color: 'white',
-              fontSize: '20px',
-              cursor: 'pointer'
+              background: "none",
+              border: "none",
+              color: "white",
+              fontSize: "20px",
+              cursor: "pointer",
             }}
           >
             ×
@@ -510,102 +560,105 @@ export default function HomePage() {
 
       {/* Offline indicator */}
       {!isOnline && (
-        <div style={{
-          position: 'fixed',
-          top: '0',
-          left: '0',
-          right: '0',
-          background: '#f59e0b',
-          color: 'white',
-          textAlign: 'center',
-          padding: '10px',
-          zIndex: 1000
-        }}>
+        <div
+          style={{
+            position: "fixed",
+            top: "0",
+            left: "0",
+            right: "0",
+            background: "#f59e0b",
+            color: "white",
+            textAlign: "center",
+            padding: "10px",
+            zIndex: 1000,
+          }}
+        >
           ⚠️ Sem conexão com a internet
         </div>
       )}
 
-      {/* DEPOIMENTO - Agora mais próximo do container */}
+      {/* CONTEÚDO PRINCIPAL */}
+      <div className="main-content">
+        <div className="container-preto">
+          {/* LOGO CENTRALIZADA */}
+          <div className="logo-container">
+            <Image
+              src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-26T205059.582.png"
+              alt="Logo Plan A"
+              width={200}
+              height={120}
+              className="logo-arredondada"
+              priority
+              onError={(e) => {
+                e.target.style.display = "none"
+              }}
+            />
+          </div>
+
+          {/* TÍTULO PRINCIPAL OTIMIZADO */}
+          <h1 className="titulo-principal">
+            Haz que tu amor regrese a ti 100% en piloto automático, incluso en las situaciones más complicadas.
+          </h1>
+
+          {/* SUBTÍTULO OTIMIZADO */}
+          <p className="subtitulo">Sin juegos mentales. Solo el poder del método probado por más de 3.847 personas.</p>
+
+          {/* INDICADOR DE PROGRESSO */}
+          <div className="indicador-progresso">
+            <div className="circulo-progresso"></div>
+            <div className="circulo-progresso circulo-inativo"></div>
+            <div className="circulo-progresso circulo-inativo"></div>
+            <div className="circulo-progresso circulo-inativo"></div>
+            <span>Paso 1</span>
+          </div>
+
+          {/* BOTÃO CTA OTIMIZADO */}
+          <button onClick={handleStart} disabled={isLoading || !isOnline} className="btn-quiz-pulsante">
+            {isLoading ? (
+              <span style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                PREPARANDO...
+                <div
+                  style={{
+                    marginLeft: "10px",
+                    width: "18px",
+                    height: "18px",
+                    border: "2px solid rgba(255,255,255,0.3)",
+                    borderTop: "2px solid white",
+                    borderRadius: "50%",
+                    animation: "spin 1s linear infinite",
+                  }}
+                />
+              </span>
+            ) : (
+              <span style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                COMENZAR QUIZ AHORA
+                <ArrowRight style={{ marginLeft: "12px", width: "22px", height: "22px" }} />
+              </span>
+            )}
+          </button>
+
+          {/* TEXTO DE GARANTIA */}
+          <div className="texto-garantia">
+            <Shield size={16} />
+            <span>Confidencial y personalizado. En solo 2 minutos tendrás tu plan de acción.</span>
+          </div>
+        </div>
+      </div>
+
+      {/* DEPOIMENTO MELHORADO */}
       <div className="depoimento">
         <div className="avatar"></div>
         <div>
           <div className="estrelas">★★★★★</div>
           <div className="nome-usuario">Pablo Alvez (@Plaboalvezs)</div>
-          <div className="texto-depoimento">"Apliqué tu Método de los 3 Pasos y en 2 semanas volvió. Sin juegos mentales, ¡simplemente funciona!"</div>
-        </div>
-      </div>
-
-      {/* CONTEÚDO PRINCIPAL */}
-      <div className="main-content">
-        
-        <div className="container-preto">
-          
-          {/* 🎯 LOGO CENTRALIZADA - CONTAINER DEDICADO */}
-          <div className="logo-container">
-            <Image
-              src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/Red-Gradient-Profile-Photo-Instagram-Post.png"
-              alt="Logo Plan A"
-              width={150}
-              height={150}
-              className="logo-arredondada"
-              priority
-              onError={(e) => {
-                e.target.style.display = 'none';
-              }}
-            />
+          <div className="texto-depoimento">
+            "Apliqué tu Método de los 3 Pasos y en 2 semanas ella regresó. Sin juegos mentales, ¡simplemente funciona!"
           </div>
-
-          {/* Título */}
-          <h1 className="titulo-principal">
-            Hago que incluso los casos más difíciles de infidelidad regresen al 100% en piloto automático.
-          </h1>
-          
-          {/* Subtítulo */}
-          <p className="subtitulo">
-            Sin juegos mentales, solo el poder del método correcto probado por más de 3.847 personas
-          </p>
-
-          {/* Botão CTA */}
-          <button
-            onClick={handleStart}
-            disabled={isLoading || !isOnline}
-            className="btn-vermelho-pulsante"
-          >
-            {isLoading ? (
-              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                PREPARANDO...
-                <div style={{
-                  marginLeft: '10px',
-                  width: '16px',
-                  height: '16px',
-                  border: '2px solid rgba(255,255,255,0.3)',
-                  borderTop: '2px solid white',
-                  borderRadius: '50%',
-                  animation: 'spin 1s linear infinite'
-                }} />
-              </span>
-            ) : (
-              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                EMPEZAR AHORA
-                <ArrowRight style={{ marginLeft: '10px', width: '20px', height: '20px' }} />
-              </span>
-            )}
-          </button>
         </div>
       </div>
 
       {/* Copyright */}
-      <div style={{
-        position: 'absolute',
-        bottom: '10px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        color: '#ffffff',
-        fontSize: '12px',
-        textAlign: 'center'
-      }}>
-        Plan A™ Todos los Derechos Reservados.
-      </div>
+      <div className="copyright">Plan A™ Todos los Derechos Reservados.</div>
 
       <style jsx>{`
         @keyframes spin {
@@ -613,7 +666,6 @@ export default function HomePage() {
           100% { transform: rotate(360deg); }
         }
       `}</style>
-
     </div>
-  );
+  )
 }
