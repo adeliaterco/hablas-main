@@ -173,7 +173,7 @@ export default function ResultPageOptimized() {
               onTouchStart={handleTouchFeedback}
             >
               <Heart className="w-6 h-6 mr-2" />
-              RECUPERAR AHORA POR $9
+              RECUPERAR AHORA POR $14
               <ArrowRight className="w-6 h-6 ml-2" />
             </Button>
           </motion.div>
@@ -206,7 +206,7 @@ export default function ResultPageOptimized() {
               <AlertTriangle className="w-12 h-12 text-yellow-300 mx-auto mb-4" />
               <h2 className="text-2xl font-bold text-white mb-4">⚠️ ATENCIÓN: VENTANA DE OPORTUNIDAD LIMITADA</h2>
               <p className="text-white text-lg mb-4">
-                <strong>Solo hoy</strong> tienes acceso al sistema completo por $9 (valor normal $97). Después de esta
+                <strong>Solo hoy</strong> tienes acceso al sistema completo por $14 (valor normal $97). Después de esta
                 oferta, el precio vuelve a la normalidad y los bonos dejan de estar disponibles.
               </p>
               <div className="bg-black/30 p-4 rounded-lg">
@@ -419,7 +419,7 @@ export default function ResultPageOptimized() {
                       </p>
                       <div className="flex items-center">
                         <span className="text-gray-300 line-through mr-2 text-lg">$97</span>
-                        <span className="text-yellow-300 font-bold text-xl">$9</span>
+                        <span className="text-yellow-300 font-bold text-xl">$14</span>
                       </div>
                     </div>
                   </div>
@@ -465,11 +465,11 @@ export default function ResultPageOptimized() {
                   </div>
                   <div>
                     <h4 className="font-bold text-yellow-300 mb-2">HOY SOLO:</h4>
-                    <div className="text-3xl font-bold text-yellow-300">$9</div>
+                    <div className="text-3xl font-bold text-yellow-300">$14</div>
                   </div>
                 </div>
                 <div className="mt-4 text-center">
-                  <p className="text-green-400 font-bold text-xl">¡AHORRAS $172!</p>
+                  <p className="text-green-400 font-bold text-xl">¡AHORRAS $167!</p>
                 </div>
               </div>
 
@@ -491,7 +491,7 @@ export default function ResultPageOptimized() {
                   className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-black py-6 px-8 rounded-full text-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 border-4 border-white"
                   onTouchStart={handleTouchFeedback}
                 >
-                  💕 RECUPERAR AHORA POR $9
+                  💕 RECUPERAR AHORA POR $14
                   <ArrowRight className="w-6 h-6 ml-2" />
                 </Button>
               </motion.div>
