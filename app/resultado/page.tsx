@@ -255,23 +255,67 @@ export default function ResultPageOptimized() {
               👆 APLICA ESTO Y VERÁS RESULTADOS EN DÍAS
             </div>
 
-            {/* 🔥 SEÇÃO DE DEPOIMENTO EM VÍDEO STORY - CENTRALIZADO */}
+            {/* 🔥 SEÇÃO DE DEPOIMENTOS EM VÍDEO STORY - CENTRALIZADO */}
             <div className="my-8">
               <div className="text-center mb-6">
                 <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
-                  💬 <span className="text-orange-400">TESTIMONIO REAL </span> DE QUIEN YA LO LOGRÓ
+                  💬 <span className="text-orange-400">TESTIMONIOS REALES </span> DE QUIEN YA LO LOGRÓ
                 </h3>
                 <p className="text-gray-300 text-sm sm:text-base px-4">
-                  Escucha la historia de transformación usando exactamente el mismo método
+                  Escucha las historias de transformación usando exactamente el mismo método
                 </p>
               </div>
 
-              {/* Container do Story Centralizado */}
-              <div className="flex justify-center">
+              {/* Container dos Stories Centralizados */}
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-8">
+                
+                {/* TESTIMONIO 1 - Facundo B. (NUEVO) */}
                 <div className="w-full max-w-xs">
                   <div className="relative bg-black rounded-2xl p-2 border-2 border-orange-500 shadow-xl overflow-hidden">
                     
-                    {/* Header do Story - Simplificado */}
+                    {/* Header do Story 1 */}
+                    <div className="flex items-center p-2 pb-1">
+                      <div className="w-8 h-8 rounded-full border border-orange-400 overflow-hidden mr-2 flex-shrink-0">
+                        <div className="w-full h-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
+                          <span className="text-white font-bold text-xs">FB</span>
+                        </div>
+                      </div>
+                      <div className="flex-1 text-left min-w-0">
+                        <h4 className="text-white font-bold text-xs truncate">Facundo B.</h4>
+                        <p className="text-green-400 text-xs font-semibold">✅ Reconciliado en 15 días</p>
+                      </div>
+                    </div>
+
+                    {/* Vídeo Story 1 */}
+                    <div className="relative aspect-[9/16] bg-gray-900 rounded-xl overflow-hidden" style={{height: '280px'}}>
+                      <script src="https://fast.wistia.com/player.js" async></script>
+                      <script src="https://fast.wistia.com/embed/3rj8vdh574.js" async type="module"></script>
+                      <wistia-player 
+                        media-id="3rj8vdh574" 
+                        aspect="0.5625"
+                        className="w-full h-full"
+                      ></wistia-player>
+                    </div>
+
+                    {/* Footer com CTA 1 */}
+                    <div className="p-2 text-center">
+                      <Button
+                        onClick={handlePurchase}
+                        className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-2 px-3 rounded-full text-xs shadow-lg transition-all duration-300 min-h-[36px] flex items-center justify-center"
+                        onTouchStart={handleTouchFeedback}
+                      >
+                        <Play className="w-3 h-3 mr-1 flex-shrink-0" />
+                        <span className="truncate">QUIERO LOS MISMOS RESULTADOS</span>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* TESTIMONIO 2 - David S. (EXISTENTE) */}
+                <div className="w-full max-w-xs">
+                  <div className="relative bg-black rounded-2xl p-2 border-2 border-orange-500 shadow-xl overflow-hidden">
+                    
+                    {/* Header do Story 2 */}
                     <div className="flex items-center p-2 pb-1">
                       <div className="w-8 h-8 rounded-full border border-orange-400 overflow-hidden mr-2 flex-shrink-0">
                         <img 
@@ -286,7 +330,7 @@ export default function ResultPageOptimized() {
                       </div>
                     </div>
 
-                    {/* Vídeo Story */}
+                    {/* Vídeo Story 2 */}
                     <div className="relative aspect-[9/16] bg-gray-900 rounded-xl overflow-hidden" style={{height: '280px'}}>
                       <script src="https://fast.wistia.com/player.js" async></script>
                       <script src="https://fast.wistia.com/embed/u24vsbymvw.js" async type="module"></script>
@@ -297,7 +341,7 @@ export default function ResultPageOptimized() {
                       ></wistia-player>
                     </div>
 
-                    {/* Footer com CTA - Compacto */}
+                    {/* Footer com CTA 2 */}
                     <div className="p-2 text-center">
                       <Button
                         onClick={handlePurchase}
@@ -310,9 +354,10 @@ export default function ResultPageOptimized() {
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
-            {/* 🔥 FIM DA SEÇÃO DE DEPOIMENTO EM VÍDEO STORY */}
+            {/* 🔥 FIM DA SEÇÃO DE DEPOIMENTOS EM VÍDEO STORY */}
 
             <p className="text-white text-sm sm:text-lg font-semibold px-4">
               Ahora que conoces el método, es hora de <span className="text-orange-400">ponerlo en práctica</span>
@@ -664,8 +709,7 @@ export default function ResultPageOptimized() {
 
             <motion.div
               animate={{
-                scale: [1, 1.1, 1],
-              }}
+                scale: [1, 1.1, 1],}}
               transition={{
                 duration: 1.5,
                 repeat: Number.POSITIVE_INFINITY,
@@ -718,6 +762,15 @@ export default function ResultPageOptimized() {
 
         wistia-player[media-id='u24vsbymvw']:not(:defined) { 
           background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/u24vsbymvw/swatch'); 
+          display: block; 
+          filter: blur(5px); 
+          padding-top: 177.78%; 
+          width: 100%;
+          max-width: 100%;
+        }
+
+        wistia-player[media-id='3rj8vdh574']:not(:defined) { 
+          background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/3rj8vdh574/swatch'); 
           display: block; 
           filter: blur(5px); 
           padding-top: 177.78%; 
@@ -847,6 +900,17 @@ export default function ResultPageOptimized() {
           .min-w-0 {
             min-width: 0 !important;
           }
+
+          /* Testimonios responsivos */
+          .flex-col.sm\:flex-row {
+            gap: 1.5rem !important;
+          }
+
+          .flex-col.sm\:flex-row > div {
+            width: 100% !important;
+            max-width: 320px !important;
+            margin: 0 auto !important;
+          }
         }
 
         /* Animações otimizadas para performance */
@@ -889,7 +953,33 @@ export default function ResultPageOptimized() {
           align-items: center;
           justify-content: center;
         }
+
+        /* Otimizações específicas para stories lado a lado */
+        @media (min-width: 640px) {
+          .flex-col.sm\:flex-row {
+            flex-direction: row !important;
+            justify-content: center !important;
+            align-items: flex-start !important;
+          }
+
+          .flex-col.sm\:flex-row > div {
+            flex: 0 0 auto !important;
+            width: 320px !important;
+          }
+        }
+
+        /* Garantir que os vídeos não quebrem o layout */
+        wistia-player {
+          max-width: 100% !important;
+          height: auto !important;
+        }
+
+        /* Melhorar a experiência de toque nos stories */
+        .story-container {
+          touch-action: manipulation;
+          -webkit-tap-highlight-color: transparent;
+        }
       `}</style>
     </div>
   )
-} 
+}
