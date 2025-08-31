@@ -266,14 +266,14 @@ export default function ResultPageOptimized() {
                 </p>
               </div>
 
-              {/* Container dos Stories Centralizados */}
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-8">
+              {/* Container do Story Centralizado */}
+              <div className="flex justify-center">
                 
-                {/* TESTIMONIO 1 - Facundo B. (NUEVO) */}
+                {/* TESTIMONIO ÚNICO - Facundo B. (CENTRALIZADO) */}
                 <div className="w-full max-w-xs">
                   <div className="relative bg-black rounded-2xl p-2 border-2 border-orange-500 shadow-xl overflow-hidden">
                     
-                    {/* Header do Story 1 */}
+                    {/* Header do Story */}
                     <div className="flex items-center p-2 pb-1">
                       <div className="w-8 h-8 rounded-full border border-orange-400 overflow-hidden mr-2 flex-shrink-0">
                         <div className="w-full h-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
@@ -286,7 +286,7 @@ export default function ResultPageOptimized() {
                       </div>
                     </div>
 
-                    {/* Vídeo Story 1 */}
+                    {/* Vídeo Story */}
                     <div className="relative aspect-[9/16] bg-gray-900 rounded-xl overflow-hidden" style={{height: '280px'}}>
                       <script src="https://fast.wistia.com/player.js" async></script>
                       <script src="https://fast.wistia.com/embed/3rj8vdh574.js" async type="module"></script>
@@ -297,51 +297,7 @@ export default function ResultPageOptimized() {
                       ></wistia-player>
                     </div>
 
-                    {/* Footer com CTA 1 */}
-                    <div className="p-2 text-center">
-                      <Button
-                        onClick={handlePurchase}
-                        className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-2 px-3 rounded-full text-xs shadow-lg transition-all duration-300 min-h-[36px] flex items-center justify-center"
-                        onTouchStart={handleTouchFeedback}
-                      >
-                        <Play className="w-3 h-3 mr-1 flex-shrink-0" />
-                        <span className="truncate">QUIERO LOS MISMOS RESULTADOS</span>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* TESTIMONIO 2 - David S. (EXISTENTE) */}
-                <div className="w-full max-w-xs">
-                  <div className="relative bg-black rounded-2xl p-2 border-2 border-orange-500 shadow-xl overflow-hidden">
-                    
-                    {/* Header do Story 2 */}
-                    <div className="flex items-center p-2 pb-1">
-                      <div className="w-8 h-8 rounded-full border border-orange-400 overflow-hidden mr-2 flex-shrink-0">
-                        <img 
-                          src="https://comprarplanseguro.shop/wp-content/uploads/2025/08/Captura-de-Tela-2025-08-08-as-19.01.05.png"
-                          alt="David S."
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="flex-1 text-left min-w-0">
-                        <h4 className="text-white font-bold text-xs truncate">David S.</h4>
-                        <p className="text-green-400 text-xs font-semibold">✅ Reconciliado en 18 días</p>
-                      </div>
-                    </div>
-
-                    {/* Vídeo Story 2 */}
-                    <div className="relative aspect-[9/16] bg-gray-900 rounded-xl overflow-hidden" style={{height: '280px'}}>
-                      <script src="https://fast.wistia.com/player.js" async></script>
-                      <script src="https://fast.wistia.com/embed/u24vsbymvw.js" async type="module"></script>
-                      <wistia-player 
-                        media-id="u24vsbymvw" 
-                        aspect="0.5625"
-                        className="w-full h-full"
-                      ></wistia-player>
-                    </div>
-
-                    {/* Footer com CTA 2 */}
+                    {/* Footer com CTA */}
                     <div className="p-2 text-center">
                       <Button
                         onClick={handlePurchase}
@@ -362,6 +318,55 @@ export default function ResultPageOptimized() {
             <p className="text-white text-sm sm:text-lg font-semibold px-4">
               Ahora que conoces el método, es hora de <span className="text-orange-400">ponerlo en práctica</span>
             </p>
+          </div>
+        </div>
+      </div>
+
+      {/* VÍDEO DE DEMONSTRAÇÃO DO PRODUTO */}
+      <div className="px-4 py-8 bg-gradient-to-r from-purple-900/30 to-blue-900/30">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+              📱 <span className="text-purple-400">Plan Personalizado + Actualizaciones Diarias</span>
+            </h2>
+            <p className="text-sm sm:text-lg text-gray-300 max-w-2xl mx-auto px-4">
+              Mira exactamente cómo funciona el sistema por dentro y cómo te guiaremos paso a paso
+            </p>
+          </div>
+
+          {/* VÍDEO DE DEMONSTRAÇÃO CENTRALIZADO */}
+          <div className="flex justify-center mb-8">
+            <div className="w-full max-w-3xl">
+              <div className="relative bg-black rounded-2xl p-2 sm:p-4 border-4 border-purple-500 shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-2xl animate-pulse"></div>
+                <div className="relative z-10">
+                  <script src="https://fast.wistia.com/player.js" async></script>
+                  <script src="https://fast.wistia.com/embed/uu3199yjss.js" async type="module"></script>
+                  <wistia-player 
+                    media-id="uu3199yjss" 
+                    aspect="1.7877094972067038"
+                  ></wistia-player>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Call to Action após o vídeo de demo */}
+          <div className="text-center">
+            <div className="bg-purple-600 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-full inline-block font-bold text-sm sm:text-lg mb-4 animate-bounce">
+              👆 ACCESO INMEDIATO A TODO ESTO
+            </div>
+
+            <Button
+              onClick={handlePurchase}
+              size="lg"
+              className="w-full max-w-sm mx-auto bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white font-black py-4 sm:py-6 px-4 sm:px-8 rounded-full text-sm sm:text-lg shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 border-4 border-yellow-400 min-h-[60px] flex items-center justify-center"
+              onTouchStart={handleTouchFeedback}
+            >
+              <Heart className="w-4 h-4 sm:w-6 sm:h-6 mr-2 flex-shrink-0" />
+              <span className="text-center leading-tight">QUIERO ACCESO AHORA</span>
+              <ArrowRight className="w-4 h-4 sm:w-6 sm:h-6 ml-2 flex-shrink-0" />
+            </Button>
           </div>
         </div>
       </div>
@@ -709,7 +714,8 @@ export default function ResultPageOptimized() {
 
             <motion.div
               animate={{
-                scale: [1, 1.1, 1],}}
+                scale: [1, 1.1, 1],
+              }}
               transition={{
                 duration: 1.5,
                 repeat: Number.POSITIVE_INFINITY,
@@ -760,11 +766,11 @@ export default function ResultPageOptimized() {
           max-width: 100%;
         }
 
-        wistia-player[media-id='u24vsbymvw']:not(:defined) { 
-          background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/u24vsbymvw/swatch'); 
+        wistia-player[media-id='uu3199yjss']:not(:defined) { 
+          background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/uu3199yjss/swatch'); 
           display: block; 
           filter: blur(5px); 
-          padding-top: 177.78%; 
+          padding-top: 55.94%; 
           width: 100%;
           max-width: 100%;
         }
