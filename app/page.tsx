@@ -317,7 +317,7 @@ export default function HomePage() {
         <div className="depoimento">
           <div className="avatar">
             <Image
-              src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/prova-pv-inicial.webp"
+              src="https://comprarplanseguro.shop/wp-content/uploads/2025/08/Persona-1.webp"
               alt="Pablo Alvez"
               width={55}
               height={55}
