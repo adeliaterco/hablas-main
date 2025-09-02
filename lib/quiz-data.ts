@@ -103,7 +103,7 @@ export const quizSteps = [
         "🧐 Estoy aplicando contacto cero",
         "😢 Ella me ignora completamente",
         "❌ Me ha bloqueado en todas las redes sociales",
-        "🤝 Hablamos solo de cosas necesarias",
+        "�� Hablamos solo de cosas necesarias",
         "🤔 Charlamos de vez en cuando",
         "😌 Seguimos siendo amigos",
         "🔥 Hemos tenido encuentros íntimos después de la ruptura",
@@ -142,7 +142,7 @@ export const quizSteps = [
         "🚫 No, está soltero",
         "🤔 No estoy segura",
         "😔 Sí, está saliendo con alguien",
-        "💔 Sí, tiene una relación seria",
+        "�� Sí, tiene una relación seria",
         "🔄 Está saliendo con varias personas",
       ],
     },
@@ -200,49 +200,18 @@ export const quizSteps = [
       compatibilityCalc: "90,5%",
     },
   },
+  // ✅ NOVA ETAPA 12 - Ponte para Resultados
   {
     id: 12,
-    question: "RESULTADOS COMPROBADOS",
-    subtext: "EL 91% DE MIS ESTUDIANTES VIERON RESULTADOS ESPECTACULARES EN LOS PRIMEROS 7 DÍAS APLICANDO EL PLAN A",
-    description: "",
-    options: ["¡YO TAMBIÉN QUIERO ESOS RESULTADOS!"],
+    question: "¡TU PLAN DE ACCIÓN PERSONALIZADO ESTÁ LISTO!",
+    description: "Basado en tus respuestas, he creado la estrategia exacta para que recuperes a tu amor.",
+    options: ["¡QUIERO VER MI PLAN AHORA!"],
+    note: "Prepárate para descubrir los pasos que te llevarán al éxito.",
     elements: {
-      bigNumber: "91%",
-      profileComplete: "98%",
-      testimonialImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/06/prova-nova-espanha-face.png",
-    },
-  },
-  {
-    id: 13,
-    question: "¡INCREÍBLE! TU PERFIL REVELA ALGO SORPRENDENTE...",
-    description:
-      "Basándome en tus respuestas, he identificado 3 patrones específicos que aumentan dramáticamente tus posibilidades de éxito.",
-    subtext:
-      "El 94% de las personas con tu perfil exacto lograron resultados extraordinarios cuando aplicaron la estrategia correcta.",
-    options: ["¡QUIERO CONOCER MI PERFIL COMPLETO!"],
-    note: "⚠️ IMPORTANTE: Esta información es muy específica para tu situación. Solo la compartiré contigo en la siguiente pantalla.",
-    elements: {
-      profileAnalysis: "Analizando patrones de éxito...",
-      profileComplete: "98%",
-      mysteryReveal: true,
-      successPattern: "94%",
-    },
-  },
-  {
-    id: 14,
-    question: "ÚLTIMO PASO: VALIDANDO TU ESTRATEGIA PERSONALIZADA",
-    description: "Estoy preparando tu plan específico basado en los 3 patrones únicos que identifiqué en tu caso.",
-    subtext:
-      "En los próximos segundos verás exactamente por qué tu situación tiene características tan prometedoras...",
-    options: ["¡SÍ, QUIERO VER MI ESTRATEGIA AHORA!"],
-    note: "🎯 Tu estrategia personalizada incluye los pasos exactos que funcionaron para personas en tu misma situación.",
-    elements: {
-      finalValidation: true,
+      finalReveal: true,
       profileComplete: "100%",
-      strategyPreparation: true,
-      anticipationBuilder: true,
     },
-  },
+  }
 ]
 
 export const bonuses = [
