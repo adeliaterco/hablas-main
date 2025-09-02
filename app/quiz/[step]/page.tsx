@@ -20,6 +20,8 @@ import {
   MessageCircle,
   Smile,
   Star,
+  CheckCircle,
+  Trophy,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -53,7 +55,8 @@ export default function QuizStep() {
   const [userGender, setUserGender] = useState<string>("")
 
   const currentStep = quizSteps[step - 1]
-  const progress = (step / 14) * 100
+  // ✅ ATUALIZADO: Agora são 12 etapas no total
+  const progress = (step / 12) * 100
 
   useEffect(() => {
     // Cargar datos guardados
@@ -193,13 +196,13 @@ export default function QuizStep() {
       return
     }
 
-    // Navegar al siguiente paso con UTMs
-    if (step < 14) {
+    // ✅ ATUALIZADO: Navegação agora usa 12 como limite
+    if (step < 12) {
       router.push(`/quiz/${step + 1}${utmString}`)
     } else {
-      // Registra evento de finalización del cuestionario
+      // ✅ ATUALIZADO: Evento de conclusão agora registra 12 etapas
       enviarEvento('concluiu_quiz', {
-        total_etapas_completadas: 14,
+        total_etapas_completadas: 12,
         total_bonus_desbloqueados: unlockedBonuses.length
       });
       
@@ -227,7 +230,8 @@ export default function QuizStep() {
       utmString = '?' + utmParams.toString();
     }
     
-    if (step < 14) {
+    // ✅ ATUALIZADO: Navegação agora usa 12 como limite
+    if (step < 12) {
       router.push(`/quiz/${step + 1}${utmString}`)
     } else {
       router.push(`/resultado${utmString}`)
@@ -333,8 +337,9 @@ export default function QuizStep() {
           </div>
 
           <div className="flex justify-between items-center">
+            {/* ✅ ATUALIZADO: Texto do progresso agora mostra 12 etapas */}
             <p className="text-white text-sm">
-              Etapa {step} de 14 • {Math.round(progress)}% completado
+              Etapa {step} de 12 • {Math.round(progress)}% completado
             </p>
             {currentStep?.elements?.profileComplete && (
               <p className="text-green-400 text-sm font-semibold">
@@ -344,8 +349,8 @@ export default function QuizStep() {
           </div>
         </div>
 
-        {/* Imagen de Testimonio - Aparece en la etapa 7 o 12 */}
-        {(step === 7 || step === 12) && currentStep?.elements?.testimonialImage && (
+        {/* Imagen de Testimonio - Aparece en la etapa 7 */}
+        {step === 7 && currentStep?.elements?.testimonialImage && (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
             <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-blue-500/50 shadow-lg">
               <CardContent className="p-6 text-center">
@@ -452,15 +457,56 @@ export default function QuizStep() {
                 </motion.div>
               )}
 
-              {/* Visualización de número grande para el paso 12 */}
-              {currentStep?.elements?.bigNumber && (
+              {/* ✅ NOVA LÓGICA: Renderização especial para finalReveal (nova etapa 12) */}
+              {currentStep?.elements?.finalReveal && (
                 <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring", duration: 0.8 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8 }}
                   className="text-center mb-8"
                 >
-                  <div className="text-8xl font-bold text-green-400 mb-4">{currentStep.elements.bigNumber}</div>
+                  {/* Ícone de sucesso animado */}
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", duration: 1, delay: 0.3 }}
+                    className="mb-6"
+                  >
+                    <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                      <CheckCircle className="w-12 h-12 text-white" />
+                    </div>
+                  </motion.div>
+
+                  {/* Indicador de progresso completo */}
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: "100%" }}
+                    transition={{ duration: 2, delay: 0.5 }}
+                    className="mb-6"
+                  >
+                    <div className="bg-green-900/50 border border-green-500 rounded-lg p-4 text-center">
+                      <div className="flex items-center justify-center gap-2 mb-2">
+                        <Trophy className="w-6 h-6 text-green-400" />
+                        <span className="text-2xl font-bold text-green-400">
+                          {currentStep.elements.profileComplete}
+                        </span>
+                      </div>
+                      <p className="text-green-300 font-medium">Análisis Completo</p>
+                    </div>
+                  </motion.div>
+
+                  {/* Indicador de plan listo */}
+                  <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 1 }}
+                    className="bg-blue-900/50 border border-blue-500 rounded-lg p-4 mb-6"
+                  >
+                    <div className="flex items-center justify-center gap-2">
+                      <Target className="w-6 h-6 text-blue-400" />
+                      <span className="text-blue-300 font-semibold">Plan Personalizado Generado</span>
+                    </div>
+                  </motion.div>
                 </motion.div>
               )}
 
@@ -688,13 +734,13 @@ export default function QuizStep() {
                       animate={{ opacity: 1, y: 0 }}
                       className="mt-8 text-center"
                     >
-                      {/* Botón con texto reducido */}
+                      {/* ✅ ATUALIZADO: Botão agora usa 12 como referência para resultado */}
                       <Button
                         onClick={handleNext}
                         size="lg"
                         className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-4 px-6 rounded-full shadow-lg max-w-full"
                       >
-                        {step === 14 ? "Ver Resultado" : "Siguiente Pregunta"}
+                        {step === 12 ? "Ver Resultado" : "Siguiente Pregunta"}
                         <ArrowRight className="w-5 h-5 ml-2" />
                       </Button>
                     </motion.div>
