@@ -349,8 +349,98 @@ export default function QuizStep() {
           </div>
         </div>
 
-        {/* Imagen de Testimonio - Aparece en la etapa 7 */}
-        {step === 7 && currentStep?.elements?.testimonialImage && (
+        {/* 🔥 TESTEMUNHOS DINÂMICOS - NOVA IMPLEMENTAÇÃO COMPLETA */}
+        {currentStep?.elements?.testimonialDisplay && currentStep?.elements?.testimonialText && (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-8"
+          >
+            <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-yellow-500/50 shadow-lg">
+              <CardContent className="p-6">
+                <div className="flex flex-col sm:flex-row items-center gap-4">
+                  {/* Avatar do testemunho */}
+                  <div className="flex-shrink-0">
+                    {currentStep.elements.testimonialImage ? (
+                      <motion.img
+                        src={currentStep.elements.testimonialImage}
+                        alt={currentStep.elements.testimonialName || "Cliente"}
+                        className="w-16 h-16 rounded-full object-cover border-3 border-yellow-500 shadow-lg"
+                        animate={{
+                          y: [0, -4, 0],
+                          scale: [1, 1.02, 1],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Number.POSITIVE_INFINITY,
+                          ease: "easeInOut",
+                        }}
+                      />
+                    ) : (
+                      <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center">
+                        <User className="w-8 h-8 text-white" />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Conteúdo do testemunho */}
+                  <div className="flex-1 text-center sm:text-left">
+                    {/* Estrelas */}
+                    <div className="flex items-center justify-center sm:justify-start gap-1 mb-2">
+                      {[...Array(5)].map((_, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, scale: 0 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: i * 0.1 + 0.5 }}
+                        >
+                          <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    {/* Texto do testemunho */}
+                    <motion.p 
+                      className="text-white font-medium text-sm md:text-base italic mb-2"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.8 }}
+                    >
+                      "{currentStep.elements.testimonialText}"
+                    </motion.p>
+
+                    {/* Nome do cliente */}
+                    {currentStep.elements.testimonialName && (
+                      <motion.p 
+                        className="text-yellow-400 font-bold text-sm"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1 }}
+                      >
+                        - {currentStep.elements.testimonialName}
+                      </motion.p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Badge de verificação */}
+                <motion.div 
+                  className="mt-4 flex items-center justify-center gap-2 text-green-400 text-xs font-semibold"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.2 }}
+                >
+                  <CheckCircle className="w-4 h-4" />
+                  <span>TESTIMONIO VERIFICADO</span>
+                </motion.div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
+
+        {/* Imagen de Testimonio - Aparece en la etapa 7 (MANTIDO PARA COMPATIBILIDADE) */}
+        {step === 7 && currentStep?.elements?.testimonialImage && !currentStep?.elements?.testimonialDisplay && (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
             <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-blue-500/50 shadow-lg">
               <CardContent className="p-6 text-center">
