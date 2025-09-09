@@ -56,6 +56,11 @@ export const quizSteps = [
     elements: {
       analysisText: "Calculando tasa de éxito para tu caso...",
       successRate: "¡Tu caso tiene características prometedoras!",
+      // 🔥 PRIMEIRO TESTEMUNHO - POSICIONAMENTO ESTRATÉGICO
+      testimonialDisplay: true,
+      testimonialName: "Carlos M.",
+      testimonialText: "¡Volvió a responderme al 3er día y me propuso vernos al 6º día!",
+      testimonialImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/08/Captura-de-Tela-2025-08-08-as-19.01.05.png",
     },
   },
   {
@@ -154,6 +159,11 @@ export const quizSteps = [
     },
     elements: {
       profileComplete: "77%",
+      // 🔥 SEGUNDO TESTEMUNHO - PAUSA ESTRATÉGICA (4 steps depois)
+      testimonialDisplay: true,
+      testimonialName: "Rafael S.",
+      testimonialText: "Estaba perdido después de la ruptura. El Plan A me dio dirección y confianza. ¡Hoy estamos más unidos que nunca!",
+      testimonialImage: "https://nutricaoalimentos.shop/wp-content/uploads/2025/09/lg-9xvta-canva-couple-in-love-mafv-z4mya0.jpg",
     },
   },
   {
@@ -180,7 +190,8 @@ export const quizSteps = [
     autoAdvance: true,
     elements: {
       expertPhoto: true,
-      expertImage: "https://optimalhealthscout.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-01T212625.544.png",
+      // 🔥 IMAGEM DO EXPERT CORRIGIDA (SEM DATA FUTURA)
+      expertImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/09/Generated-Image-September-07_-2025-12_00AM-_1_-e1757389439336.webp",
       autoMessage: "Basándome en 7 años de experiencia ayudando a personas como tú...",
       profileComplete: "90%",
     },
@@ -194,13 +205,14 @@ export const quizSteps = [
     note: "Estoy aquí para guiarte personalmente en este viaje de reconquista. En los últimos 7 años, he ayudado a más de 3.847 personas a recuperar sus relaciones usando este método exclusivo.",
     elements: {
       expertPhoto: true,
-      expertImage: "https://optimalhealthscout.shop/wp-content/uploads/2025/06/imagem_gerada-2025-06-01T212625.544.png",
+      // 🔥 IMAGEM DO EXPERT CORRIGIDA (SEM DATA FUTURA)
+      expertImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/09/Generated-Image-September-07_-2025-12_00AM-_1_-e1757389439336.webp",
       profileComplete: "95%",
       helpedCounter: "Personas ayudadas hoy: 17",
       compatibilityCalc: "90,5%",
     },
   },
-  // ✅ NOVA ETAPA 12 - Ponte para Resultados
+  // ✅ STEP 12 MANTIDO EXATAMENTE COMO ESTAVA (SEM ALTERAÇÕES)
   {
     id: 12,
     question: "¡TU PLAN DE ACCIÓN PERSONALIZADO ESTÁ LISTO!",
@@ -268,7 +280,7 @@ export const socialProofMessages = [
 ]
 
 // Función utilitaria para personalizar textos basados en el género
-export function getPersonalizedContent(content: any, gender: string) {
+export function getPersonalizedContent(content, gender) {
   if (typeof content === "string") {
     return content
   }
