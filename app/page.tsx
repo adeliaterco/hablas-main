@@ -241,7 +241,7 @@ export default function HomePage() {
         {/* CONTEÚDO PRINCIPAL */}
         <div className="main-content">
           <div className="container-preto">
-            {/* LOGO CENTRALIZADA - IMAGEM WEBP OTIMIZADA */}
+            {/* LOGO (mantém igual) */}
             <div className="logo-container">
               <Image
                 src="https://comprarplanseguro.shop/wp-content/uploads/2025/08/543af5ae-e239-4f03-a3a8-59c53717f3b9.webp"
@@ -261,81 +261,47 @@ export default function HomePage() {
               />
             </div>
 
-            {/* TÍTULO PRINCIPAL OTIMIZADO */}
+            {/* HEADLINE SIMPLES E PODEROSA */}
             <h1 className="titulo-principal">
-              Haz que tu amor regrese a ti 100% en piloto automático, incluso en las situaciones más complicadas.
+              HAZ ESTA TÉCNICA DE 3 PASOS DEL "PSICÓLOGO DE LOS FAMOSOS"
+              <br />
+              EN TU CASA Y HAZ QUE TU EX REGRESE EN 21 DÍAS.
+              <span style={{color: "#FFD700", display: "block", marginTop: "15px", fontSize: "22px"}}>
+                (Sin rogar ni suplicar)
+              </span>
             </h1>
 
-            {/* SUBTÍTULO OTIMIZADO */}
+            {/* SUBTÍTULO SIMPLES */}
             <p className="subtitulo">
-              Sin juegos mentales. Solo el poder del método probado por más de 3.847 personas.
+              ⏱️ Haz la evaluación de 2 minutos y obtén tu plan personalizado 👇
             </p>
 
-            {/* INDICADOR DE PROGRESSO */}
-            <div className="indicador-progresso">
-              <div className="circulo-progresso"></div>
-              <div className="circulo-progresso circulo-inativo"></div>
-              <div className="circulo-progresso circulo-inativo"></div>
-              <div className="circulo-progresso circulo-inativo"></div>
-              <span>Paso 1</span>
+            {/* AVISO DE URGÊNCIA (igual ao emagrecimento) */}
+            <div style={{
+              background: "linear-gradient(135deg, #dc2626, #b91c1c)", 
+              padding: "12px", 
+              borderRadius: "10px", 
+              margin: "25px 0", 
+              color: "white", 
+              fontSize: "14px",
+              fontWeight: "600"
+            }}>
+              ⚠️ Atención: Si sales ahora, perderás tu turno. ¡Aprovecha esta oportunidad exclusiva!
             </div>
 
-            {/* BOTÃO CTA OTIMIZADO */}
+            {/* CTA SIMPLES */}
             <button onClick={handleStart} disabled={isLoading || !isOnline} className="btn-quiz-pulsante">
               {isLoading ? (
-                <span style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
                   PREPARANDO...
-                  <div
-                    style={{
-                      marginLeft: "10px",
-                      width: "18px",
-                      height: "18px",
-                      border: "2px solid rgba(255,255,255,0.3)",
-                      borderTop: "2px solid white",
-                      borderRadius: "50%",
-                      animation: "spin 1s linear infinite",
-                    }}
-                  />
                 </span>
               ) : (
-                <span style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  COMENZAR QUIZ AHORA
-                  <ArrowRight style={{ marginLeft: "12px", width: "22px", height: "22px" }} />
+                <span style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+                  QUIERO MI PLAN AHORA
+                  <ArrowRight style={{marginLeft: "12px", width: "22px", height: "22px"}} />
                 </span>
               )}
             </button>
-
-            {/* TEXTO DE GARANTIA */}
-            <div className="texto-garantia">
-              <Shield size={16} />
-              <span>Confidencial y personalizado. En solo 2 minutos tendrás tu plan de acción.</span>
-            </div>
-          </div>
-        </div>
-
-        {/* DEPOIMENTO MELHORADO - AVATAR WEBP OTIMIZADO */}
-        <div className="depoimento">
-          <div className="avatar">
-            <Image
-              src="https://comprarplanseguro.shop/wp-content/uploads/2025/08/Persona-1.webp"
-              alt="Pablo Alvez"
-              width={55}
-              height={55}
-              style={{ borderRadius: "50%", objectFit: "cover" }}
-              quality={70}
-              sizes="(max-width: 480px) 35px, 55px"
-              loading="lazy"
-              placeholder="blur"
-              blurDataURL="data:image/webp;base64,UklGRpIAAABXRUJQVlA4WAoAAAAQAAAADwAABwAAQUxQSDIAAAARL0AmbZurmr57yyIiqE8oiG0bejIYEQTgqiDA9vqnsUSI6H+oAERp2HZ65qP/VIAWAFZQOCBCAAAA8AEAnQEqEAAIAAVAfCWkAALp8sF8rgRgAP7o9FDvMCkMde9PK7euH5M1m6VWoDXf2FkP3BqV0ZYbO6NA/VFIAAAA"
-            />
-          </div>
-          <div>
-            <div className="estrelas">★★★★★</div>
-            <div className="nome-usuario">Pablo Alvez (@Plaboalvezs)</div>
-            <div className="texto-depoimento">
-              "Apliqué tu Método de los 3 Pasos y en 2 semanas ella regresó. Sin juegos mentales, ¡simplemente
-              funciona!"
-            </div>
           </div>
         </div>
 
