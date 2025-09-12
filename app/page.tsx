@@ -262,14 +262,14 @@ export default function HomePage() {
             </div>
 
             {/* HEADLINE SIMPLES E PODEROSA */}
-            <h1 className="titulo-principal">
-              HAZ ESTA TÉCNICA DE 3 PASOS DEL "PSICÓLOGO DE LOS FAMOSOS"
-              <br />
-              EN TU CASA Y HAZ QUE TU EX REGRESE EN 21 DÍAS.
-              <span style={{color: "#FFD700", display: "block", marginTop: "15px", fontSize: "22px"}}>
-                (Sin rogar ni suplicar)
-              </span>
-            </h1>
+<h1 className="titulo-principal">
+  ¿ELLA TE DEJÓ Y NO SABES QUÉ HACER?
+  <br />
+  ESTE MÉTODO TE LA DEVUELVE EN 21 DÍAS
+  <span style={{color: "#FFD700", display: "block", marginTop: "15px", fontSize: "22px"}}>
+    (Funciona aunque esté con otro)
+  </span>
+</h1>
 
             {/* SUBTÍTULO SIMPLES */}
             <p className="subtitulo">
