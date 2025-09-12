@@ -322,55 +322,6 @@ export default function ResultPageOptimized() {
         </div>
       </div>
 
-      {/* VÍDEO DE DEMONSTRAÇÃO DO PRODUTO */}
-      <div className="px-4 py-8 bg-gradient-to-r from-purple-900/30 to-blue-900/30">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-              📱 <span className="text-purple-400">Plan Personalizado + Actualizaciones Diarias</span>
-            </h2>
-            <p className="text-sm sm:text-lg text-gray-300 max-w-2xl mx-auto px-4">
-              Mira exactamente cómo funciona el sistema por dentro y cómo te guiaremos paso a paso
-            </p>
-          </div>
-
-          {/* VÍDEO DE DEMONSTRAÇÃO CENTRALIZADO */}
-          <div className="flex justify-center mb-8">
-            <div className="w-full max-w-3xl">
-              <div className="relative bg-black rounded-2xl p-2 sm:p-4 border-4 border-purple-500 shadow-2xl">
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 rounded-2xl animate-pulse"></div>
-                <div className="relative z-10">
-                  <script src="https://fast.wistia.com/player.js" async></script>
-                  <script src="https://fast.wistia.com/embed/uu3199yjss.js" async type="module"></script>
-                  <wistia-player 
-                    media-id="uu3199yjss" 
-                    aspect="1.7877094972067038"
-                  ></wistia-player>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Call to Action após o vídeo de demo */}
-          <div className="text-center">
-            <div className="bg-purple-600 text-white py-2 sm:py-3 px-4 sm:px-6 rounded-full inline-block font-bold text-sm sm:text-lg mb-4 animate-bounce">
-              👆 ACCESO INMEDIATO A TODO ESTO
-            </div>
-
-            <Button
-              onClick={handlePurchase}
-              size="lg"
-              className="w-full max-w-sm mx-auto bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white font-black py-4 sm:py-6 px-4 sm:px-8 rounded-full text-sm sm:text-lg shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 border-4 border-yellow-400 min-h-[60px] flex items-center justify-center"
-              onTouchStart={handleTouchFeedback}
-            >
-              <Heart className="w-4 h-4 sm:w-6 sm:h-6 mr-2 flex-shrink-0" />
-              <span className="text-center leading-tight">QUIERO ACCESO AHORA</span>
-              <ArrowRight className="w-4 h-4 sm:w-6 sm:h-6 ml-2 flex-shrink-0" />
-            </Button>
-          </div>
-        </div>
-      </div>
-
       {/* TRANSFORMAÇÃO ANTES/DEPOIS - MOBILE OPTIMIZED */}
       <div className="px-4 py-8">
         <div className="max-w-4xl mx-auto">
@@ -762,15 +713,6 @@ export default function ResultPageOptimized() {
           filter: blur(5px); 
           padding-top: 55.94%; 
           border-radius: 12px;
-          width: 100%;
-          max-width: 100%;
-        }
-
-        wistia-player[media-id='uu3199yjss']:not(:defined) { 
-          background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/uu3199yjss/swatch'); 
-          display: block; 
-          filter: blur(5px); 
-          padding-top: 55.94%; 
           width: 100%;
           max-width: 100%;
         }
