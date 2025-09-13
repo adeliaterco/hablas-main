@@ -317,8 +317,8 @@ export default function ResultPageOptimized() {
                   <div className="text-center mb-4">
                     <div className="text-4xl sm:text-6xl font-black text-yellow-300 mb-2">$14</div>
                     <div className="text-lg sm:text-xl">
-                      <span className="line-through text-gray-400 mr-3">$97</span>
-                      <span className="text-green-400 font-bold">AHORRAS $83</span>
+                      <span className="line-through text-gray-400 mr-3">$99,90</span>
+                      <span className="text-green-400 font-bold">AHORRAS $86</span>
                     </div>
                   </div>
 
@@ -456,7 +456,7 @@ export default function ResultPageOptimized() {
             <div className="bg-black/20 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border-2 sm:border-4 border-yellow-400 w-full">
               <h2 className="text-2xl sm:text-3xl font-black text-white mb-4 break-words">⏰ ÚLTIMA OPORTUNIDAD</h2>
               <p className="text-lg sm:text-xl text-white mb-4 sm:mb-6 font-semibold break-words">
-                Esta oferta expira en minutos. Después vuelve a $97.
+                Esta oferta expira en minutos. Después vuelve a $99,90.
               </p>
 
               <div className="bg-red-800 p-3 sm:p-4 rounded-lg mb-4 sm:mb-6 w-full">
