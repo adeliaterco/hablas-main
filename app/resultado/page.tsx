@@ -156,7 +156,7 @@ export default function ResultPageOptimized() {
                   </div>
                   <div className="flex items-start text-white text-sm sm:text-base">
                     <Check className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
-                    <span className="break-words">Los <strong className="text-orange-400">3 disparadores</strong> que funcionan en 21 días</span>
+                    <span className="break-words">Los <strong className="text-orange-400">disparadores</strong> que funcionan en 21 días</span>
                   </div>
                   <div className="flex items-start text-white text-sm sm:text-base">
                     <Check className="w-4 h-4 sm:w-5 sm:h-5 text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
