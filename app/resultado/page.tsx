@@ -47,9 +47,9 @@ export default function ResultPageOptimized() {
 
     // Carrega script do VTurb
     const loadVTurbScript = () => {
-      if (!document.querySelector('script[src*="68c4d37225b572b8e09566cf"]')) {
+      if (!document.querySelector('script[src*="68c7af5a35fa1399fdae5161"]')) {
         const script = document.createElement("script")
-        script.src = "https://scripts.converteai.net/498be6ac-2d19-4386-aba2-c11c84449107/players/68c4d37225b572b8e09566cf/v4/player.js"
+        script.src = "https://scripts.converteai.net/498be6ac-2d19-4386-aba2-c11c84449107/players/68c7af5a35fa1399fdae5161/v4/player.js"
         script.async = true
         document.head.appendChild(script)
       }
@@ -173,7 +173,7 @@ export default function ResultPageOptimized() {
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-red-600/20 rounded-xl sm:rounded-2xl animate-pulse"></div>
                   <div className="relative z-10 w-full">
                     <vturb-smartplayer 
-                      id="vid-68c4d37225b572b8e09566cf" 
+                      id="vid-68c7af5a35fa1399fdae5161" 
                       style={{
                         display: 'block',
                         margin: '0 auto',
@@ -212,7 +212,7 @@ export default function ResultPageOptimized() {
                   onTouchStart={handleTouchFeedback}
                 >
                   <Heart className="w-5 h-5 sm:w-6 sm:h-6 mr-2 flex-shrink-0" />
-                  <span className="text-center leading-tight break-words">QUIERO APLICAR ESTE MÉTODO - $14</span>
+                  <span className="text-center leading-tight break-words">QUIERO APLICAR ESTE MÉTODO - $19</span>
                   <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 ml-2 flex-shrink-0" />
                 </Button>
               </motion.div>
@@ -315,7 +315,7 @@ export default function ResultPageOptimized() {
                 {/* Preço Simples */}
                 <div className="bg-black/20 rounded-lg p-4 sm:p-6 mb-4 sm:mb-6 w-full">
                   <div className="text-center mb-4">
-                    <div className="text-4xl sm:text-6xl font-black text-yellow-300 mb-2">$14</div>
+                    <div className="text-4xl sm:text-6xl font-black text-yellow-300 mb-2">$19</div>
                     <div className="text-lg sm:text-xl">
                       <span className="line-through text-gray-400 mr-3">$99,90</span>
                       <span className="text-green-400 font-bold">AHORRAS $86</span>
@@ -365,7 +365,7 @@ export default function ResultPageOptimized() {
                     className="w-full max-w-lg mx-auto bg-yellow-500 hover:bg-yellow-600 text-black font-black py-4 sm:py-6 px-4 sm:px-8 rounded-full text-lg sm:text-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 sm:border-4 border-white min-h-[60px] sm:min-h-[72px] flex items-center justify-center box-border"
                     onTouchStart={handleTouchFeedback}
                   >
-                    <span className="text-center leading-tight break-words">💕 RECUPERAR AHORA POR $14</span>
+                    <span className="text-center leading-tight break-words">💕 RECUPERAR AHORA POR $19</span>
                     <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 ml-2 flex-shrink-0" />
                   </Button>
                 </motion.div>
