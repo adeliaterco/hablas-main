@@ -5,8 +5,7 @@ export const quizSteps = [
     description: "Haz la prueba rápida de 2 minutos y descubre cómo aplicar el PLAN A - en tu caso específico.",
     subtext: "Selecciona tu género:",
     options: ["MASCULINO", "FEMENINO"],
-    warning:
-      "⚠️ ATENCIÓN: ¡Este método comprobado solo debe usarse si estás 100% comprometido en reconquistar tu amor perdido!",
+    warning: "⚠️ ATENCIÓN: ¡Este método comprobado solo debe usarse si estás 100% comprometido en reconquistar tu amor perdido!",
     elements: {
       heartbeat: true,
       timer: "Prueba de 2 minutos",
@@ -56,7 +55,6 @@ export const quizSteps = [
     elements: {
       analysisText: "Calculando tasa de éxito para tu caso...",
       successRate: "¡Tu caso tiene características prometedoras!",
-      // 🔥 PRIMEIRO TESTEMUNHO - POSICIONAMENTO ESTRATÉGICO
       testimonialDisplay: true,
       testimonialName: "Carlos M.",
       testimonialText: "¡Volvió a responderme al 3er día y me propuso vernos al 6º día!",
@@ -108,7 +106,7 @@ export const quizSteps = [
         "🧐 Estoy aplicando contacto cero",
         "😢 Ella me ignora completamente",
         "❌ Me ha bloqueado en todas las redes sociales",
-        "�� Hablamos solo de cosas necesarias",
+        "🤝 Hablamos solo de cosas necesarias",
         "🤔 Charlamos de vez en cuando",
         "😌 Seguimos siendo amigos",
         "🔥 Hemos tenido encuentros íntimos después de la ruptura",
@@ -159,7 +157,6 @@ export const quizSteps = [
     },
     elements: {
       profileComplete: "77%",
-      // 🔥 SEGUNDO TESTEMUNHO - PAUSA ESTRATÉGICA (4 steps depois)
       testimonialDisplay: true,
       testimonialName: "Rafael S.",
       testimonialText: "Estaba perdido después de la ruptura. El Plan A me dio dirección y confianza. ¡Hoy estamos más unidos que nunca!",
@@ -173,8 +170,7 @@ export const quizSteps = [
       feminino: "¿CUÁNTO QUIERES RECUPERARLO?",
     },
     description: "(Tu nivel de compromiso determinará tu éxito)",
-    subtext:
-      "El 91% de las personas que seleccionaron nivel 4 reconquistaron a su ex en menos de 21 días usando el PLAN A.",
+    subtext: "El 91% de las personas que seleccionaron nivel 4 reconquistaron a su ex en menos de 21 días usando el PLAN A.",
     options: ["1 - No estoy seguro", "2 - Me lo estoy pensando", "3 - Lo quiero bastante", "4 - Lo quiero muchísimo"],
     note: "Solo trabajo con personas decididas a transformar su situación amorosa. El PLAN A fue desarrollado para quien está preparado para actuar.",
     elements: {
@@ -190,7 +186,6 @@ export const quizSteps = [
     autoAdvance: true,
     elements: {
       expertPhoto: true,
-      // 🔥 IMAGEM DO EXPERT CORRIGIDA (SEM DATA FUTURA)
       expertImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/09/Generated-Image-September-07_-2025-12_00AM-_1_-e1757389439336.webp",
       autoMessage: "Basándome en 7 años de experiencia ayudando a personas como tú...",
       profileComplete: "90%",
@@ -199,20 +194,17 @@ export const quizSteps = [
   {
     id: 11,
     question: "¡FELICITACIONES! He analizado tus respuestas y tengo buenas noticias para ti.",
-    description:
-      "Basándome en tu perfil y situación específica, el PLAN A tiene un 90,5% de probabilidades de funcionar en tu caso.",
+    description: "Basándome en tu perfil y situación específica, el PLAN A tiene un 90,5% de probabilidades de funcionar en tu caso.",
     options: ["¿VAMOS AL SIGUIENTE PASO?"],
     note: "Estoy aquí para guiarte personalmente en este viaje de reconquista. En los últimos 7 años, he ayudado a más de 3.847 personas a recuperar sus relaciones usando este método exclusivo.",
     elements: {
       expertPhoto: true,
-      // 🔥 IMAGEM DO EXPERT CORRIGIDA (SEM DATA FUTURA)
       expertImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/09/Generated-Image-September-07_-2025-12_00AM-_1_-e1757389439336.webp",
       profileComplete: "95%",
       helpedCounter: "Personas ayudadas hoy: 17",
       compatibilityCalc: "90,5%",
     },
   },
-  // ✅ STEP 12 MANTIDO EXATAMENTE COMO ESTAVA (SEM ALTERAÇÕES)
   {
     id: 12,
     question: "¡TU PLAN DE ACCIÓN PERSONALIZADO ESTÁ LISTO!",
