@@ -31,7 +31,7 @@ import { BonusUnlock } from "@/components/bonus-unlock"
 import { ValueCounter } from "@/components/value-counter"
 import { LoadingAnalysis } from "@/components/loading-analysis"
 
-// Función para enviar eventos a Google Analytics
+// Função para enviar eventos a Google Analytics
 function enviarEvento(nombre_evento, propriedades = {}) {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', nombre_evento, propriedades);
@@ -55,7 +55,6 @@ export default function QuizStep() {
   const [userGender, setUserGender] = useState<string>("")
 
   const currentStep = quizSteps[step - 1]
-  // ✅ ATUALIZADO: Agora são 12 etapas no total
   const progress = (step / 12) * 100
 
   useEffect(() => {
@@ -196,11 +195,9 @@ export default function QuizStep() {
       return
     }
 
-    // ✅ ATUALIZADO: Navegação agora usa 12 como limite
     if (step < 12) {
       router.push(`/quiz/${step + 1}${utmString}`)
     } else {
-      // ✅ ATUALIZADO: Evento de conclusão agora registra 12 etapas
       enviarEvento('concluiu_quiz', {
         total_etapas_completadas: 12,
         total_bonus_desbloqueados: unlockedBonuses.length
@@ -230,7 +227,6 @@ export default function QuizStep() {
       utmString = '?' + utmParams.toString();
     }
     
-    // ✅ ATUALIZADO: Navegação agora usa 12 como limite
     if (step < 12) {
       router.push(`/quiz/${step + 1}${utmString}`)
     } else {
@@ -337,7 +333,6 @@ export default function QuizStep() {
           </div>
 
           <div className="flex justify-between items-center">
-            {/* ✅ ATUALIZADO: Texto do progresso agora mostra 12 etapas */}
             <p className="text-white text-sm">
               Etapa {step} de 12 • {Math.round(progress)}% completado
             </p>
@@ -349,133 +344,90 @@ export default function QuizStep() {
           </div>
         </div>
 
-        {/* 🔥 TESTEMUNHOS DINÂMICOS - NOVA IMPLEMENTAÇÃO COMPLETA */}
+        {/* 🔥 DEPOIMENTOS OTIMIZADOS PARA MOBILE */}
         {currentStep?.elements?.testimonialDisplay && currentStep?.elements?.testimonialText && (
           <motion.div 
             initial={{ opacity: 0, y: 20 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-8"
+            className="mb-6"
           >
-            <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-yellow-500/50 shadow-lg">
-              <CardContent className="p-6">
-                <div className="flex flex-col sm:flex-row items-center gap-4">
-                  {/* Avatar do testemunho */}
-                  <div className="flex-shrink-0">
-                    {currentStep.elements.testimonialImage ? (
-                      <motion.img
-                        src={currentStep.elements.testimonialImage}
-                        alt={currentStep.elements.testimonialName || "Cliente"}
-                        className="w-16 h-16 rounded-full object-cover border-3 border-yellow-500 shadow-lg"
-                        animate={{
-                          y: [0, -4, 0],
-                          scale: [1, 1.02, 1],
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: Number.POSITIVE_INFINITY,
-                          ease: "easeInOut",
-                        }}
-                      />
-                    ) : (
-                      <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center">
-                        <User className="w-8 h-8 text-white" />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Conteúdo do testemunho */}
-                  <div className="flex-1 text-center sm:text-left">
-                    {/* Estrelas */}
-                    <div className="flex items-center justify-center sm:justify-start gap-1 mb-2">
-                      {[...Array(5)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          initial={{ opacity: 0, scale: 0 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: i * 0.1 + 0.5 }}
-                        >
-                          <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                        </motion.div>
-                      ))}
+            <Card className="bg-gradient-to-br from-gray-800/90 to-gray-900/90 border border-yellow-500/40 shadow-lg">
+              <CardContent className="p-4 sm:p-6">
+                <div className="flex flex-col space-y-3">
+                  {/* Header com avatar e estrelas */}
+                  <div className="flex items-center space-x-3">
+                    {/* Avatar */}
+                    <div className="flex-shrink-0">
+                      {currentStep.elements.testimonialImage ? (
+                        <motion.img
+                          src={currentStep.elements.testimonialImage}
+                          alt={currentStep.elements.testimonialName || "Cliente"}
+                          className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-yellow-500 shadow-md"
+                          animate={{
+                            y: [0, -2, 0],
+                            scale: [1, 1.01, 1],
+                          }}
+                          transition={{
+                            duration: 3,
+                            repeat: Number.POSITIVE_INFINITY,
+                            ease: "easeInOut",
+                          }}
+                        />
+                      ) : (
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center">
+                          <User className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                        </div>
+                      )}
                     </div>
 
-                    {/* Texto do testemunho */}
-                    <motion.p 
-                      className="text-white font-medium text-sm md:text-base italic mb-2"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.8 }}
-                    >
+                    {/* Nome e estrelas */}
+                    <div className="flex-1 min-w-0">
+                      {currentStep.elements.testimonialName && (
+                        <p className="text-yellow-400 font-bold text-sm sm:text-base truncate">
+                          {currentStep.elements.testimonialName}
+                        </p>
+                      )}
+                      
+                      {/* Estrelas compactas */}
+                      <div className="flex items-center gap-1 mt-1">
+                        {[...Array(5)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            initial={{ opacity: 0, scale: 0 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: i * 0.05 + 0.3 }}
+                          >
+                            <Star className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 fill-current" />
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Texto do depoimento */}
+                  <motion.div 
+                    className="bg-gray-700/30 rounded-lg p-3 sm:p-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    <p className="text-white text-sm sm:text-base leading-relaxed italic">
                       "{currentStep.elements.testimonialText}"
-                    </motion.p>
+                    </p>
+                  </motion.div>
 
-                    {/* Nome do cliente */}
-                    {currentStep.elements.testimonialName && (
-                      <motion.p 
-                        className="text-yellow-400 font-bold text-sm"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1 }}
-                      >
-                        - {currentStep.elements.testimonialName}
-                      </motion.p>
-                    )}
-                  </div>
+                  {/* Badge de verificação compacto */}
+                  <motion.div 
+                    className="flex items-center justify-center gap-1 text-green-400 text-xs font-semibold bg-green-900/20 rounded-full py-1 px-3 self-center"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.7 }}
+                  >
+                    <CheckCircle className="w-3 h-3" />
+                    <span>VERIFICADO</span>
+                  </motion.div>
                 </div>
-
-                {/* Badge de verificação */}
-                <motion.div 
-                  className="mt-4 flex items-center justify-center gap-2 text-green-400 text-xs font-semibold"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1.2 }}
-                >
-                  <CheckCircle className="w-4 h-4" />
-                  <span>TESTIMONIO VERIFICADO</span>
-                </motion.div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        )}
-
-        {/* Imagen de Testimonio - Aparece en la etapa 7 (MANTIDO PARA COMPATIBILIDADE) */}
-        {step === 7 && currentStep?.elements?.testimonialImage && !currentStep?.elements?.testimonialDisplay && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-            <Card className="bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-blue-500/50 shadow-lg">
-              <CardContent className="p-6 text-center">
-                <h3 className="text-xl font-bold text-blue-400 mb-4">💬 TESTIMONIO REAL</h3>
-                <motion.div
-                  animate={{
-                    y: [0, -8, 0],
-                    rotate: [0, 1, -1, 0],
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: Number.POSITIVE_INFINITY,
-                    ease: "easeInOut",
-                  }}
-                  className="w-full max-w-md mx-auto rounded-lg overflow-hidden shadow-lg mb-4"
-                >
-                  {currentStep.elements.testimonialImage ? (
-                    <img
-                      src={currentStep.elements.testimonialImage || "/placeholder.svg"}
-                      alt="Testimonio de Cliente"
-                      className="w-full h-auto object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-48 bg-gray-700 rounded-lg flex items-center justify-center">
-                      <div className="text-center">
-                        <Star className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-                        <p className="text-gray-300 font-semibold">ESPACIO PARA TESTIMONIO</p>
-                        <p className="text-gray-400 text-sm">Inserte el enlace de la imagen aquí</p>
-                      </div>
-                    </div>
-                  )}
-                </motion.div>
-                <p className="text-blue-300 font-medium">
-                  ¡Vea lo que nuestros clientes están diciendo sobre los resultados!
-                </p>
               </CardContent>
             </Card>
           </motion.div>
@@ -488,7 +440,7 @@ export default function QuizStep() {
           transition={{ duration: 0.6 }}
         >
           <Card className="bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-lg border-orange-500/30 shadow-2xl border-2">
-            <CardContent className="p-8">
+            <CardContent className="p-6 sm:p-8">
               {/* Paso de avance automático de experto */}
               {currentStep?.autoAdvance && (
                 <motion.div
@@ -500,7 +452,7 @@ export default function QuizStep() {
                     <motion.img
                       src={currentStep.elements.expertImage}
                       alt="Experto en Reconquista"
-                      className="w-24 h-24 rounded-full object-cover border-4 border-blue-600 mx-auto mb-6"
+                      className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-blue-600 mx-auto mb-6"
                       animate={{
                         y: [0, -8, 0],
                         scale: [1, 1.02, 1],
@@ -512,8 +464,8 @@ export default function QuizStep() {
                       }}
                     />
                   ) : (
-                    <div className="w-24 h-24 bg-gradient-to-br from-blue-600 to-purple-700 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <User className="w-12 h-12 text-white" />
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-blue-600 to-purple-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <User className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
                     </div>
                   )}
 
@@ -523,7 +475,7 @@ export default function QuizStep() {
                     transition={{ delay: 0.5 }}
                     className="mb-6"
                   >
-                    <p className="text-blue-400 font-semibold text-lg mb-4">{currentStep.elements?.autoMessage}</p>
+                    <p className="text-blue-400 font-semibold text-base sm:text-lg mb-4">{currentStep.elements?.autoMessage}</p>
                   </motion.div>
 
                   <div className="flex justify-center">
@@ -547,7 +499,7 @@ export default function QuizStep() {
                 </motion.div>
               )}
 
-              {/* ✅ NOVA LÓGICA: Renderização especial para finalReveal (nova etapa 12) */}
+              {/* Final reveal para step 12 */}
               {currentStep?.elements?.finalReveal && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
@@ -555,19 +507,17 @@ export default function QuizStep() {
                   transition={{ duration: 0.8 }}
                   className="text-center mb-8"
                 >
-                  {/* Ícone de sucesso animado */}
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ type: "spring", duration: 1, delay: 0.3 }}
                     className="mb-6"
                   >
-                    <div className="w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto">
-                      <CheckCircle className="w-12 h-12 text-white" />
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                      <CheckCircle className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
                     </div>
                   </motion.div>
 
-                  {/* Indicador de progresso completo */}
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: "100%" }}
@@ -576,16 +526,15 @@ export default function QuizStep() {
                   >
                     <div className="bg-green-900/50 border border-green-500 rounded-lg p-4 text-center">
                       <div className="flex items-center justify-center gap-2 mb-2">
-                        <Trophy className="w-6 h-6 text-green-400" />
-                        <span className="text-2xl font-bold text-green-400">
+                        <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
+                        <span className="text-xl sm:text-2xl font-bold text-green-400">
                           {currentStep.elements.profileComplete}
                         </span>
                       </div>
-                      <p className="text-green-300 font-medium">Análisis Completo</p>
+                      <p className="text-green-300 font-medium text-sm sm:text-base">Análisis Completo</p>
                     </div>
                   </motion.div>
 
-                  {/* Indicador de plan listo */}
                   <motion.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -593,8 +542,8 @@ export default function QuizStep() {
                     className="bg-blue-900/50 border border-blue-500 rounded-lg p-4 mb-6"
                   >
                     <div className="flex items-center justify-center gap-2">
-                      <Target className="w-6 h-6 text-blue-400" />
-                      <span className="text-blue-300 font-semibold">Plan Personalizado Generado</span>
+                      <Target className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
+                      <span className="text-blue-300 font-semibold text-sm sm:text-base">Plan Personalizado Generado</span>
                     </div>
                   </motion.div>
                 </motion.div>
@@ -607,7 +556,7 @@ export default function QuizStep() {
                     <motion.img
                       src={currentStep.elements.expertImage}
                       alt="Experto en Reconquista"
-                      className="w-20 h-20 rounded-full object-cover border-4 border-blue-600"
+                      className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-4 border-blue-600"
                       animate={{
                         y: [0, -6, 0],
                         rotate: [0, 2, -2, 0],
@@ -619,8 +568,8 @@ export default function QuizStep() {
                       }}
                     />
                   ) : (
-                    <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-purple-700 rounded-full flex items-center justify-center">
-                      <User className="w-10 h-10 text-white" />
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-600 to-purple-700 rounded-full flex items-center justify-center">
+                      <User className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
                     </div>
                   )}
                 </div>
@@ -635,7 +584,7 @@ export default function QuizStep() {
                   className="mb-6"
                 >
                   <div className="bg-green-900/50 border border-green-500 rounded-lg p-4 text-center">
-                    <div className="text-3xl font-bold text-green-400">
+                    <div className="text-2xl sm:text-3xl font-bold text-green-400">
                       {currentStep.elements.compatibilityCalc} de compatibilidad
                     </div>
                   </div>
@@ -644,26 +593,26 @@ export default function QuizStep() {
 
               {!currentStep?.autoAdvance && (
                 <>
-                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-6 text-center leading-tight">
                     {getPersonalizedQuestion()}
                   </h2>
 
                   {currentStep.subtext && (
-                    <p className="text-orange-200 text-center mb-6 text-lg font-medium">{currentStep.subtext}</p>
+                    <p className="text-orange-200 text-center mb-6 text-base sm:text-lg font-medium">{currentStep.subtext}</p>
                   )}
 
                   {currentStep.description && (
-                    <p className="text-gray-300 text-center mb-8">{currentStep.description}</p>
+                    <p className="text-gray-300 text-center mb-8 text-sm sm:text-base">{currentStep.description}</p>
                   )}
 
                   {/* Termómetro para nivel de compromiso */}
                   {currentStep?.elements?.thermometer && (
                     <div className="mb-8">
-                      <div className="flex justify-between text-gray-300 text-sm mb-2 font-medium">
+                      <div className="flex justify-between text-gray-300 text-xs sm:text-sm mb-2 font-medium">
                         <span>No estoy seguro</span>
                         <span>Lo quiero mucho</span>
                       </div>
-                      <div className="bg-gray-700 rounded-full h-4 mb-4">
+                      <div className="bg-gray-700 rounded-full h-3 sm:h-4 mb-4">
                         <motion.div
                           className="bg-gradient-to-r from-orange-500 to-red-600 h-full rounded-full"
                           initial={{ width: "0%" }}
@@ -675,7 +624,7 @@ export default function QuizStep() {
                   )}
 
                   {getPersonalizedOptions().length > 0 && (
-                    <div className="space-y-4">
+                    <div className="space-y-3 sm:space-y-4">
                       {getPersonalizedOptions().map((option, index) => (
                         <motion.div
                           key={index}
@@ -684,75 +633,10 @@ export default function QuizStep() {
                           transition={{ delay: index * 0.1, duration: 0.4 }}
                           className="relative"
                         >
-                          {/* GIF ESPECIAL PARA A OPÇÃO "No dejes que la..." NA ETAPA 1 */}
-                          {step === 1 && option.includes("No dejes que la") && (
-                            <motion.div
-                              initial={{ opacity: 0, y: -20, scale: 0.8 }}
-                              animate={{ opacity: 1, y: 0, scale: 1 }}
-                              transition={{ 
-                                delay: 0.3, 
-                                duration: 0.6,
-                                type: "spring",
-                                bounce: 0.4
-                              }}
-                              className="flex flex-col items-center mb-6"
-                            >
-                              {/* Container do GIF com efeitos */}
-                              <div className="relative mb-3">
-                                <motion.img
-                                  src="https://comprarplanseguro.shop/wp-content/uploads/2025/06/edy1q-marilyn-monroe-gif-by-maudit.gif"
-                                  alt="Marilyn Monroe GIF"
-                                  className="w-28 h-28 md:w-32 md:h-32 object-cover rounded-full border-4 border-gradient-to-r from-pink-500 to-red-500 shadow-2xl"
-                                  animate={{
-                                    y: [0, -8, 0],
-                                    rotate: [0, 2, -2, 0],
-                                  }}
-                                  transition={{
-                                    duration: 4,
-                                    repeat: Number.POSITIVE_INFINITY,
-                                    ease: "easeInOut",
-                                  }}
-                                  style={{
-                                    filter: 'brightness(1.1) contrast(1.1) saturate(1.2)',
-                                    boxShadow: '0 0 30px rgba(236, 72, 153, 0.5)',
-                                  }}
-                                />
-                                
-                                {/* Efeito de brilho pulsante */}
-                                <motion.div 
-                                  className="absolute inset-0 rounded-full border-4 border-pink-400 opacity-60"
-                                  animate={{
-                                    scale: [1, 1.1, 1],
-                                    opacity: [0.6, 0.3, 0.6],
-                                  }}
-                                  transition={{
-                                    duration: 2,
-                                    repeat: Number.POSITIVE_INFINITY,
-                                    ease: "easeInOut",
-                                  }}
-                                />
-                                
-                                {/* Partículas de brilho */}
-                                <div className="absolute -top-2 -right-2 w-4 h-4 bg-pink-400 rounded-full animate-ping opacity-75"></div>
-                                <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-red-400 rounded-full animate-ping opacity-60" style={{animationDelay: '0.5s'}}></div>
-                              </div>
-                              
-                              {/* Texto motivacional */}
-                              <motion.p 
-                                className="text-pink-300 text-sm font-semibold text-center max-w-xs"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.8 }}
-                              >
-                                💋 ¡La opción más poderosa para reconquistar!
-                              </motion.p>
-                            </motion.div>
-                          )}
-
                           <button
                             onClick={() => handleAnswerSelect(option)}
                             data-option={option}
-                            className={`w-full p-6 text-left justify-start text-wrap h-auto rounded-lg border-2 transition-all duration-300 transform hover:scale-102 ${
+                            className={`w-full p-4 sm:p-6 text-left justify-start text-wrap h-auto rounded-lg border-2 transition-all duration-300 transform hover:scale-102 ${
                               selectedAnswer === option
                                 ? "bg-gradient-to-r from-orange-500 to-red-600 text-white border-orange-500 shadow-lg scale-105"
                                 : "bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-500 shadow-sm"
@@ -760,18 +644,18 @@ export default function QuizStep() {
                           >
                             <div className="flex items-center w-full">
                               {/* Iconos para diferentes pasos */}
-                              <div className={`mr-4 ${selectedAnswer === option ? "text-white" : "text-orange-400"}`}>
+                              <div className={`mr-3 sm:mr-4 ${selectedAnswer === option ? "text-white" : "text-orange-400"}`}>
                                 {getStepIcon(step, index)}
                               </div>
 
                               <div
-                                className={`w-5 h-5 rounded-full border-2 mr-4 flex items-center justify-center transition-all ${
+                                className={`w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2 mr-3 sm:mr-4 flex items-center justify-center transition-all ${
                                   selectedAnswer === option ? "border-white bg-white" : "border-gray-400 bg-gray-700"
                                 }`}
                               >
-                                {selectedAnswer === option && <Check className="w-3 h-3 text-orange-600" />}
+                                {selectedAnswer === option && <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-orange-600" />}
                               </div>
-                              <span className="flex-1 font-medium">{option}</span>
+                              <span className="flex-1 font-medium text-sm sm:text-base leading-relaxed">{option}</span>
                             </div>
                           </button>
 
@@ -802,92 +686,91 @@ export default function QuizStep() {
                       transition={{ delay: 0.8 }}
                       className="mt-6 text-center text-amber-300 bg-amber-900/30 p-4 rounded-lg border border-amber-600"
                     >
-                      <p className="font-medium">{currentStep.note}</p>
+                      <p className="font-medium text-sm sm:text-base">{currentStep.note}</p>
                     </motion.div>
                   )}
 
                   {currentStep.warning && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.8 }}
-                      className="mt-6 text-center text-red-300 bg-red-900/30 p-4 rounded-lg border border-red-600 flex items-center justify-center gap-2"
-                    >
-                      <AlertTriangle className="w-4 h-4" />
-                      <p className="font-medium">{currentStep.warning}</p>
-                    </motion.div>
-                  )}
+                                      <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.8 }}
+                    className="mt-6 text-center text-red-300 bg-red-900/30 p-4 rounded-lg border border-red-600 flex items-center justify-center gap-2"
+                  >
+                    <AlertTriangle className="w-4 h-4" />
+                    <p className="font-medium text-sm sm:text-base">{currentStep.warning}</p>
+                  </motion.div>
+                )}
 
-                  {selectedAnswer && getPersonalizedOptions().length > 0 && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mt-8 text-center"
+                {selectedAnswer && getPersonalizedOptions().length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-8 text-center"
+                  >
+                    <Button
+                      onClick={handleNext}
+                      size="lg"
+                      className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full shadow-lg w-full sm:w-auto text-sm sm:text-base"
                     >
-                      {/* ✅ ATUALIZADO: Botão agora usa 12 como referência para resultado */}
-                      <Button
-                        onClick={handleNext}
-                        size="lg"
-                        className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-4 px-6 rounded-full shadow-lg max-w-full"
-                      >
-                        {step === 12 ? "Ver Resultado" : "Siguiente Pregunta"}
-                        <ArrowRight className="w-5 h-5 ml-2" />
-                      </Button>
-                    </motion.div>
-                  )}
-                </>
-              )}
-            </CardContent>
-          </Card>
+                      {step === 12 ? "Ver Resultado" : "Siguiente Pregunta"}
+                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
+                    </Button>
+                  </motion.div>
+                )}
+              </>
+            )}
+          </CardContent>
+        </Card>
+      </motion.div>
+
+      {/* Prueba Social */}
+      {step > 2 && !currentStep?.autoAdvance && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          className="text-center space-y-2 mt-6"
+        >
+          {currentStep?.elements?.counter && (
+            <p className="text-white text-xs sm:text-sm bg-white/10 px-3 py-1 rounded-full inline-block">
+              👥 {peopleCount} {currentStep.elements.counter}
+            </p>
+          )}
+
+          {currentStep?.elements?.helpedCounter && (
+            <p className="text-green-400 text-xs sm:text-sm font-semibold bg-green-900/20 px-3 py-1 rounded-full inline-block">
+              ✅ {currentStep.elements.helpedCounter}
+            </p>
+          )}
+
+          {step > 5 && (
+            <p className="text-blue-300 text-xs sm:text-sm bg-blue-900/20 px-3 py-1 rounded-full inline-block">
+              {socialProofMessages[Math.min(step - 6, socialProofMessages.length - 1)]}
+            </p>
+          )}
         </motion.div>
-
-        {/* Prueba Social */}
-        {step > 2 && !currentStep?.autoAdvance && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="text-center space-y-2 mt-6"
-          >
-            {currentStep?.elements?.counter && (
-              <p className="text-white text-sm bg-white/10 px-3 py-1 rounded-full inline-block">
-                👥 {peopleCount} {currentStep.elements.counter}
-              </p>
-            )}
-
-            {currentStep?.elements?.helpedCounter && (
-              <p className="text-green-400 text-sm font-semibold bg-green-900/20 px-3 py-1 rounded-full inline-block">
-                ✅ {currentStep.elements.helpedCounter}
-              </p>
-            )}
-
-            {step > 5 && (
-              <p className="text-blue-300 text-sm bg-blue-900/20 px-3 py-1 rounded-full inline-block">
-                {socialProofMessages[Math.min(step - 6, socialProofMessages.length - 1)]}
-              </p>
-            )}
-          </motion.div>
-        )}
-      </div>
-
-      {/* Modal de Análisis de Carga */}
-      <AnimatePresence>
-        {showAnalysis && (
-          <LoadingAnalysis
-            message={
-              currentStep?.elements?.analysisText ||
-              currentStep?.elements?.profileAnalysis ||
-              "Analizando tus respuestas..."
-            }
-            successMessage={currentStep?.elements?.successRate}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* Modal de Desbloqueo de Bonificación */}
-      <AnimatePresence>
-        {showBonusUnlock && newBonus && <BonusUnlock bonus={newBonus} onComplete={handleBonusUnlockComplete} />}
-      </AnimatePresence>
+      )}
     </div>
-  )
+
+    {/* Modal de Análisis de Carga */}
+    <AnimatePresence>
+      {showAnalysis && (
+        <LoadingAnalysis
+          message={
+            currentStep?.elements?.analysisText ||
+            currentStep?.elements?.profileAnalysis ||
+            "Analizando tus respuestas..."
+          }
+          successMessage={currentStep?.elements?.successRate}
+        />
+      )}
+    </AnimatePresence>
+
+    {/* Modal de Desbloqueo de Bonificación */}
+    <AnimatePresence>
+      {showBonusUnlock && newBonus && <BonusUnlock bonus={newBonus} onComplete={handleBonusUnlockComplete} />}
+    </AnimatePresence>
+  </div>
+)
 }
