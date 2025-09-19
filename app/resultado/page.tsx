@@ -49,7 +49,7 @@ export default function ResultPageOptimized() {
     const loadVTurbScript = () => {
       if (!document.querySelector('script[src*="68cc44955c346294924218e1"]')) {
         const script = document.createElement("script")
-        script.src = "https://scripts.converteai.net/498be6ac-2d19-4386-aba2-c11c84449107/players/68cc44955c346294924218e1/v4/player.js"
+        script.src = "https://scripts.converteai.net/be950e40/players/68cc44955c346294924/players/68cc44955c346294924218e1/v4/player.js"
         script.async = true
         document.head.appendChild(script)
       }
