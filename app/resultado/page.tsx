@@ -316,7 +316,7 @@ export default function ResultPageOptimized() {
                     <div className="mobile-price-main font-black text-yellow-300 mb-2">$19</div>
                     <div className="mobile-price-sub">
                       <span className="line-through text-gray-400 mr-3">$99,90</span>
-                      <span className="text-green-400 font-bold">AHORRAS $86</span>
+                      <span className="text-green-400 font-bold">AHORRAS $80</span>
                     </div>
                   </div>
 
