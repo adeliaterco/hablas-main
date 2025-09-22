@@ -121,6 +121,14 @@ export default function HomePage() {
             box-shadow: 0 20px 60px rgba(0,0,0,.8);
           }
 
+          .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            width: 100%;
+          }
+
           .logo-pequena {
             border-radius: 10px;
             border: 2px solid #dc2626;
@@ -128,6 +136,8 @@ export default function HomePage() {
             width: 120px;
             height: 75px;
             object-fit: cover;
+            display: block;
+            margin: 0 auto;
           }
 
           .titulo-quiz {
@@ -367,8 +377,8 @@ export default function HomePage() {
         <div className="main-content">
           <div className="container-quiz">
             
-            {/* LOGO MENOR E MAIS DISCRETA */}
-            <div style={{ marginBottom: "30px" }}>
+            {/* LOGO CENTRALIZADA */}
+            <div className="logo-container">
               <Image
                 src="https://comprarplanseguro.shop/wp-content/uploads/2025/08/543af5ae-e239-4f03-a3a8-59c53717f3b9.webp"
                 alt="Logo Plan A"
@@ -396,8 +406,8 @@ export default function HomePage() {
             {/* INFORMAÇÕES DO QUIZ */}
             <div className="quiz-info">
               <div>⏱️ 2 minutos</div>
-              <div>🎯 Resultado instantáneo</div>
-              <div>🎁 100% gratuito</div>
+              <div>�� Resultado instantáneo</div>
+              <div>�� 100% gratuito</div>
             </div>
 
             {/* CTA SIMPLES */}
