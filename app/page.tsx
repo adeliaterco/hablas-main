@@ -406,8 +406,8 @@ export default function HomePage() {
             {/* INFORMAÇÕES DO QUIZ */}
             <div className="quiz-info">
               <div>⏱️ 2 minutos</div>
-              <div>�� Resultado instantáneo</div>
-              <div>�� 100% gratuito</div>
+              <div>🎯 Resultado instantáneo</div>
+              <div>🎁 100% gratuito</div>
             </div>
 
             {/* CTA SIMPLES */}
