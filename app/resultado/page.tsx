@@ -195,7 +195,7 @@ export default function ResultPageOptimized() {
               
               <div className="max-w-2xl mx-auto mb-6 w-full">
                 <p className="mobile-description text-gray-300 mb-4 break-words">
-                  Mira este video donde 3 especialistas revelan el método exacto:
+                  Mira este video:
                 </p>
               </div>
             </div>
