@@ -157,7 +157,7 @@ export default function ResultPageOptimized() {
                 {/* Timer principal */}
                 <div className="bg-black/50 rounded-lg p-3">
                   <p className="text-red-300 font-bold mobile-description mb-2">
-                    ⏰ ESTA PÁGINA SAI DO AR EM:
+                    ⏰ ESTA PÁGINA SE DESCONECTA EN:
                   </p>
                   <div className="mobile-countdown font-black text-white">
                     <CountdownTimer minutes={57} seconds={23} />
