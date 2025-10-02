@@ -147,7 +147,7 @@ export default function ResultPageOptimized() {
               
               <div className="max-w-2xl mx-auto mb-6 w-full">
                 <p className="mobile-description text-gray-300 mb-4 break-words">
-                  Mira este video donde 3 especialistas revelan:
+                  Mira este video:
                 </p>
                 <div className="text-left bg-black/30 rounded-lg mobile-list-padding space-y-2 w-full">
                   <div className="flex items-start text-white mobile-list-text">
