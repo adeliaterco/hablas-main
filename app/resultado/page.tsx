@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import {
   Shield,
   ArrowRight,
@@ -10,6 +10,7 @@ import {
   Users,
   Heart,
   Play,
+  Lock,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -17,10 +18,16 @@ import { CountdownTimer } from "@/components/countdown-timer"
 import { enviarEvento } from "../../lib/analytics"
 
 export default function ResultPageOptimized() {
+  // ===== ESTADOS ORIGINAIS =====
   const [isLoaded, setIsLoaded] = useState(false)
   const [recentBuyers, setRecentBuyers] = useState(3)
   const [userGender, setUserGender] = useState<string>("")
   const contentRef = useRef<HTMLDivElement>(null)
+
+  // ===== ESTADO DO OVERLAY =====
+  const [showOverlay, setShowOverlay] = useState(true)
+  const [unlockTimer, setUnlockTimer] = useState(120) // 2 minutos
+  const [accessCount, setAccessCount] = useState(31)
 
   useEffect(() => {
     const savedGender = localStorage.getItem("userGender")
@@ -40,7 +47,7 @@ export default function ResultPageOptimized() {
 
     // Registra visualización
     try {
-      enviarEvento("visualizou_resultado")
+      enviarEvento("visualizou_resultado_bloqueado")
     } catch (error) {
       console.error("Error al registrar evento:", error)
     }
@@ -60,10 +67,35 @@ export default function ResultPageOptimized() {
     return () => clearInterval(interval)
   }, [])
 
+  // ===== TIMER DE DESBLOQUEIO =====
+  useEffect(() => {
+    if (showOverlay && unlockTimer > 0) {
+      const timer = setTimeout(() => {
+        setUnlockTimer(prev => prev - 1)
+      }, 1000)
+      
+      return () => clearTimeout(timer)
+    } else if (showOverlay && unlockTimer <= 0) {
+      // Remove overlay após 2 minutos
+      setShowOverlay(false)
+      enviarEvento("pagina_desbloqueada")
+    }
+  }, [unlockTimer, showOverlay])
+
+  // ===== SIMULAR DIMINUIÇÃO DE ACESSOS =====
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAccessCount(prev => Math.max(prev - 1, 15))
+    }, 30000)
+
+    return () => clearInterval(interval)
+  }, [])
+
   const handlePurchase = () => {
     try {
       enviarEvento("clicou_comprar", {
         posicao: "principal",
+        overlay_ativo: showOverlay
       })
     } catch (error) {
       console.error("Error al registrar evento de clic:", error)
@@ -73,6 +105,10 @@ export default function ResultPageOptimized() {
 
   const getPersonalizedPronoun = () => {
     return userGender === "FEMININO" ? "él" : "ella"
+  }
+
+  const getPersonalizedOther = () => {
+    return userGender === "FEMININO" ? "otra" : "otro"
   }
 
   const handleTouchFeedback = () => {
@@ -92,77 +128,75 @@ export default function ResultPageOptimized() {
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </head>
 
-      <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black overflow-x-hidden w-full max-w-[100vw] mobile-container" ref={contentRef}>
+      <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black overflow-x-hidden w-full max-w-[100vw] mobile-container relative" ref={contentRef}>
         
-        {/* ✅ SEÇÃO 1: RESULTADO INICIAL ENXUTO */}
+        {/* ===== PARTE SEMPRE VISÍVEL ===== */}
+        
+        {/* ✅ SEÇÃO 1: HEADER DE URGÊNCIA */}
         <div className="relative overflow-hidden w-full">
-          <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-red-600/20 animate-pulse"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-red-600/30 to-orange-600/30 animate-pulse"></div>
 
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : -20 }}
             className="relative z-10 mobile-padding text-center w-full"
           >
-            {/* Headline Principal */}
+            
+            {/* Headline de Urgência */}
             <h1 className="mobile-headline text-white mb-4 sm:mb-6 leading-tight max-w-full break-words">
-              🎯 <span className="text-orange-400">¡FELICITACIONES!</span>
+              🚨 <span className="text-red-400">ÚLTIMA CHANCE:</span>
               <br />
-              TU CASO TIENE <span className="text-green-400">90,5%</span>
+              {getPersonalizedPronoun()} está con {getPersonalizedOther()} <span className="text-yellow-400">HOY</span>...
               <br />
-              DE PROBABILIDAD DE ÉXITO
+              o tú haces que {getPersonalizedPronoun()} <span className="text-green-400">rastree ahora</span>
             </h1>
 
-            {/* Resultado Visual Simples */}
-            <div className="max-w-sm mx-auto mb-6 sm:mb-8 w-full">
-              <div className="bg-gradient-to-r from-green-500 to-emerald-600 mobile-border rounded-2xl mobile-card-padding shadow-2xl max-w-full">
-                <div className="mobile-circle mx-auto bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mobile-border-white mb-4">
-                  <div className="text-center">
-                    <span className="mobile-percentage font-extrabold text-black">90,5%</span>
-                    <p className="mobile-success-text font-bold text-black">ÉXITO</p>
+            {/* Caixa Vermelha de Urgência */}
+            <div className="bg-red-900/80 rounded-xl p-4 mb-6 border-2 border-red-500 max-w-md mx-auto">
+              <div className="space-y-3">
+                {/* Timer principal */}
+                <div className="bg-black/50 rounded-lg p-3">
+                  <p className="text-red-300 font-bold mobile-description mb-2">
+                    ⏰ ESTA PÁGINA SAI DO AR EM:
+                  </p>
+                  <div className="mobile-countdown font-black text-white">
+                    <CountdownTimer minutes={57} seconds={23} />
                   </div>
                 </div>
-                
-                <div className="text-white space-y-2 mobile-info-text">
-                  <p><strong>Tiempo estimado:</strong> 14-21 días</p>
-                  <p><strong>Estrategia:</strong> Plan A</p>
-                  <p><strong>Tipo:</strong> Altamente recuperable</p>
+
+                {/* Escassez */}
+                <div className="bg-orange-900/50 rounded-lg p-2 border border-orange-500">
+                  <p className="text-orange-300 font-bold mobile-small-text">
+                    🔥 Solo <span className="text-white">{accessCount} accesos</span> restantes hoy
+                  </p>
+                </div>
+
+                {/* Aviso do vídeo */}
+                <div className="bg-yellow-600 rounded-lg p-3">
+                  <p className="text-black font-bold mobile-small-text mb-1">
+                    ⚠️ PARA DESBLOQUEAR TU RESULTADO:
+                  </p>
+                  <p className="text-black mobile-small-text font-semibold">
+                    Mira el video abajo y espera el tiempo
+                  </p>
                 </div>
               </div>
             </div>
-
-            {/* Transição para VSL */}
-            <p className="mobile-transition-text text-gray-300 mb-4 font-semibold max-w-full break-words px-2">
-              Ahora descubre <span className="text-orange-400 font-bold">cómo es posible</span> este resultado:
-            </p>
           </motion.div>
         </div>
 
-        {/* ✅ SEÇÃO 2: VSL PRINCIPAL (POSIÇÃO OTIMIZADA) */}
+        {/* ✅ SEÇÃO 2: VÍDEO PRINCIPAL */}
         <div className="mobile-padding bg-gradient-to-r from-gray-900 to-black w-full">
           <div className="max-w-4xl mx-auto w-full">
             <div className="text-center mb-6">
               <h2 className="mobile-section-title font-bold text-white mb-4 max-w-full break-words">
-                🎯 <span className="text-orange-400">EL MÉTODO</span> QUE HACE POSIBLE TU RESULTADO
+                🎯 <span className="text-orange-400">DESCUBRE</span> LA ESTRATEGIA QUE FUNCIONA
               </h2>
               
               <div className="max-w-2xl mx-auto mb-6 w-full">
                 <p className="mobile-description text-gray-300 mb-4 break-words">
-                  Mira este video:
+                  Mira este video donde 3 especialistas revelan el método exacto:
                 </p>
-                <div className="text-left bg-black/30 rounded-lg mobile-list-padding space-y-2 w-full">
-                  <div className="flex items-start text-white mobile-list-text">
-                    <Check className="mobile-check-icon text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
-                    <span className="break-words">Por qué tu caso tiene <strong className="text-orange-400">90,5% de éxito</strong></span>
-                  </div>
-                  <div className="flex items-start text-white mobile-list-text">
-                    <Check className="mobile-check-icon text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
-                    <span className="break-words">Los <strong className="text-orange-400">disparadores</strong> que funcionan en 21 días</span>
-                  </div>
-                  <div className="flex items-start text-white mobile-list-text">
-                    <Check className="mobile-check-icon text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
-                    <span className="break-words">Cómo aplicarlo <strong className="text-orange-400">paso a paso</strong></span>
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -181,322 +215,405 @@ export default function ResultPageOptimized() {
               </div>
             </div>
 
-            {/* CTA ÚNICO APÓS VSL */}
-            <div className="text-center w-full">
-              <div className="bg-orange-600 text-white mobile-badge-padding rounded-full inline-block font-bold mobile-badge-text mb-4 sm:mb-6 animate-bounce max-w-full">
-                👆 APLICA ESTO Y VERÁS RESULTADOS EN DÍAS
+            {/* Caixa Laranja de Liberação */}
+            <div className="bg-orange-600 rounded-xl p-4 mb-6 border-2 border-yellow-400 max-w-md mx-auto">
+              <div className="text-center">
+                <p className="text-black font-bold mobile-description mb-2">
+                  ⏳ ESPERA... EL ACCESO SERÁ LIBERADO
+                </p>
+                <p className="text-black mobile-small-text font-semibold mb-3">
+                  Es importante ver parte del video para garantizar el mejor resultado
+                </p>
+                
+                {/* Timer de liberação */}
+                <div className="bg-black/20 rounded-lg p-3 mb-3">
+                  <p className="text-black font-bold mobile-small-text mb-1">
+                    LIBERANDO ACCESO EN:
+                  </p>
+                  <div className="text-black font-black text-2xl">
+                    {Math.floor(unlockTimer / 60)}:{(unlockTimer % 60).toString().padStart(2, '0')}
+                  </div>
+                </div>
+
+                <p className="text-black mobile-small-text font-semibold">
+                  {unlockTimer > 0 ? "Mantén esta página abierta" : "¡Desbloqueando resultado!"}
+                </p>
               </div>
-
-              <motion.div
-                animate={{
-                  scale: [1, 1.05, 1],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Number.POSITIVE_INFINITY,
-                  repeatType: "reverse",
-                }}
-                className="w-full"
-              >
-                <Button
-                  onClick={handlePurchase}
-                  size="lg"
-                  className="mobile-cta-primary"
-                  onTouchStart={handleTouchFeedback}
-                >
-                  <Heart className="mobile-icon-size mr-2 flex-shrink-0" />
-                  <span className="mobile-cta-text text-center leading-tight break-words">
-                    <span className="mobile-show">APLICAR MÉTODO - $19</span>
-                    <span className="desktop-show">QUIERO APLICAR ESTE MÉTODO - $19</span>
-                  </span>
-                  <ArrowRight className="mobile-icon-size ml-2 flex-shrink-0" />
-                </Button>
-              </motion.div>
-
-              <p className="text-white mobile-description font-semibold mt-4 max-w-full break-words px-2">
-                Ahora que conoces el método, es hora de <span className="text-orange-400">ponerlo en práctica</span>
-              </p>
             </div>
           </div>
         </div>
 
-        {/* ✅ SEÇÃO 3: PROVA SOCIAL RÁPIDA (1 DEPOIMENTO EM VÍDEO) */}
-        <div className="mobile-padding bg-gradient-to-r from-black to-gray-900 w-full">
-          <div className="max-w-4xl mx-auto w-full">
-            <div className="text-center mb-6">
-              <h3 className="mobile-subsection-title font-bold text-white mb-2 max-w-full break-words">
-                💬 <span className="text-orange-400">TESTIMONIO REAL</span> DE QUIEN YA LO LOGRÓ
-              </h3>
-              <p className="text-gray-300 mobile-small-text break-words">
-                Escucha la historia de transformación usando exactamente el mismo método
-              </p>
-            </div>
+        {/* ===== SEÇÕES BLOQUEADAS (COM OVERLAY) ===== */}
+        <div className="relative">
+          
+          {/* ✅ SEÇÃO 3: RESULTADO (BLOQUEADO) */}
+          <div className="mobile-padding bg-gradient-to-r from-green-900/30 to-emerald-900/30 w-full">
+            <div className="max-w-4xl mx-auto w-full">
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: showOverlay ? 0.3 : 1, y: 0 }}
+                className="text-center"
+              >
+                
+                {/* Badge de resultado */}
+                <div className="bg-green-600 text-white mobile-badge-padding rounded-full inline-block font-bold mobile-badge-text mb-4 animate-bounce">
+                  🎉 ¡TU RESULTADO ESTÁ LISTO!
+                </div>
 
-            {/* Depoimento em Vídeo Centralizado */}
-            <div className="flex justify-center mb-6 sm:mb-8 w-full">
-              <div className="w-full max-w-xs">
-                <div className="relative bg-black rounded-xl sm:rounded-2xl p-2 mobile-border-orange shadow-xl overflow-hidden w-full">
-                  
-                  {/* Header do Story */}
-                  <div className="flex items-center p-2 pb-1">
-                    <div className="mobile-avatar rounded-full border border-orange-400 overflow-hidden mr-2 flex-shrink-0">
-                      <div className="w-full h-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
-                        <span className="text-white font-bold mobile-avatar-text">FB</span>
+                {/* Headline do resultado */}
+                <h1 className="mobile-headline text-white mb-4 sm:mb-6 leading-tight max-w-full break-words">
+                  🎯 <span className="text-green-400">¡FELICITACIONES!</span>
+                  <br />
+                  TU CASO TIENE <span className="text-yellow-400">90,5%</span>
+                  <br />
+                  DE PROBABILIDAD DE ÉXITO
+                </h1>
+
+                {/* Resultado Visual */}
+                <div className="max-w-sm mx-auto mb-6 sm:mb-8 w-full">
+                  <div className="bg-gradient-to-r from-green-500 to-emerald-600 mobile-border rounded-2xl mobile-card-padding shadow-2xl max-w-full">
+                    <div className="mobile-circle mx-auto bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mobile-border-white mb-4">
+                      <div className="text-center">
+                        <span className="mobile-percentage font-extrabold text-black">90,5%</span>
+                        <p className="mobile-success-text font-bold text-black">ÉXITO</p>
                       </div>
                     </div>
-                    <div className="flex-1 text-left min-w-0">
-                      <h4 className="text-white font-bold mobile-name-text truncate">Facundo B.</h4>
-                      <p className="text-green-400 mobile-status-text font-semibold">✅ Reconciliado en 15 días</p>
+                    
+                    <div className="text-white space-y-2 mobile-info-text">
+                      <p><strong>Tiempo estimado:</strong> 14-21 días</p>
+                      <p><strong>Estrategia:</strong> Plan A</p>
+                      <p><strong>Tipo:</strong> Altamente recuperable</p>
                     </div>
                   </div>
+                </div>
 
-                  {/* Vídeo Story - Mantendo Wistia para o depoimento */}
-                  <div className="relative mobile-story-video bg-gray-900 rounded-xl overflow-hidden w-full">
-                    <script src="https://fast.wistia.com/player.js" async></script>
-                    <script src="https://fast.wistia.com/embed/3rj8vdh574.js" async type="module"></script>
-                    <wistia-player 
-                      media-id="3rj8vdh574" 
-                      aspect="0.5625"
-                      className="mobile-wistia-player"
-                    ></wistia-player>
-                  </div>
+                {/* Transição para próxima seção */}
+                <p className="mobile-transition-text text-gray-300 mb-4 font-semibold max-w-full break-words px-2">
+                  Ahora que conoces tu resultado, descubre <span className="text-orange-400 font-bold">cómo aplicarlo</span>:
+                </p>
+              </motion.div>
+            </div>
+          </div>
 
-                  {/* Footer com CTA */}
-                  <div className="p-2 text-center w-full">
-                    <Button
-                      onClick={handlePurchase}
-                      className="mobile-cta-secondary"
-                      onTouchStart={handleTouchFeedback}
-                    >
-                      <Play className="mobile-small-icon mr-1 flex-shrink-0" />
-                      <span className="mobile-cta-small-text truncate">
-                        <span className="mobile-show">QUIERO RESULTADOS</span>
-                        <span className="desktop-show">QUIERO LOS MISMOS RESULTADOS</span>
-                      </span>
-                    </Button>
+          {/* ✅ SEÇÃO 4: PROVA SOCIAL (BLOQUEADO) */}
+          <div className="mobile-padding bg-gradient-to-r from-black to-gray-900 w-full">
+            <div className="max-w-4xl mx-auto w-full">
+              <div className="text-center mb-6">
+                <h3 className="mobile-subsection-title font-bold text-white mb-2 max-w-full break-words">
+                  💬 <span className="text-orange-400">TESTIMONIO REAL</span> DE QUIEN YA LO LOGRÓ
+                </h3>
+                <p className="text-gray-300 mobile-small-text break-words">
+                  Escucha la historia de transformación usando exactamente el mismo método
+                </p>
+              </div>
+
+              {/* Depoimento em Vídeo */}
+              <div className="flex justify-center mb-6 sm:mb-8 w-full">
+                <div className="w-full max-w-xs">
+                  <div className="relative bg-black rounded-xl sm:rounded-2xl p-2 mobile-border-orange shadow-xl overflow-hidden w-full">
+                    
+                    {/* Header do Story */}
+                    <div className="flex items-center p-2 pb-1">
+                      <div className="mobile-avatar rounded-full border border-orange-400 overflow-hidden mr-2 flex-shrink-0">
+                        <div className="w-full h-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
+                          <span className="text-white font-bold mobile-avatar-text">FB</span>
+                        </div>
+                      </div>
+                      <div className="flex-1 text-left min-w-0">
+                        <h4 className="text-white font-bold mobile-name-text truncate">Facundo B.</h4>
+                        <p className="text-green-400 mobile-status-text font-semibold">✅ Reconciliado en 15 días</p>
+                      </div>
+                    </div>
+
+                    {/* Vídeo Story */}
+                    <div className="relative mobile-story-video bg-gray-900 rounded-xl overflow-hidden w-full">
+                      <script src="https://fast.wistia.com/player.js" async></script>
+                      <script src="https://fast.wistia.com/embed/3rj8vdh574.js" async type="module"></script>
+                      <wistia-player 
+                        media-id="3rj8vdh574" 
+                        aspect="0.5625"
+                        className="mobile-wistia-player"
+                      ></wistia-player>
+                    </div>
+
+                    {/* Footer com CTA */}
+                    <div className="p-2 text-center w-full">
+                      <Button
+                        onClick={handlePurchase}
+                        className="mobile-cta-secondary"
+                        onTouchStart={handleTouchFeedback}
+                      >
+                        <Play className="mobile-small-icon mr-1 flex-shrink-0" />
+                        <span className="mobile-cta-small-text truncate">
+                          <span className="mobile-show">QUIERO RESULTADOS</span>
+                          <span className="desktop-show">QUIERO LOS MISMOS RESULTADOS</span>
+                        </span>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Números de Prova Social */}
-            <div className="mobile-grid max-w-2xl mx-auto w-full">
-              <div className="bg-gray-800 mobile-stats-padding rounded-lg mobile-border-orange text-center">
-                <div className="mobile-stats-number font-bold text-orange-400 mb-1">87%</div>
-                <p className="text-white mobile-stats-text break-words">Ven resultados en 14 días</p>
-              </div>
-              <div className="bg-gray-800 mobile-stats-padding rounded-lg mobile-border-orange text-center">
-                <div className="mobile-stats-number font-bold text-orange-400 mb-1">3.847+</div>
-                <p className="text-white mobile-stats-text break-words">Relaciones recuperadas</p>
-              </div>
-              <div className="bg-gray-800 mobile-stats-padding rounded-lg mobile-border-orange text-center">
-                <div className="mobile-stats-number font-bold text-orange-400 mb-1">21</div>
-                <p className="text-white mobile-stats-text break-words">Días o menos</p>
+              {/* Números de Prova Social */}
+              <div className="mobile-grid max-w-2xl mx-auto w-full">
+                <div className="bg-gray-800 mobile-stats-padding rounded-lg mobile-border-orange text-center">
+                  <div className="mobile-stats-number font-bold text-orange-400 mb-1">87%</div>
+                  <p className="text-white mobile-stats-text break-words">Ven resultados en 14 días</p>
+                </div>
+                <div className="bg-gray-800 mobile-stats-padding rounded-lg mobile-border-orange text-center">
+                  <div className="mobile-stats-number font-bold text-orange-400 mb-1">3.847+</div>
+                  <p className="text-white mobile-stats-text break-words">Relaciones recuperadas</p>
+                </div>
+                <div className="bg-gray-800 mobile-stats-padding rounded-lg mobile-border-orange text-center">
+                  <div className="mobile-stats-number font-bold text-orange-400 mb-1">21</div>
+                  <p className="text-white mobile-stats-text break-words">Días o menos</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* ✅ SEÇÃO 4: OFERTA FINAL SIMPLIFICADA */}
-        <div className="mobile-padding w-full">
-          <div className="max-w-4xl mx-auto w-full">
-            <Card className="bg-gradient-to-r from-orange-600 to-red-600 text-white shadow-2xl mobile-border-yellow w-full">
-              <CardContent className="mobile-offer-padding text-center w-full">
-                
-                {/* Badge de Oferta */}
-                <div className="bg-yellow-400 text-black font-bold mobile-offer-badge rounded-full inline-block mb-4 sm:mb-6 mobile-badge-text max-w-full">
-                  🔥 OFERTA ESPECIAL - SOLO HOY
-                </div>
+          {/* ✅ SEÇÃO 5: OFERTA (BLOQUEADO) */}
+          <div className="mobile-padding w-full">
+            <div className="max-w-4xl mx-auto w-full">
+              <Card className="bg-gradient-to-r from-orange-600 to-red-600 text-white shadow-2xl mobile-border-yellow w-full">
+                <CardContent className="mobile-offer-padding text-center w-full">
+                  
+                  {/* Badge de Oferta */}
+                  <div className="bg-yellow-400 text-black font-bold mobile-offer-badge rounded-full inline-block mb-4 sm:mb-6 mobile-badge-text max-w-full">
+                    🔥 OFERTA ESPECIAL - SOLO HOY
+                  </div>
 
-                <h2 className="mobile-offer-title font-black mb-4 sm:mb-6 break-words">PLAN A - RECUPERACIÓN RÁPIDA</h2>
+                  <h2 className="mobile-offer-title font-black mb-4 sm:mb-6 break-words">PLAN A - RECUPERACIÓN RÁPIDA</h2>
 
-                {/* Preço Simples */}
-                <div className="bg-black/20 rounded-lg mobile-price-padding mb-4 sm:mb-6 w-full">
-                  <div className="text-center mb-4">
-                    <div className="mobile-price-main font-black text-yellow-300 mb-2">$19</div>
-                    <div className="mobile-price-sub">
-                      <span className="line-through text-gray-400 mr-3">$99,90</span>
-                      <span className="text-green-400 font-bold">AHORRAS $80</span>
+                  {/* Preço */}
+                  <div className="bg-black/20 rounded-lg mobile-price-padding mb-4 sm:mb-6 w-full">
+                    <div className="text-center mb-4">
+                      <div className="mobile-price-main font-black text-yellow-300 mb-2">$19</div>
+                      <div className="mobile-price-sub">
+                        <span className="line-through text-gray-400 mr-3">$99,90</span>
+                        <span className="text-green-400 font-bold">AHORRAS $80</span>
+                      </div>
+                    </div>
+
+                    {/* O que inclui */}
+                    <div className="text-left space-y-2 sm:space-y-3 max-w-md mx-auto w-full">
+                      <div className="flex items-start text-white mobile-feature-text">
+                        <Check className="mobile-check-icon text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
+                        <span className="break-words">Sistema completo Plan A</span>
+                      </div>
+                      <div className="flex items-start text-white mobile-feature-text">
+                        <Check className="mobile-check-icon text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
+                        <span className="break-words">21 Disparadores Emocionales ($47)</span>
+                      </div>
+                      <div className="flex items-start text-white mobile-feature-text">
+                        <Check className="mobile-check-icon text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
+                        <span className="break-words">Protocolo de Emergencia 72H ($37)</span>
+                      </div>
+                      <div className="flex items-start text-white mobile-feature-text">
+                        <Check className="mobile-check-icon text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
+                        <span className="break-words">Garantía 30 días</span>
+                      </div>
+                      <div className="flex items-start text-white mobile-feature-text">
+                        <Check className="mobile-check-icon text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
+                        <span className="break-words">Acceso inmediato</span>
+                      </div>
                     </div>
                   </div>
 
-                  {/* O que inclui */}
-                  <div className="text-left space-y-2 sm:space-y-3 max-w-md mx-auto w-full">
-                    <div className="flex items-start text-white mobile-feature-text">
-                      <Check className="mobile-check-icon text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="break-words">Sistema completo Plan A</span>
+                  {/* CTA Principal */}
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.05, 1],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Number.POSITIVE_INFINITY,
+                      repeatType: "reverse",
+                    }}
+                    className="mb-4 sm:mb-6 w-full"
+                  >
+                    <Button
+                      onClick={handlePurchase}
+                      size="lg"
+                      className="mobile-cta-offer"
+                      onTouchStart={handleTouchFeedback}
+                    >
+                      <span className="mobile-cta-offer-text text-center leading-tight break-words">
+                        <span className="mobile-show">💕 RECUPERAR - $19</span>
+                        <span className="desktop-show">💕 RECUPERAR AHORA POR $19</span>
+                      </span>
+                      <ArrowRight className="mobile-icon-size ml-2 flex-shrink-0" />
+                    </Button>
+                  </motion.div>
+
+                  {/* Urgência */}
+                  <div className="bg-red-800 mobile-urgency-padding rounded-lg mb-4 w-full">
+                    <p className="text-yellow-300 font-bold mobile-urgency-text mb-2">⏰ OFERTA EXPIRA EN:</p>
+                    <div className="mobile-countdown font-black text-white">
+                      <CountdownTimer minutes={15} seconds={0} />
                     </div>
-                    <div className="flex items-start text-white mobile-feature-text">
-                      <Check className="mobile-check-icon text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="break-words">21 Disparadores Emocionales ($47)</span>
+                  </div>
+
+                  {/* Social Proof */}
+                  <div className="flex justify-center mobile-social-gap mobile-social-text text-white mb-4 flex-wrap">
+                    <div className="flex items-center">
+                      <Users className="mobile-social-icon text-orange-400 mr-1" />
+                      <span><strong>{recentBuyers}</strong> compraron hoy</span>
                     </div>
-                    <div className="flex items-start text-white mobile-feature-text">
-                      <Check className="mobile-check-icon text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="break-words">Protocolo de Emergencia 72H ($37)</span>
+                    <div className="flex items-center">
+                      <Clock className="mobile-social-icon text-red-400 mr-1" />
+                      <span>Últimas horas</span>
                     </div>
-                    <div className="flex items-start text-white mobile-feature-text">
-                      <Check className="mobile-check-icon text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="break-words">Garantía 30 días</span>
-                    </div>
-                    <div className="flex items-start text-white mobile-feature-text">
-                      <Check className="mobile-check-icon text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
-                      <span className="break-words">Acceso inmediato</span>
-                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* ✅ SEÇÃO 6: GARANTIA (BLOQUEADO) */}
+          <div className="mobile-padding bg-gradient-to-r from-green-900/30 to-emerald-900/30 w-full">
+            <div className="max-w-4xl mx-auto w-full">
+              <Card className="bg-green-50 mobile-border-green shadow-2xl w-full">
+                <CardContent className="mobile-guarantee-padding text-center w-full">
+                  <Shield className="mobile-shield-icon text-green-600 mx-auto mb-4" />
+                  <h2 className="mobile-guarantee-title font-bold text-green-800 mb-4 break-words">GARANTÍA TOTAL DE 30 DÍAS</h2>
+                  <p className="text-green-700 mobile-guarantee-text font-semibold mb-4 break-words">
+                    Si no ves resultados, te devolvemos el 100% de tu dinero
+                  </p>
+                  <p className="text-green-600 max-w-2xl mx-auto mobile-guarantee-desc break-words">
+                    Prueba el método durante 30 días. Si no funciona, te devolvemos todo sin hacer preguntas.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* ✅ SEÇÃO 7: FAQ (BLOQUEADO) */}
+          <div className="mobile-padding w-full">
+            <div className="max-w-4xl mx-auto w-full">
+              <h2 className="mobile-faq-title font-bold text-white text-center mb-6 sm:mb-8 break-words">PREGUNTAS FRECUENTES</h2>
+
+              <div className="space-y-4 max-w-2xl mx-auto w-full">
+                <Card className="bg-gray-800 border border-gray-700 w-full">
+                  <CardContent className="mobile-faq-padding w-full">
+                    <h3 className="mobile-faq-question font-bold text-orange-400 mb-2 break-words">
+                      ¿Y si {getPersonalizedPronoun()} ya está con otra persona?
+                    </h3>
+                    <p className="text-gray-300 mobile-faq-answer break-words">
+                      El método funciona incluso cuando hay terceras personas. El 67% de nuestros casos exitosos comenzaron en esta situación.
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-gray-800 border border-gray-700 w-full">
+                  <CardContent className="mobile-faq-padding w-full">
+                    <h3 className="mobile-faq-question font-bold text-orange-400 mb-2 break-words">¿Cuánto tiempo tarda en ver resultados?</h3>
+                    <p className="text-gray-300 mobile-faq-answer break-words">
+                      El 87% ve cambios positivos en menos de 14 días. El sistema completo funciona en 21 días máximo.
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-gray-800 border border-gray-700 w-full">
+                  <CardContent className="mobile-faq-padding w-full">
+                    <h3 className="mobile-faq-question font-bold text-orange-400 mb-2 break-words">¿Cómo recibo el acceso?</h3>
+                    <p className="text-gray-300 mobile-faq-answer break-words">
+                      Inmediatamente después del pago recibes un email con tus credenciales. Todo queda disponible al momento.
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+
+          {/* ✅ SEÇÃO 8: CTA FINAL (BLOQUEADO) */}
+          <div className="mobile-padding bg-gradient-to-r from-red-600 to-orange-600 w-full">
+            <div className="max-w-4xl mx-auto text-center w-full">
+              <div className="bg-black/20 backdrop-blur-sm rounded-xl sm:rounded-2xl mobile-final-padding mobile-border-yellow w-full">
+                <h2 className="mobile-final-title font-black text-white mb-4 break-words">⏰ ÚLTIMA OPORTUNIDAD</h2>
+                <p className="mobile-final-subtitle text-white mb-4 sm:mb-6 font-semibold break-words">
+                  Esta oferta expira en minutos. Después vuelve a $99,90.
+                </p>
+
+                <div className="bg-red-800 mobile-final-countdown-padding rounded-lg mb-4 sm:mb-6 w-full">
+                  <p className="text-yellow-300 font-bold mobile-final-countdown-label mb-2">TIEMPO RESTANTE:</p>
+                  <div className="mobile-final-countdown-time font-black text-white">
+                    <CountdownTimer minutes={15} seconds={0} />
                   </div>
                 </div>
 
-                {/* CTA Principal Único */}
                 <motion.div
                   animate={{
-                    scale: [1, 1.05, 1],
+                    scale: [1, 1.1, 1],
                   }}
                   transition={{
-                    duration: 2,
+                    duration: 1.5,
                     repeat: Number.POSITIVE_INFINITY,
                     repeatType: "reverse",
                   }}
-                  className="mb-4 sm:mb-6 w-full"
+                  className="w-full"
                 >
                   <Button
                     onClick={handlePurchase}
                     size="lg"
-                    className="mobile-cta-offer"
+                    className="mobile-cta-final"
                     onTouchStart={handleTouchFeedback}
                   >
-                    <span className="mobile-cta-offer-text text-center leading-tight break-words">
-                      <span className="mobile-show">💕 RECUPERAR - $19</span>
-                      <span className="desktop-show">💕 RECUPERAR AHORA POR $19</span>
+                    <span className="mobile-cta-final-text text-center leading-tight break-words">
+                      <span className="mobile-show">💕 ¡RECUPERAR YA!</span>
+                      <span className="desktop-show">💕 ¡SÍ, QUIERO RECUPERAR AHORA!</span>
                     </span>
                     <ArrowRight className="mobile-icon-size ml-2 flex-shrink-0" />
                   </Button>
                 </motion.div>
 
-                {/* Urgência Final */}
-                <div className="bg-red-800 mobile-urgency-padding rounded-lg mb-4 w-full">
-                  <p className="text-yellow-300 font-bold mobile-urgency-text mb-2">⏰ OFERTA EXPIRA EN:</p>
-                  <div className="mobile-countdown font-black text-white">
-                    <CountdownTimer minutes={15} seconds={0} />
-                  </div>
-                </div>
-
-                {/* Social Proof Final */}
-                <div className="flex justify-center mobile-social-gap mobile-social-text text-white mb-4 flex-wrap">
-                  <div className="flex items-center">
-                    <Users className="mobile-social-icon text-orange-400 mr-1" />
-                    <span><strong>{recentBuyers}</strong> compraron hoy</span>
-                  </div>
-                  <div className="flex items-center">
-                    <Clock className="mobile-social-icon text-red-400 mr-1" />
-                    <span>Últimas horas</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-
-        {/* ✅ SEÇÃO 5: GARANTIA SIMPLES */}
-        <div className="mobile-padding bg-gradient-to-r from-green-900/30 to-emerald-900/30 w-full">
-          <div className="max-w-4xl mx-auto w-full">
-            <Card className="bg-green-50 mobile-border-green shadow-2xl w-full">
-              <CardContent className="mobile-guarantee-padding text-center w-full">
-                <Shield className="mobile-shield-icon text-green-600 mx-auto mb-4" />
-                <h2 className="mobile-guarantee-title font-bold text-green-800 mb-4 break-words">GARANTÍA TOTAL DE 30 DÍAS</h2>
-                <p className="text-green-700 mobile-guarantee-text font-semibold mb-4 break-words">
-                  Si no ves resultados, te devolvemos el 100% de tu dinero
+                <p className="text-yellow-300 mobile-final-warning mt-4 font-semibold break-words">
+                  Haz clic ahora antes de que sea demasiado tarde
                 </p>
-                <p className="text-green-600 max-w-2xl mx-auto mobile-guarantee-desc break-words">
-                  Prueba el método durante 30 días. Si no funciona, te devolvemos todo sin hacer preguntas.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-
-        {/* ✅ SEÇÃO 6: FAQ MÍNIMO (SÓ 3 PERGUNTAS) */}
-        <div className="mobile-padding w-full">
-          <div className="max-w-4xl mx-auto w-full">
-            <h2 className="mobile-faq-title font-bold text-white text-center mb-6 sm:mb-8 break-words">PREGUNTAS FRECUENTES</h2>
-
-            <div className="space-y-4 max-w-2xl mx-auto w-full">
-              <Card className="bg-gray-800 border border-gray-700 w-full">
-                <CardContent className="mobile-faq-padding w-full">
-                  <h3 className="mobile-faq-question font-bold text-orange-400 mb-2 break-words">
-                    ¿Y si {getPersonalizedPronoun()} ya está con otra persona?
-                  </h3>
-                  <p className="text-gray-300 mobile-faq-answer break-words">
-                    El método funciona incluso cuando hay terceras personas. El 67% de nuestros casos exitosos comenzaron en esta situación.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-gray-800 border border-gray-700 w-full">
-                <CardContent className="mobile-faq-padding w-full">
-                  <h3 className="mobile-faq-question font-bold text-orange-400 mb-2 break-words">¿Cuánto tiempo tarda en ver resultados?</h3>
-                  <p className="text-gray-300 mobile-faq-answer break-words">
-                    El 87% ve cambios positivos en menos de 14 días. El sistema completo funciona en 21 días máximo.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-gray-800 border border-gray-700 w-full">
-                <CardContent className="mobile-faq-padding w-full">
-                  <h3 className="mobile-faq-question font-bold text-orange-400 mb-2 break-words">¿Cómo recibo el acceso?</h3>
-                  <p className="text-gray-300 mobile-faq-answer break-words">
-                    Inmediatamente después del pago recibes un email con tus credenciales. Todo queda disponible al momento.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-
-        {/* ✅ CTA FINAL URGENTE */}
-        <div className="mobile-padding bg-gradient-to-r from-red-600 to-orange-600 w-full">
-          <div className="max-w-4xl mx-auto text-center w-full">
-            <div className="bg-black/20 backdrop-blur-sm rounded-xl sm:rounded-2xl mobile-final-padding mobile-border-yellow w-full">
-              <h2 className="mobile-final-title font-black text-white mb-4 break-words">⏰ ÚLTIMA OPORTUNIDAD</h2>
-              <p className="mobile-final-subtitle text-white mb-4 sm:mb-6 font-semibold break-words">
-                Esta oferta expira en minutos. Después vuelve a $99,90.
-              </p>
-
-              <div className="bg-red-800 mobile-final-countdown-padding rounded-lg mb-4 sm:mb-6 w-full">
-                <p className="text-yellow-300 font-bold mobile-final-countdown-label mb-2">TIEMPO RESTANTE:</p>
-                <div className="mobile-final-countdown-time font-black text-white">
-                  <CountdownTimer minutes={15} seconds={0} />
-                </div>
               </div>
-
-              <motion.div
-                animate={{
-                  scale: [1, 1.1, 1],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Number.POSITIVE_INFINITY,
-                  repeatType: "reverse",
-                }}
-                className="w-full"
-              >
-                <Button
-                  onClick={handlePurchase}
-                  size="lg"
-                  className="mobile-cta-final"
-                  onTouchStart={handleTouchFeedback}
-                >
-                  <span className="mobile-cta-final-text text-center leading-tight break-words">
-                    <span className="mobile-show">💕 ¡RECUPERAR YA!</span>
-                    <span className="desktop-show">💕 ¡SÍ, QUIERO RECUPERAR AHORA!</span>
-                  </span>
-                  <ArrowRight className="mobile-icon-size ml-2 flex-shrink-0" />
-                </Button>
-              </motion.div>
-
-              <p className="text-yellow-300 mobile-final-warning mt-4 font-semibold break-words">
-                Haz clic ahora antes de que sea demasiado tarde
-              </p>
             </div>
           </div>
+
+          {/* ===== OVERLAY PARCIAL (APENAS NAS SEÇÕES BLOQUEADAS) ===== */}
+          <AnimatePresence>
+            {showOverlay && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center"
+                style={{ zIndex: 10 }}
+              >
+                <div className="text-center max-w-sm mx-auto p-6">
+                  
+                  {/* Ícone de bloqueio */}
+                  <Lock className="text-red-400 mx-auto mb-6" size={60} />
+                  
+                  {/* Mensagem */}
+                  <h3 className="text-white font-black text-xl mb-4">
+                    🔒 CONTENIDO BLOQUEADO
+                  </h3>
+                  <p className="text-gray-300 font-semibold mb-6">
+                    Tu resultado y la oferta especial se desbloquearán automáticamente
+                  </p>
+
+                  {/* Timer grande */}
+                  <div className="bg-orange-600 rounded-lg p-4 mb-4">
+                    <p className="text-black font-bold mb-2">
+                      ⏳ DESBLOQUEANDO EN:
+                    </p>
+                    <div className="text-black font-black text-3xl">
+                      {Math.floor(unlockTimer / 60)}:{(unlockTimer % 60).toString().padStart(2, '0')}
+                    </div>
+                  </div>
+
+                  <p className="text-gray-400 text-sm">
+                    Continúa viendo el video mientras esperas
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* CSS MOBILE-FIRST OTIMIZADO */}
@@ -815,7 +932,7 @@ export default function ResultPageOptimized() {
             border: clamp(2px, 1vw, 4px) solid rgb(250 204 21);
           }
 
-          .mobile-border-green {
+                    .mobile-border-green {
             border: clamp(2px, 1vw, 4px) solid rgb(34 197 94);
           }
 
@@ -911,7 +1028,7 @@ export default function ResultPageOptimized() {
             transform: scale(1.02) !important;
           }
 
-                    .mobile-cta-final {
+          .mobile-cta-final {
             width: 100% !important;
             max-width: 28rem !important;
             margin: 0 auto !important;
@@ -1263,6 +1380,18 @@ export default function ResultPageOptimized() {
             .max-w-md { max-width: 28rem !important; }
             .max-w-sm { max-width: 24rem !important; }
             .max-w-xs { max-width: 20rem !important; }
+          }
+
+          /* ===== OVERLAY ESPECÍFICO PARA SEÇÕES BLOQUEADAS ===== */
+          .relative > .absolute {
+            pointer-events: none;
+          }
+
+          .relative > .absolute button,
+          .relative > .absolute a,
+          .relative > .absolute [role="button"] {
+            pointer-events: none;
+            opacity: 0.5;
           }
         `}</style>
       </div>
