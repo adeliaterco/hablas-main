@@ -54,9 +54,9 @@ export default function ResultPageOptimized() {
 
     // Carrega script do VTurb
     const loadVTurbScript = () => {
-      if (!document.querySelector('script[src*="68e0e5bcefa600d1e92edd1c"]')) {
+      if (!document.querySelector('script[src*="68e16c28d6d27436628eb583"]')) {
         const script = document.createElement("script")
-        script.src = "https://scripts.converteai.net/82f5110e-2a80-4e42-8099-3ddebe9eedab/players/68e0e5bcefa600d1e92edd1c/v4/player.js"
+        script.src = "https://scripts.converteai.net/82f5110e-2a80-4e42-8099-3ddebe9eedab/players/68e16c28d6d27436628eb583/v4/player.js"
         script.async = true
         document.head.appendChild(script)
       }
@@ -207,7 +207,7 @@ export default function ResultPageOptimized() {
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-red-600/20 rounded-xl sm:rounded-2xl animate-pulse"></div>
                   <div className="relative z-10 w-full mobile-video-container">
                     <vturb-smartplayer 
-                      id="vid-68e0e5bcefa600d1e92edd1c" 
+                      id="vid-68e16c28d6d27436628eb583" 
                       className="mobile-vturb-player"
                     ></vturb-smartplayer>
                   </div>
