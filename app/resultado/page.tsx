@@ -54,9 +54,9 @@ export default function ResultPageOptimized() {
 
     // Carrega script do VTurb
     const loadVTurbScript = () => {
-      if (!document.querySelector('script[src*="68dde566ac500e3a7ab11a13"]')) {
+      if (!document.querySelector('script[src*="68e0d87cefa600d1e92ed5e5"]')) {
         const script = document.createElement("script")
-        script.src = "https://scripts.converteai.net/82f5110e-2a80-4e42-8099-3ddebe9eedab/players/68dde566ac500e3a7ab11a13/v4/player.js"
+        script.src = "https://scripts.converteai.net/82f5110e-2a80-4e42-8099-3ddebe9eedab/players/68e0d87cefa600d1e92ed5e5/v4/player.js"
         script.async = true
         document.head.appendChild(script)
       }
@@ -100,7 +100,7 @@ export default function ResultPageOptimized() {
     } catch (error) {
       console.error("Error al registrar evento de clic:", error)
     }
-    window.open("https://pay.hotmart.com/F100142422S?off=0p2j9dbs&checkoutMode=10&offDiscount=PLAN", "_blank")
+    window.open("https://pay.hotmart.com/F100142422S?off=0p2j9dbs&checkoutMode=10&offDiscount=ACTIVADO", "_blank")
   }
 
   const getPersonalizedPronoun = () => {
@@ -207,7 +207,7 @@ export default function ResultPageOptimized() {
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-red-600/20 rounded-xl sm:rounded-2xl animate-pulse"></div>
                   <div className="relative z-10 w-full mobile-video-container">
                     <vturb-smartplayer 
-                      id="vid-68dde566ac500e3a7ab11a13" 
+                      id="vid-68e0d87cefa600d1e92ed5e5" 
                       className="mobile-vturb-player"
                     ></vturb-smartplayer>
                   </div>
@@ -388,10 +388,10 @@ export default function ResultPageOptimized() {
                   {/* Preço */}
                   <div className="bg-black/20 rounded-lg mobile-price-padding mb-4 sm:mb-6 w-full">
                     <div className="text-center mb-4">
-                      <div className="mobile-price-main font-black text-yellow-300 mb-2">$19</div>
+                      <div className="mobile-price-main font-black text-yellow-300 mb-2">$14,99</div>
                       <div className="mobile-price-sub">
-                        <span className="line-through text-gray-400 mr-3">$99,90</span>
-                        <span className="text-green-400 font-bold">AHORRAS $80</span>
+                        <span className="line-through text-gray-400 mr-3">$99,99</span>
+                        <span className="text-green-400 font-bold">AHORRAS $85</span>
                       </div>
                     </div>
 
@@ -439,8 +439,8 @@ export default function ResultPageOptimized() {
                       onTouchStart={handleTouchFeedback}
                     >
                       <span className="mobile-cta-offer-text text-center leading-tight break-words">
-                        <span className="mobile-show">💕 RECUPERAR - $19</span>
-                        <span className="desktop-show">💕 RECUPERAR AHORA POR $19</span>
+                        <span className="mobile-show">💕 RECUPERAR - $14,99</span>
+                        <span className="desktop-show">💕 RECUPERAR AHORA POR $14,99</span>
                       </span>
                       <ArrowRight className="mobile-icon-size ml-2 flex-shrink-0" />
                     </Button>
@@ -532,7 +532,7 @@ export default function ResultPageOptimized() {
               <div className="bg-black/20 backdrop-blur-sm rounded-xl sm:rounded-2xl mobile-final-padding mobile-border-yellow w-full">
                 <h2 className="mobile-final-title font-black text-white mb-4 break-words">⏰ ÚLTIMA OPORTUNIDAD</h2>
                 <p className="mobile-final-subtitle text-white mb-4 sm:mb-6 font-semibold break-words">
-                  Esta oferta expira en minutos. Después vuelve a $99,90.
+                  Esta oferta expira en minutos. Después vuelve a $99,99.
                 </p>
 
                 <div className="bg-red-800 mobile-final-countdown-padding rounded-lg mb-4 sm:mb-6 w-full">
