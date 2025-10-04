@@ -255,10 +255,6 @@ export default function ResultPageOptimized() {
                 className="text-center"
               >
                 
-                {/* Badge de resultado */}
-                <div className="bg-green-600 text-white mobile-badge-padding rounded-full inline-block font-bold mobile-badge-text mb-4 animate-bounce">
-                  🎉 ¡TU RESULTADO ESTÁ LISTO!
-                </div>
 
                 {/* Headline do resultado */}
                 <h1 className="mobile-headline text-white mb-4 sm:mb-6 leading-tight max-w-full break-words">
