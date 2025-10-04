@@ -305,6 +305,48 @@ export default function ResultPageOptimized() {
                     </span>
                   </Button>
                 </motion.div>
+
+                {/* ✅ NOVA SEÇÃO: PRINTS WHATSAPP - PROVA SOCIAL */}
+                <div className="mb-6 sm:mb-8 w-full">
+                  {/* Título da seção */}
+                  <h3 className="mobile-subsection-title font-bold text-white text-center mb-4 break-words">
+                    💬 <span className="text-pink-400">MIRA LO QUE DICEN</span> NUESTROS USUARIOS
+                  </h3>
+                  
+                  {/* Container das imagens */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-4">
+                    {/* Imagem 1 */}
+                    <div className="bg-white rounded-xl p-2 shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                      <img 
+                        src="https://comprarplanseguro.shop/wp-content/uploads/2025/10/01-PROVA.webp" 
+                        alt="Print WhatsApp - Resultado positivo"
+                        className="w-full h-auto rounded-lg"
+                        loading="lazy"
+                      />
+                    </div>
+                    
+                    {/* Imagem 2 */}
+                    <div className="bg-white rounded-xl p-2 shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                      <img 
+                        src="https://comprarplanseguro.shop/wp-content/uploads/2025/10/PROVA-2.webp" 
+                        alt="Print WhatsApp - Testemunho de sucesso"
+                        className="w-full h-auto rounded-lg"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Texto de reforço */}
+                  <div className="text-center">
+                    <p className="text-gray-300 mobile-description font-semibold break-words mb-2">
+                      ✅ <span className="text-green-400">Resultados reales</span> de personas que ya recuperaron a su ex
+                    </p>
+                    <p className="text-yellow-300 mobile-small-text font-bold break-words">
+                      🔥 Tú puedes ser el próximo en conseguir estos resultados
+                    </p>
+                  </div>
+                </div>
+
               </motion.div>
             </div>
           </div>
