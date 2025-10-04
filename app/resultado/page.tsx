@@ -54,9 +54,9 @@ export default function ResultPageOptimized() {
 
     // Carrega script do VTurb
     const loadVTurbScript = () => {
-      if (!document.querySelector('script[src*="68e0d87cefa600d1e92ed5e5"]')) {
+      if (!document.querySelector('script[src*="68e0e5bcefa600d1e92edd1c"]')) {
         const script = document.createElement("script")
-        script.src = "https://scripts.converteai.net/82f5110e-2a80-4e42-8099-3ddebe9eedab/players/68e0d87cefa600d1e92ed5e5/v4/player.js"
+        script.src = "https://scripts.converteai.net/82f5110e-2a80-4e42-8099-3ddebe9eedab/players/68e0e5bcefa600d1e92edd1c/v4/player.js"
         script.async = true
         document.head.appendChild(script)
       }
@@ -207,7 +207,7 @@ export default function ResultPageOptimized() {
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-red-600/20 rounded-xl sm:rounded-2xl animate-pulse"></div>
                   <div className="relative z-10 w-full mobile-video-container">
                     <vturb-smartplayer 
-                      id="vid-68e0d87cefa600d1e92ed5e5" 
+                      id="vid-68e0e5bcefa600d1e92edd1c" 
                       className="mobile-vturb-player"
                     ></vturb-smartplayer>
                   </div>
@@ -254,8 +254,6 @@ export default function ResultPageOptimized() {
                 animate={{ opacity: showOverlay ? 0.3 : 1, y: 0 }}
                 className="text-center"
               >
-                
-
                 {/* Headline do resultado */}
                 <h1 className="mobile-headline text-white mb-4 sm:mb-6 leading-tight max-w-full break-words">
                   🎯 <span className="text-green-400">¡FELICITACIONES!</span>
@@ -283,73 +281,37 @@ export default function ResultPageOptimized() {
                   </div>
                 </div>
 
-                {/* Transição para próxima seção */}
-                <p className="mobile-transition-text text-gray-300 mb-4 font-semibold max-w-full break-words px-2">
-                  Ahora que conoces tu resultado, descubre <span className="text-orange-400 font-bold">cómo aplicarlo</span>:
-                </p>
+                {/* CTA Button que estava abaixo do vídeo de depoimento */}
+                <motion.div
+                  animate={{
+                    scale: [1, 1.05, 1],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Number.POSITIVE_INFINITY,
+                    repeatType: "reverse",
+                  }}
+                  className="mb-6 w-full"
+                >
+                  <Button
+                    onClick={handlePurchase}
+                    className="mobile-cta-secondary max-w-md mx-auto"
+                    onTouchStart={handleTouchFeedback}
+                  >
+                    <Play className="mobile-small-icon mr-2 flex-shrink-0" />
+                    <span className="mobile-cta-text truncate">
+                      <span className="mobile-show">QUIERO RESULTADOS</span>
+                      <span className="desktop-show">QUIERO LOS MISMOS RESULTADOS</span>
+                    </span>
+                  </Button>
+                </motion.div>
               </motion.div>
             </div>
           </div>
 
-          {/* ✅ SEÇÃO 4: PROVA SOCIAL (BLOQUEADO) */}
+          {/* ✅ SEÇÃO 4: NÚMEROS DE PROVA SOCIAL (BLOQUEADO) */}
           <div className="mobile-padding bg-gradient-to-r from-black to-gray-900 w-full">
             <div className="max-w-4xl mx-auto w-full">
-              <div className="text-center mb-6">
-                <h3 className="mobile-subsection-title font-bold text-white mb-2 max-w-full break-words">
-                  💬 <span className="text-orange-400">TESTIMONIO REAL</span> DE QUIEN YA LO LOGRÓ
-                </h3>
-                <p className="text-gray-300 mobile-small-text break-words">
-                  Escucha la historia de transformación usando exactamente el mismo método
-                </p>
-              </div>
-
-              {/* Depoimento em Vídeo */}
-              <div className="flex justify-center mb-6 sm:mb-8 w-full">
-                <div className="w-full max-w-xs">
-                  <div className="relative bg-black rounded-xl sm:rounded-2xl p-2 mobile-border-orange shadow-xl overflow-hidden w-full">
-                    
-                    {/* Header do Story */}
-                    <div className="flex items-center p-2 pb-1">
-                      <div className="mobile-avatar rounded-full border border-orange-400 overflow-hidden mr-2 flex-shrink-0">
-                        <div className="w-full h-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
-                          <span className="text-white font-bold mobile-avatar-text">FB</span>
-                        </div>
-                      </div>
-                      <div className="flex-1 text-left min-w-0">
-                        <h4 className="text-white font-bold mobile-name-text truncate">Facundo B.</h4>
-                        <p className="text-green-400 mobile-status-text font-semibold">✅ Reconciliado en 15 días</p>
-                      </div>
-                    </div>
-
-                    {/* Vídeo Story */}
-                    <div className="relative mobile-story-video bg-gray-900 rounded-xl overflow-hidden w-full">
-                      <script src="https://fast.wistia.com/player.js" async></script>
-                      <script src="https://fast.wistia.com/embed/3rj8vdh574.js" async type="module"></script>
-                      <wistia-player 
-                        media-id="3rj8vdh574" 
-                        aspect="0.5625"
-                        className="mobile-wistia-player"
-                      ></wistia-player>
-                    </div>
-
-                    {/* Footer com CTA */}
-                    <div className="p-2 text-center w-full">
-                      <Button
-                        onClick={handlePurchase}
-                        className="mobile-cta-secondary"
-                        onTouchStart={handleTouchFeedback}
-                      >
-                        <Play className="mobile-small-icon mr-1 flex-shrink-0" />
-                        <span className="mobile-cta-small-text truncate">
-                          <span className="mobile-show">QUIERO RESULTADOS</span>
-                          <span className="desktop-show">QUIERO LOS MISMOS RESULTADOS</span>
-                        </span>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
               {/* Números de Prova Social */}
               <div className="mobile-grid max-w-2xl mx-auto w-full">
                 <div className="bg-gray-800 mobile-stats-padding rounded-lg mobile-border-orange text-center">
@@ -868,23 +830,6 @@ export default function ResultPageOptimized() {
             line-height: 1;
           }
 
-          .mobile-avatar {
-            width: clamp(1.75rem, 5vw, 2rem);
-            height: clamp(1.75rem, 5vw, 2rem);
-          }
-
-          .mobile-avatar-text {
-            font-size: clamp(0.625rem, 2vw, 0.75rem);
-          }
-
-          .mobile-name-text {
-            font-size: clamp(0.75rem, 2.5vw, 0.875rem);
-          }
-
-          .mobile-status-text {
-            font-size: clamp(0.625rem, 2vw, 0.75rem);
-          }
-
           /* ===== ÍCONES RESPONSIVOS ===== */
           .mobile-icon-size {
             width: clamp(1.25rem, 4vw, 1.5rem);
@@ -928,7 +873,7 @@ export default function ResultPageOptimized() {
             border: clamp(2px, 1vw, 4px) solid rgb(250 204 21);
           }
 
-                    .mobile-border-green {
+          .mobile-border-green {
             border: clamp(2px, 1vw, 4px) solid rgb(34 197 94);
           }
 
@@ -974,15 +919,17 @@ export default function ResultPageOptimized() {
 
           .mobile-cta-secondary {
             width: 100% !important;
+            max-width: 24rem !important;
+            margin: 0 auto !important;
             background: linear-gradient(to right, rgb(249 115 22), rgb(220 38 38)) !important;
             color: white !important;
             font-weight: 700 !important;
-            padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.5rem, 2vw, 0.75rem) !important;
+            padding: clamp(0.75rem, 3vw, 1rem) clamp(1rem, 4vw, 1.5rem) !important;
             border-radius: 9999px !important;
-            font-size: clamp(0.75rem, 2.5vw, 0.875rem) !important;
+            font-size: clamp(0.875rem, 3vw, 1rem) !important;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25) !important;
             transition: all 0.3s ease !important;
-            min-height: clamp(2.25rem, 8vw, 2.5rem) !important;
+            min-height: clamp(2.75rem, 10vw, 3rem) !important;
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
@@ -990,10 +937,12 @@ export default function ResultPageOptimized() {
             touch-action: manipulation !important;
             -webkit-tap-highlight-color: transparent !important;
             user-select: none !important;
+            border: clamp(1px, 0.5vw, 2px) solid rgb(250 204 21) !important;
           }
 
           .mobile-cta-secondary:hover {
             background: linear-gradient(to right, rgb(234 88 12), rgb(185 28 28)) !important;
+            transform: scale(1.02) !important;
           }
 
           .mobile-cta-offer {
@@ -1110,45 +1059,6 @@ export default function ResultPageOptimized() {
             min-height: clamp(200px, 40vw, 400px) !important;
           }
 
-          .mobile-story-video {
-            aspect-ratio: 9/16 !important;
-            height: clamp(260px, 60vw, 320px) !important;
-            width: 100% !important;
-            max-width: 100% !important;
-          }
-
-          .mobile-wistia-player {
-            width: 100% !important;
-            height: 100% !important;
-            max-width: 100% !important;
-            display: block !important;
-            box-sizing: border-box !important;
-            border-radius: clamp(0.5rem, 2vw, 1rem) !important;
-            overflow: hidden !important;
-          }
-
-          wistia-player[media-id='3rj8vdh574']:not(:defined) { 
-            background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/3rj8vdh574/swatch') !important; 
-            display: block !important; 
-            filter: blur(5px) !important; 
-            padding-top: 177.78% !important; 
-            width: 100% !important;
-            max-width: 100% !important;
-            box-sizing: border-box !important;
-            border-radius: clamp(0.5rem, 2vw, 1rem) !important;
-            overflow: hidden !important;
-          }
-          
-          wistia-player {
-            border-radius: clamp(0.5rem, 2vw, 1rem) !important;
-            overflow: hidden !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            height: 100% !important;
-            display: block !important;
-            box-sizing: border-box !important;
-          }
-
           /* ===== OTIMIZAÇÕES PARA TELAS MUITO PEQUENAS ===== */
           @media (max-width: 375px) {
             .mobile-padding {
@@ -1177,6 +1087,7 @@ export default function ResultPageOptimized() {
             }
 
             .mobile-cta-primary,
+            .mobile-cta-secondary,
             .mobile-cta-offer,
             .mobile-cta-final {
               padding: 0.875rem 1rem !important;
@@ -1186,10 +1097,6 @@ export default function ResultPageOptimized() {
 
             .mobile-vturb-player {
               min-height: 180px !important;
-            }
-
-            .mobile-story-video {
-              height: 240px !important;
             }
           }
 
@@ -1302,10 +1209,6 @@ export default function ResultPageOptimized() {
 
             .mobile-vturb-player {
               min-height: 150px !important;
-            }
-
-            .mobile-story-video {
-              height: 200px !important;
             }
           }
 
