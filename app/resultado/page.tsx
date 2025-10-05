@@ -338,9 +338,6 @@ export default function ResultPageOptimized() {
                   
                   {/* Texto de reforço */}
                   <div className="text-center">
-                    <p className="text-gray-300 mobile-description font-semibold break-words mb-2">
-                      ✅ <span className="text-green-400">Resultados reales</span> de personas que ya recuperaron a su ex
-                    </p>
                     <p className="text-yellow-300 mobile-small-text font-bold break-words">
                       🔥 Tú puedes ser el próximo en conseguir estos resultados
                     </p>
