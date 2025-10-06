@@ -605,6 +605,66 @@ export default function QuizStep() {
                     <p className="text-gray-300 text-center mb-8 text-sm sm:text-base">{currentStep.description}</p>
                   )}
 
+                  {/* 🆕 NOVA SEÇÃO: Evidência Científica - APENAS ETAPA 11 */}
+                  {currentStep?.elements?.scientificEvidence && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.3 }}
+                      className="mb-8 space-y-6"
+                    >
+                      {/* Imagem da Reportagem */}
+                      {currentStep.elements.reportageImage && (
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.6, delay: 0.5 }}
+                          className="relative"
+                        >
+                          <img
+                            src={currentStep.elements.reportageImage}
+                            alt="Reportagem BBC sobre neurociência"
+                            className="w-full rounded-lg shadow-xl border border-gray-600 hover:shadow-2xl transition-shadow duration-300"
+                          />
+                          <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+                            BBC RESEARCH
+                          </div>
+                        </motion.div>
+                      )}
+
+                      {/* Imagem Curiosa */}
+                      {currentStep.elements.curiousImage && (
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.6, delay: 0.8 }}
+                          className="relative"
+                        >
+                          <img
+                            src={currentStep.elements.curiousImage}
+                            alt="Evidência científica curiosa"
+                            className="w-full rounded-lg shadow-xl border border-gray-600 hover:shadow-2xl transition-shadow duration-300"
+                          />
+                          <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+                            NEUROCIÊNCIA
+                          </div>
+                        </motion.div>
+                      )}
+
+                      {/* Texto explicativo adicional */}
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1.1 }}
+                        className="bg-blue-900/30 border border-blue-500/50 rounded-lg p-4 text-center"
+                      >
+                        <p className="text-blue-200 text-sm sm:text-base font-medium">
+                          🧠 <strong>Comprobado científicamente:</strong> Los métodos del PLAN A activan las mismas áreas cerebrales responsables por el enamoramiento inicial.
+                        </p>
+                      </motion.div>
+                    </motion.div>
+                  )}
+
                   {/* Termómetro para nivel de compromiso */}
                   {currentStep?.elements?.thermometer && (
                     <div className="mb-8">
@@ -691,86 +751,86 @@ export default function QuizStep() {
                   )}
 
                   {currentStep.warning && (
-                                      <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.8 }}
-                    className="mt-6 text-center text-red-300 bg-red-900/30 p-4 rounded-lg border border-red-600 flex items-center justify-center gap-2"
-                  >
-                    <AlertTriangle className="w-4 h-4" />
-                    <p className="font-medium text-sm sm:text-base">{currentStep.warning}</p>
-                  </motion.div>
-                )}
-
-                {selectedAnswer && getPersonalizedOptions().length > 0 && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-8 text-center"
-                  >
-                    <Button
-                      onClick={handleNext}
-                      size="lg"
-                      className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full shadow-lg w-full sm:w-auto text-sm sm:text-base"
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.8 }}
+                      className="mt-6 text-center text-red-300 bg-red-900/30 p-4 rounded-lg border border-red-600 flex items-center justify-center gap-2"
                     >
-                      {step === 12 ? "Ver Resultado" : "Siguiente Pregunta"}
-                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
-                    </Button>
-                  </motion.div>
-                )}
-              </>
-            )}
-          </CardContent>
-        </Card>
-      </motion.div>
+                      <AlertTriangle className="w-4 h-4" />
+                      <p className="font-medium text-sm sm:text-base">{currentStep.warning}</p>
+                    </motion.div>
+                  )}
 
-      {/* Prueba Social */}
-      {step > 2 && !currentStep?.autoAdvance && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="text-center space-y-2 mt-6"
-        >
-          {currentStep?.elements?.counter && (
-            <p className="text-white text-xs sm:text-sm bg-white/10 px-3 py-1 rounded-full inline-block">
-              👥 {peopleCount} {currentStep.elements.counter}
-            </p>
-          )}
-
-          {currentStep?.elements?.helpedCounter && (
-            <p className="text-green-400 text-xs sm:text-sm font-semibold bg-green-900/20 px-3 py-1 rounded-full inline-block">
-              ✅ {currentStep.elements.helpedCounter}
-            </p>
-          )}
-
-          {step > 5 && (
-            <p className="text-blue-300 text-xs sm:text-sm bg-blue-900/20 px-3 py-1 rounded-full inline-block">
-              {socialProofMessages[Math.min(step - 6, socialProofMessages.length - 1)]}
-            </p>
-          )}
+                  {selectedAnswer && getPersonalizedOptions().length > 0 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-8 text-center"
+                    >
+                      <Button
+                        onClick={handleNext}
+                        size="lg"
+                        className="bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full shadow-lg w-full sm:w-auto text-sm sm:text-base"
+                      >
+                        {step === 12 ? "Ver Resultado" : "Siguiente Pregunta"}
+                        <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
+                      </Button>
+                    </motion.div>
+                  )}
+                </>
+              )}
+            </CardContent>
+          </Card>
         </motion.div>
-      )}
+
+        {/* Prueba Social */}
+        {step > 2 && !currentStep?.autoAdvance && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+            className="text-center space-y-2 mt-6"
+          >
+            {currentStep?.elements?.counter && (
+              <p className="text-white text-xs sm:text-sm bg-white/10 px-3 py-1 rounded-full inline-block">
+                👥 {peopleCount} {currentStep.elements.counter}
+              </p>
+            )}
+
+            {currentStep?.elements?.helpedCounter && (
+              <p className="text-green-400 text-xs sm:text-sm font-semibold bg-green-900/20 px-3 py-1 rounded-full inline-block">
+                ✅ {currentStep.elements.helpedCounter}
+              </p>
+            )}
+
+            {step > 5 && (
+              <p className="text-blue-300 text-xs sm:text-sm bg-blue-900/20 px-3 py-1 rounded-full inline-block">
+                {socialProofMessages[Math.min(step - 6, socialProofMessages.length - 1)]}
+              </p>
+            )}
+          </motion.div>
+        )}
+      </div>
+
+      {/* Modal de Análisis de Carga */}
+      <AnimatePresence>
+        {showAnalysis && (
+          <LoadingAnalysis
+            message={
+              currentStep?.elements?.analysisText ||
+              currentStep?.elements?.profileAnalysis ||
+              "Analizando tus respuestas..."
+            }
+            successMessage={currentStep?.elements?.successRate}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Modal de Desbloqueo de Bonificación */}
+      <AnimatePresence>
+        {showBonusUnlock && newBonus && <BonusUnlock bonus={newBonus} onComplete={handleBonusUnlockComplete} />}
+      </AnimatePresence>
     </div>
-
-    {/* Modal de Análisis de Carga */}
-    <AnimatePresence>
-      {showAnalysis && (
-        <LoadingAnalysis
-          message={
-            currentStep?.elements?.analysisText ||
-            currentStep?.elements?.profileAnalysis ||
-            "Analizando tus respuestas..."
-          }
-          successMessage={currentStep?.elements?.successRate}
-        />
-      )}
-    </AnimatePresence>
-
-    {/* Modal de Desbloqueo de Bonificación */}
-    <AnimatePresence>
-      {showBonusUnlock && newBonus && <BonusUnlock bonus={newBonus} onComplete={handleBonusUnlockComplete} />}
-    </AnimatePresence>
-  </div>
-)
+  )
 }
