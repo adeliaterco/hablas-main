@@ -626,9 +626,6 @@ export default function QuizStep() {
                             alt="Reportagem BBC sobre neurociência"
                             className="w-full rounded-lg shadow-xl border border-gray-600 hover:shadow-2xl transition-shadow duration-300"
                           />
-                          <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
-                            BBC RESEARCH
-                          </div>
                         </motion.div>
                       )}
 
