@@ -198,7 +198,7 @@ export const quizSteps = [
     options: ["CONTINUAR PARA VER MIS RESULTADOS"],
     elements: {
       scientificEvidence: true,
-      reportageImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/10/reportagem-bbc.webp",
+      reportageImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/10/imagem3-nova.webp",
       curiousImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/10/estudos-imagem-2.webp",
     },
   },
