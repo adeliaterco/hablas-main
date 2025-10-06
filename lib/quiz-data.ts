@@ -83,7 +83,7 @@ export const quizSteps = [
       feminino: [
         "😔 Lidiar con la soledad y el vacío",
         "😢 La montaña rusa emocional: ira, tristeza, arrepentimiento",
-        "😐 Lidiar con recuerdos y memorias",
+        "�� Lidiar con recuerdos y memorias",
         "💔 Imaginarlo con otra mujer",
         "🤔 Darme cuenta de que los planes que hicimos nunca se harán realidad",
         "⚡ Otro",
@@ -106,7 +106,7 @@ export const quizSteps = [
         "🧐 Estoy aplicando contacto cero",
         "😢 Ella me ignora completamente",
         "❌ Me ha bloqueado en todas las redes sociales",
-        "🤝 Hablamos solo de cosas necesarias",
+        "�� Hablamos solo de cosas necesarias",
         "🤔 Charlamos de vez en cuando",
         "😌 Seguimos siendo amigos",
         "🔥 Hemos tenido encuentros íntimos después de la ruptura",
@@ -117,7 +117,7 @@ export const quizSteps = [
         "❌ Me ha bloqueado en todas las redes sociales",
         "🤝 Hablamos solo de cosas necesarias",
         "🤔 Charlamos de vez en cuando",
-        "😌 Seguimos siendo amigos",
+        "�� Seguimos siendo amigos",
         "🔥 Hemos tenido encuentros íntimos después de la ruptura",
       ],
     },
@@ -193,6 +193,17 @@ export const quizSteps = [
   },
   {
     id: 11,
+    question: "MIENTRAS ANALIZO TU CASO, DESCUBRE LA CIENCIA QUE RESPALDA ESTE MÉTODO",
+    description: "Una investigación reciente de la BBC revela por qué el PLAN A funciona a nivel neurológico.",
+    options: ["CONTINUAR PARA VER MIS RESULTADOS"],
+    elements: {
+      scientificEvidence: true,
+      reportageImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/10/reportagem-bbc.webp",
+      curiousImage: "https://comprarplanseguro.shop/wp-content/uploads/2025/10/estudos-imagem-2.webp",
+    },
+  },
+  {
+    id: 12,
     question: "¡FELICITACIONES! He analizado tus respuestas y tengo buenas noticias para ti.",
     description: "Basándome en tu perfil y situación específica, el PLAN A tiene un 90,5% de probabilidades de funcionar en tu caso.",
     options: ["¿VAMOS AL SIGUIENTE PASO?"],
@@ -206,7 +217,7 @@ export const quizSteps = [
     },
   },
   {
-    id: 12,
+    id: 13,
     question: "¡TU PLAN DE ACCIÓN PERSONALIZADO ESTÁ LISTO!",
     description: "Basado en tus respuestas, he creado la estrategia exacta para que recuperes a tu amor.",
     options: ["¡QUIERO VER MI PLAN AHORA!"],
