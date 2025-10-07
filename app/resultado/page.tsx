@@ -29,6 +29,21 @@ export default function ResultPageOptimized() {
   const [unlockTimer, setUnlockTimer] = useState(120) // 2 minutos
   const [accessCount, setAccessCount] = useState(31)
 
+  // ===== DEBUG MODE (mudar para false em produção) =====
+  const debugGA = true
+
+  // ===== FUNÇÃO PARA ENVIAR EVENTOS COM LOG =====
+  const enviarEventoComLog = (evento, dados = {}) => {
+    try {
+      if (debugGA) {
+        console.log(`🎯 GA Event: ${evento}`, dados)
+      }
+      enviarEvento(evento, dados)
+    } catch (error) {
+      console.error(`❌ Erro no evento ${evento}:`, error)
+    }
+  }
+
   useEffect(() => {
     const savedGender = localStorage.getItem("userGender")
     if (savedGender) setUserGender(savedGender)
@@ -37,7 +52,7 @@ export default function ResultPageOptimized() {
       setIsLoaded(true)
     }, 300)
 
-    // Simular compradores recientes
+    // Simular compradores recentes
     const interval = setInterval(() => {
       setRecentBuyers((prev) => {
         const increase = Math.floor(Math.random() * 2) + 1
@@ -45,12 +60,14 @@ export default function ResultPageOptimized() {
       })
     }, 45000)
 
-    // Registra visualización
-    try {
-      enviarEvento("visualizou_resultado_bloqueado")
-    } catch (error) {
-      console.error("Error al registrar evento:", error)
-    }
+    // ===== CORREÇÃO 1: EVENTO "VIU RESULTADO" =====
+    // Registra visualização da página de resultado
+    setTimeout(() => {
+      enviarEventoComLog("viu_resultado", {
+        timestamp: new Date().toISOString(),
+        user_gender: savedGender || "unknown"
+      })
+    }, 1000) // Delay para garantir que o GA carregou
 
     // Carrega script do VTurb
     const loadVTurbScript = () => {
@@ -78,7 +95,19 @@ export default function ResultPageOptimized() {
     } else if (showOverlay && unlockTimer <= 0) {
       // Remove overlay após 2 minutos
       setShowOverlay(false)
-      enviarEvento("pagina_desbloqueada")
+      
+      // ===== CORREÇÃO 3: EVENTOS DE DESBLOQUEIO =====
+      enviarEventoComLog("pagina_desbloqueada", {
+        tempo_espera: 120,
+        timestamp: new Date().toISOString()
+      })
+      
+      // Evento adicional para indicar que viu o resultado completo
+      setTimeout(() => {
+        enviarEventoComLog("viu_resultado_completo", {
+          timestamp: new Date().toISOString()
+        })
+      }, 500)
     }
   }, [unlockTimer, showOverlay])
 
@@ -91,16 +120,40 @@ export default function ResultPageOptimized() {
     return () => clearInterval(interval)
   }, [])
 
-  const handlePurchase = () => {
+  // ===== CORREÇÃO 2: FUNÇÃO DE COMPRA MELHORADA =====
+  const handlePurchase = (posicao = "principal") => {
     try {
-      enviarEvento("clicou_comprar", {
-        posicao: "principal",
-        overlay_ativo: showOverlay
+      // Garantir que o evento sempre dispare
+      enviarEventoComLog("clicou_comprar", {
+        posicao: posicao,
+        overlay_ativo: showOverlay,
+        timestamp: new Date().toISOString(),
+        user_gender: userGender || "unknown",
+        access_count: accessCount,
+        timer_remaining: unlockTimer
       })
+      
+      // Log adicional para debug
+      if (debugGA) {
+        console.log("🛒 Compra iniciada:", { 
+          posicao, 
+          overlay_ativo: showOverlay,
+          timer_remaining: unlockTimer 
+        })
+      }
     } catch (error) {
-      console.error("Error al registrar evento de clic:", error)
+      console.error("❌ Error al registrar evento de clic:", error)
     }
-    window.open("https://pay.hotmart.com/F100142422S?off=0p2j9dbs&checkoutMode=10&offDiscount=ACTIVADO", "_blank")
+    
+    // Pequeno delay para garantir que o evento seja enviado antes do redirect
+    setTimeout(() => {
+      window.open("https://pay.hotmart.com/F100142422S?off=0p2j9dbs&checkoutMode=10&offDiscount=ACTIVADO", "_blank")
+    }, 150)
+  }
+
+  // ===== FUNÇÃO PARA CTAs ESPECÍFICOS =====
+  const handlePurchaseWithPosition = (position) => {
+    handlePurchase(position)
   }
 
   const getPersonalizedPronoun = () => {
@@ -294,7 +347,7 @@ export default function ResultPageOptimized() {
                   className="mb-6 w-full"
                 >
                   <Button
-                    onClick={handlePurchase}
+                    onClick={() => handlePurchaseWithPosition("resultado_principal")}
                     className="mobile-cta-secondary max-w-md mx-auto"
                     onTouchStart={handleTouchFeedback}
                   >
@@ -430,7 +483,7 @@ export default function ResultPageOptimized() {
                     className="mb-4 sm:mb-6 w-full"
                   >
                     <Button
-                      onClick={handlePurchase}
+                      onClick={() => handlePurchaseWithPosition("oferta_principal")}
                       size="lg"
                       className="mobile-cta-offer"
                       onTouchStart={handleTouchFeedback}
@@ -551,7 +604,7 @@ export default function ResultPageOptimized() {
                   className="w-full"
                 >
                   <Button
-                    onClick={handlePurchase}
+                    onClick={() => handlePurchaseWithPosition("cta_final")}
                     size="lg"
                     className="mobile-cta-final"
                     onTouchStart={handleTouchFeedback}
@@ -1330,6 +1383,11 @@ export default function ResultPageOptimized() {
           .relative > .absolute [role="button"] {
             pointer-events: none;
             opacity: 0.5;
+          }
+
+          /* ===== BADGE DE OFERTA RESPONSIVO ===== */
+          .mobile-offer-badge {
+            padding: clamp(0.5rem, 2vw, 0.75rem) clamp(1rem, 4vw, 1.5rem);
           }
         `}</style>
       </div>
