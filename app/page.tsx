@@ -54,6 +54,7 @@ export default function HomePage() {
     const timer = setTimeout(() => {
       enviarEvento("page_view", {
         device: window.innerWidth < 768 ? "mobile" : "desktop",
+        headline_version: "psychological_discovery_2am"
       })
     }, 1000)
 
@@ -67,7 +68,9 @@ export default function HomePage() {
     setIsLoading(true)
     setLoadingProgress(20)
 
-    enviarEvento("quiz_start")
+    enviarEvento("quiz_start", {
+      headline_version: "psychological_discovery_2am"
+    })
 
     let progress = 20
     const interval = setInterval(() => {
@@ -115,7 +118,7 @@ export default function HomePage() {
             border: 2px solid #333;
             border-radius: 20px;
             padding: 40px 30px;
-            max-width: 480px;
+            max-width: 520px;
             margin: 0 auto;
             text-align: center;
             box-shadow: 0 20px 60px rgba(0,0,0,.8);
@@ -125,7 +128,7 @@ export default function HomePage() {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             width: 100%;
           }
 
@@ -142,17 +145,42 @@ export default function HomePage() {
 
           .titulo-quiz {
             color: #fff;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
-            margin: 25px 0 15px 0;
-            line-height: 1.2;
+            margin: 20px 0 20px 0;
+            line-height: 1.3;
+            text-align: left;
+          }
+
+          .emoji-alerta {
+            color: #dc2626;
+            font-size: 28px;
+            margin-right: 8px;
           }
 
           .subtitulo-quiz {
             color: #e5e5e5;
-            font-size: 16px;
-            margin-bottom: 30px;
+            font-size: 15px;
+            margin-bottom: 25px;
             font-weight: 400;
+            line-height: 1.4;
+            text-align: left;
+          }
+
+          .destaque-palavra {
+            color: #dc2626;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #dc2626, #f87171);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+          }
+
+          .prova-social {
+            color: #dc2626;
+            font-weight: 600;
+            font-size: 16px;
           }
 
           .quiz-info {
@@ -175,13 +203,13 @@ export default function HomePage() {
             background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
             color: white;
             border: none;
-            padding: 16px 32px;
+            padding: 18px 32px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             border-radius: 25px;
             cursor: pointer;
             width: 100%;
-            max-width: 280px;
+            max-width: 320px;
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -189,6 +217,7 @@ export default function HomePage() {
             align-items: center;
             justify-content: center;
             gap: 8px;
+            box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
           }
 
           .btn-iniciar-quiz:hover {
@@ -268,10 +297,17 @@ export default function HomePage() {
             .container-quiz {
               padding: 30px 20px;
               margin: 10px;
+              max-width: 95%;
             }
             
             .titulo-quiz {
-              font-size: 24px;
+              font-size: 22px;
+              text-align: center;
+            }
+
+            .subtitulo-quiz {
+              font-size: 14px;
+              text-align: center;
             }
             
             .quiz-info {
@@ -282,7 +318,8 @@ export default function HomePage() {
 
             .btn-iniciar-quiz {
               font-size: 14px;
-              padding: 14px 28px;
+              padding: 16px 28px;
+              max-width: 100%;
             }
 
             .copyright {
@@ -301,9 +338,17 @@ export default function HomePage() {
               font-size: 20px;
             }
 
+            .subtitulo-quiz {
+              font-size: 13px;
+            }
+
             .logo-pequena {
               width: 100px;
               height: 60px;
+            }
+
+            .emoji-alerta {
+              font-size: 24px;
             }
           }
         `}</style>
@@ -373,14 +418,14 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* CONTEÚDO PRINCIPAL SIMPLIFICADO */}
+        {/* CONTEÚDO PRINCIPAL COM NOVA COPY */}
         <div className="main-content">
           <div className="container-quiz">
             
             {/* LOGO CENTRALIZADA */}
             <div className="logo-container">
               <Image
-                src="https://comprarplanseguro.shop/wp-content/uploads/2025/08/543af5ae-e239-4f03-a3a8-59c53717f3b9.webp"
+                src="https://comprarplanseguro.shop/wp-content/uploads/2025/10/c2b0ddda-8a7c-4554-a6c9-d57887b06149.webp"
                 alt="Logo Plan A"
                 width={120}
                 height={75}
@@ -393,14 +438,15 @@ export default function HomePage() {
               />
             </div>
 
-            {/* HEADLINE SIMPLIFICADA */}
+            {/* NOVA HEADLINE IMPACTANTE */}
             <h1 className="titulo-quiz">
-              ¿Ella te dejó y no sabes qué hacer?
+              <span className="emoji-alerta">🚨</span>
+              PRUEBA IMPACTANTE: ¿Por Qué Ella Te Espía a las 2 a.m. Pero Finge Que Te Olvidó?
             </h1>
 
-            {/* SUBTÍTULO DIRETO */}
+            {/* NOVO SUBTÍTULO COM GANCHO PSICOLÓGICO */}
             <p className="subtitulo-quiz">
-              Descubre tu plan personalizado en 2 minutos
+              El descubrimiento psicológico que el 97% de los hombres desconocen: existe <span className="destaque-palavra">UNA ÚNICA PALABRA</span> que rompe el ego femenino y la hace rogar por tu perdón... <span className="prova-social">3,847 hombres ya han descubierto cuál es la suya.</span>
             </p>
 
             {/* INFORMAÇÕES DO QUIZ */}
@@ -410,7 +456,7 @@ export default function HomePage() {
               <div>🎁 100% gratuito</div>
             </div>
 
-            {/* CTA SIMPLES */}
+            {/* CTA OTIMIZADO */}
             <button 
               onClick={handleStart} 
               disabled={isLoading || !isOnline} 
@@ -420,7 +466,7 @@ export default function HomePage() {
                 "PREPARANDO..."
               ) : (
                 <>
-                  INICIAR EVALUACIÓN
+                  DESCUBRIR MI PALABRA SECRETA
                   <ArrowRight size={18} />
                 </>
               )}
@@ -435,8 +481,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="copyright">Plan A™ Todos los Derechos Reservados.</div>
       </div>
     </>
   )
