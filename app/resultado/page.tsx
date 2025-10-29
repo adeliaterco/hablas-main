@@ -69,13 +69,15 @@ export default function ResultPageOptimized() {
       })
     }, 1000) // Delay para garantir que o GA carregou
 
-    // Carrega script do VTurb
-    const loadVTurbScript = () => {
-      if (!document.querySelector('script[src*="6901749c66bcfa8a215e1d2a"]')) {
-        const script = document.createElement("script")
-        script.src = "https://scripts.converteai.net/a2bf0f3c-65ff-4eb3-85f2-3da84d2e6fe1/players/6901749c66bcfa8a215e1d2a/v4/player.js", s.async=!0,document.head.appendChild(s)(script)
-      }
-    }
+// ===== CORREÇÃO DO CARREGAMENTO DO VTURB =====
+const loadVTurbScript = () => {
+  if (!document.querySelector('script[src*="6901749c66bcfa8a215e1d2a"]')) {
+    const script = document.createElement("script")
+    script.src = "https://scripts.converteai.net/a2bf0f3c-65ff-4eb3-85f2-3da84d2e6fe1/players/6901749c66bcfa8a215e1d2a/v4/player.js"
+    script.async = true
+    document.head.appendChild(script)
+  }
+}
 
     loadVTurbScript()
 
