@@ -26,7 +26,7 @@ export default function ResultPageOptimized() {
 
   // ===== ESTADO DO OVERLAY =====
   const [showOverlay, setShowOverlay] = useState(true)
-  const [unlockTimer, setUnlockTimer] = useState(120) // 2 minutos
+  const [unlockTimer, setUnlockTimer] = useState(20) // 20 segundos
   const [accessCount, setAccessCount] = useState(31)
 
   // ===== DEBUG MODE (mudar para false em produção) =====
@@ -98,7 +98,7 @@ const loadVTurbScript = () => {
       
       // ===== CORREÇÃO 3: EVENTOS DE DESBLOQUEIO =====
       enviarEventoComLog("pagina_desbloqueada", {
-        tempo_espera: 120,
+        tempo_espera: 20,
         timestamp: new Date().toISOString()
       })
       
