@@ -71,9 +71,9 @@ export default function ResultPageOptimized() {
 
 // ===== CORREÇÃO DO CARREGAMENTO DO VTURB =====
 const loadVTurbScript = () => {
-  if (!document.querySelector('script[src*="6913e4db70c96cc8a71fd960"]')) {
+  if (!document.querySelector('script[src*="69170d57f65a4dcdb5af9ac9"]')) {
     const script = document.createElement("script")
-    script.src = "https://scripts.converteai.net/9c43125c-42f3-489c-b79f-8814b94ee357/players/6913e4db70c96cc8a71fd960/v4/player.js"
+    script.src = "https://scripts.converteai.net/9c43125c-42f3-489c-b79f-8814b94ee357/ab-test/69170d57f65a4dcdb5af9ac9/player.js"
     script.async = true
     document.head.appendChild(script)
   }
@@ -260,7 +260,7 @@ const loadVTurbScript = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-600/20 to-red-600/20 rounded-xl sm:rounded-2xl animate-pulse"></div>
                   <div className="relative z-10 w-full mobile-video-container">
                     <vturb-smartplayer 
-                      id="vid-6913e4db70c96cc8a71fd960" 
+                      id="vid-69170d57f65a4dcdb5af9ac9" 
                       className="mobile-vturb-player"
                     ></vturb-smartplayer>
                   </div>
