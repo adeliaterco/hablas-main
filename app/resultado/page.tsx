@@ -147,7 +147,7 @@ const loadVTurbScript = () => {
     
     // Pequeno delay para garantir que o evento seja enviado antes do redirect
     setTimeout(() => {
-      window.open("https://pay.hotmart.com/F100142422S?off=0p2j9dbs&checkoutMode=10&offDiscount=ACTIVADO", "_blank")
+      window.open("https://pay.hotmart.com/F100142422S?off=efckjoa7&checkoutMode=10", "_blank")
     }, 150)
   }
 
