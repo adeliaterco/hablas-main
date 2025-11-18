@@ -440,8 +440,8 @@ const loadVTurbScript = () => {
                     <div className="text-center mb-4">
                       <div className="mobile-price-main font-black text-yellow-300 mb-2">$12,99</div>
                       <div className="mobile-price-sub">
-                        <span className="line-through text-gray-400 mr-3">$99,99</span>
-                        <span className="text-green-400 font-bold">AHORRAS $85</span>
+                        <span className="line-through text-gray-400 mr-3">$69,99</span>
+                        <span className="text-green-400 font-bold">AHORRAS $57</span>
                       </div>
                     </div>
 
@@ -453,11 +453,11 @@ const loadVTurbScript = () => {
                       </div>
                       <div className="flex items-start text-white mobile-feature-text">
                         <Check className="mobile-check-icon text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
-                        <span className="break-words">21 Disparadores Emocionales ($47)</span>
+                        <span className="break-words">21 Disparadores Emocionales ($29)</span>
                       </div>
                       <div className="flex items-start text-white mobile-feature-text">
                         <Check className="mobile-check-icon text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
-                        <span className="break-words">Protocolo de Emergencia 72H ($37)</span>
+                        <span className="break-words">Protocolo de Emergencia 72H ($27)</span>
                       </div>
                       <div className="flex items-start text-white mobile-feature-text">
                         <Check className="mobile-check-icon text-green-400 mr-2 sm:mr-3 flex-shrink-0 mt-0.5" />
@@ -582,7 +582,7 @@ const loadVTurbScript = () => {
               <div className="bg-black/20 backdrop-blur-sm rounded-xl sm:rounded-2xl mobile-final-padding mobile-border-yellow w-full">
                 <h2 className="mobile-final-title font-black text-white mb-4 break-words">⏰ ÚLTIMA OPORTUNIDAD</h2>
                 <p className="mobile-final-subtitle text-white mb-4 sm:mb-6 font-semibold break-words">
-                  Esta oferta expira en minutos. Después vuelve a $99,99.
+                  Esta oferta expira en minutos. Después vuelve a $69,99.
                 </p>
 
                 <div className="bg-red-800 mobile-final-countdown-padding rounded-lg mb-4 sm:mb-6 w-full">
