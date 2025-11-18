@@ -438,7 +438,7 @@ const loadVTurbScript = () => {
                   {/* Preço */}
                   <div className="bg-black/20 rounded-lg mobile-price-padding mb-4 sm:mb-6 w-full">
                     <div className="text-center mb-4">
-                      <div className="mobile-price-main font-black text-yellow-300 mb-2">$14,99</div>
+                      <div className="mobile-price-main font-black text-yellow-300 mb-2">$12,99</div>
                       <div className="mobile-price-sub">
                         <span className="line-through text-gray-400 mr-3">$99,99</span>
                         <span className="text-green-400 font-bold">AHORRAS $85</span>
@@ -489,8 +489,8 @@ const loadVTurbScript = () => {
                       onTouchStart={handleTouchFeedback}
                     >
                       <span className="mobile-cta-offer-text text-center leading-tight break-words">
-                        <span className="mobile-show">💕 RECUPERAR - $14,99</span>
-                        <span className="desktop-show">💕 RECUPERAR AHORA POR $14,99</span>
+                        <span className="mobile-show">💕 RECUPERAR - $12,99</span>
+                        <span className="desktop-show">💕 RECUPERAR AHORA POR $12,99</span>
                       </span>
                       <ArrowRight className="mobile-icon-size ml-2 flex-shrink-0" />
                     </Button>
